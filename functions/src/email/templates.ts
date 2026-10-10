@@ -1,5 +1,5 @@
 import type { CourseId, PriceBreakdown } from "@cyberwolf/shared-types";
-import { COURSES, getCourseById } from "@cyberwolf/shared-types";
+import { COURSES, COMPANY, getCourseById } from "@cyberwolf/shared-types";
 import { formatINR } from "@cyberwolf/pricing";
 
 /**
@@ -38,6 +38,9 @@ const BRAND = {
   border: "#242B37",
 };
 
+/** Verified company contact line appended to plain-text messages. */
+const CONTACT_TEXT = `${COMPANY.legalName} · ${COMPANY.email} · ${COMPANY.phones[0]} · ${COMPANY.website.replace(/^https?:\/\//, "")}`;
+
 function courseListText(courseIds: CourseId[]): string {
   return courseIds.map((id) => `- ${getCourseById(id)?.name ?? id}`).join("\n");
 }
@@ -67,7 +70,8 @@ function shell(title: string, bodyHtml: string): string {
       ${bodyHtml}
     </td></tr>
     <tr><td style="padding-top:16px;font-size:12px;color:${BRAND.muted};">
-      This is a transactional message about your CyberWolf 360 registration.
+      This is a transactional message about your CyberWolf 360 registration.<br />
+      ${escapeHtml(COMPANY.legalName)} · <a href="mailto:${escapeHtml(COMPANY.email)}" style="color:${BRAND.muted};">${escapeHtml(COMPANY.email)}</a> · ${escapeHtml(COMPANY.phones[0])} · <a href="${escapeHtml(COMPANY.website)}" style="color:${BRAND.muted};">${escapeHtml(COMPANY.website.replace(/^https?:\/\//, ""))}</a>
     </td></tr>
   </table>
 </body></html>`;
@@ -115,6 +119,8 @@ export function organisationNewRegistration(data: TemplateData): { subject: stri
     data.adminAppUrl ? `Admin: ${data.adminAppUrl}` : "",
     "",
     "This registration submission does not guarantee admission or payment.",
+    "",
+    CONTACT_TEXT,
   ]
     .filter((line) => line !== "")
     .join("\n");
@@ -157,6 +163,8 @@ export function studentRegistrationReceived(data: TemplateData): { subject: stri
     "",
     "Submitting this registration does not guarantee admission or payment.",
     "Learn. Secure. Build.",
+    "",
+    CONTACT_TEXT,
   ].join("\n");
 
   return { subject, html, text };
@@ -207,6 +215,8 @@ export function studentRepeatRegistration(data: TemplateData): { subject: string
     "",
     "Submitting this registration does not guarantee admission or payment.",
     "Learn. Secure. Build.",
+    "",
+    CONTACT_TEXT,
   ].join("\n");
   return { subject, html, text };
 }

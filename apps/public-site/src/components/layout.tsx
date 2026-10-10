@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
-import { Menu, X, ShieldCheck } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Brand } from "@/components/brand";
+import { COMPANY } from "@cyberwolf/shared-types";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
@@ -11,19 +13,6 @@ const NAV_ITEMS = [
   { to: "/about", label: "About" },
   { to: "/faq", label: "FAQ" },
 ] as const;
-
-function Brand() {
-  return (
-    <Link to="/" className="flex items-center gap-2.5 rounded-md" aria-label="CyberWolf 360 — home">
-      <span className="flex h-9 w-9 items-center justify-center rounded-md border border-accent/30 bg-accent/10">
-        <ShieldCheck className="h-5 w-5 text-accent" aria-hidden="true" />
-      </span>
-      <span className="text-base font-bold tracking-wide">
-        CyberWolf<span className="text-accent">360</span>
-      </span>
-    </Link>
-  );
-}
 
 export function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -144,6 +133,20 @@ export function Layout() {
               Explore technology courses designed to help you develop practical knowledge.
             </p>
             <p className="mt-3 text-sm font-semibold text-accent">Learn. Secure. Build.</p>
+            <ul className="mt-4 space-y-1.5 text-sm text-muted">
+              <li>
+                <a href={`mailto:${COMPANY.email}`} className="hover:text-foreground">
+                  {COMPANY.email}
+                </a>
+              </li>
+              {COMPANY.phones.map((phone) => (
+                <li key={phone}>
+                  <a href={`tel:${phone.replace(/\s+/g, "")}`} className="hover:text-foreground">
+                    {phone}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
           <nav aria-label="Footer">
             <h2 className="text-sm font-semibold text-foreground">Explore</h2>
@@ -179,8 +182,19 @@ export function Layout() {
           </nav>
         </div>
         <div className="border-t border-border/70">
-          <div className="container py-4 text-xs text-muted">
-            © {new Date().getFullYear()} CyberWolf 360. Registration submission does not guarantee admission or payment.
+          <div className="container flex flex-col gap-2 py-4 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+            <p>
+              © {new Date().getFullYear()} {COMPANY.legalName}. Registration submission does not guarantee admission or
+              payment.
+            </p>
+            <a
+              href={COMPANY.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground"
+            >
+              {COMPANY.website.replace(/^https?:\/\//, "")}
+            </a>
           </div>
         </div>
       </footer>

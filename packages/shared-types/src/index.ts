@@ -176,3 +176,19 @@ export interface ApiErrorBody {
     issues?: Array<{ path: string; message: string }>;
   };
 }
+
+/**
+ * Public company contact details, sourced from the Cyber Wolf website
+ * (cyberwolf360.in). These are the only verified contact values used by the
+ * platform; no other contact details are invented.
+ */
+export const COMPANY = {
+  legalName: "Cyber Wolf",
+  displayName: "CyberWolf 360",
+  tagline: "Learn. Secure. Build.",
+  website: "https://www.cyberwolf360.in",
+  email: "info@cyberwolf360.in",
+  phones: ["+91 63798 69678", "+91 78259 88139"],
+} as const;
+
+export type Company = typeof COMPANY;

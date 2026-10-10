@@ -6,13 +6,13 @@ import {
   ScrollText,
   Mail,
   Settings,
-  ShieldCheck,
   LogOut,
   Menu,
   X,
 } from "lucide-react";
 import { useAdminAuth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
+import { Brand } from "@/components/brand";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -48,12 +48,7 @@ export function AdminLayout() {
       >
         <div className="flex h-16 items-center justify-between border-b border-border px-4">
           <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-md border border-accent/30 bg-accent/10">
-              <ShieldCheck className="h-4 w-4 text-accent" aria-hidden="true" />
-            </span>
-            <span className="text-sm font-bold">
-              CyberWolf<span className="text-accent">360</span>
-            </span>
+            <Brand size="md" />
           </div>
           <button
             type="button"

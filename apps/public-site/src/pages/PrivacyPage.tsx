@@ -1,3 +1,5 @@
+import { COMPANY } from "@cyberwolf/shared-types";
+
 export function PrivacyPage() {
   return (
     <div className="container max-w-3xl py-16">
@@ -53,8 +55,12 @@ export function PrivacyPage() {
         <section>
           <h2 className="text-base font-semibold text-foreground">Your requests</h2>
           <p className="mt-2">
-            You can ask us to access, correct or delete the personal data we hold about you by contacting our team using
-            the details you were given when you registered. We will respond within a reasonable period.
+            You can ask us to access, correct or delete the personal data we hold about you by contacting{" "}
+            {COMPANY.legalName} at{" "}
+            <a href={`mailto:${COMPANY.email}`} className="text-accent underline underline-offset-2">
+              {COMPANY.email}
+            </a>{" "}
+            or on {COMPANY.phones[0]}. We will respond within a reasonable period.
           </p>
         </section>
 

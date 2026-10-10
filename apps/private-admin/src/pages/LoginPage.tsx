@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ShieldCheck, Loader2, AlertTriangle } from "lucide-react";
+import { Loader2, AlertTriangle } from "lucide-react";
 import { useAdminAuth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,9 +39,14 @@ export function LoginPage() {
     <div className="flex min-h-dvh items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="items-center text-center">
-          <span className="flex h-12 w-12 items-center justify-center rounded-lg border border-accent/30 bg-accent/10">
-            <ShieldCheck className="h-6 w-6 text-accent" aria-hidden="true" />
-          </span>
+          <img
+            src="/cyberwolf-logo.png"
+            alt=""
+            width={48}
+            height={48}
+            className="h-12 w-12 rounded-md object-contain"
+            aria-hidden="true"
+          />
           <CardTitle className="mt-3 text-xl">CyberWolf 360 Administration</CardTitle>
           <p className="text-sm text-muted">Restricted access. Authorised administrators only.</p>
         </CardHeader>

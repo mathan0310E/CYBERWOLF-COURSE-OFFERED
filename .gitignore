@@ -11,6 +11,11 @@ functions/lib/
 *.tsbuildinfo
 **/*.tsbuildinfo
 
+# Never allow compiled artifacts to shadow TypeScript source (Vite would
+# otherwise resolve a stale .js file ahead of the real .ts/.tsx file).
+apps/*/src/**/*.js
+apps/*/src/**/*.js.map
+
 # Environment files — never commit real secrets
 .env
 .env.*

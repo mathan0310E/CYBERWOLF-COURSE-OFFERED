@@ -1,6 +1,0 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-export function AboutPage() {
-    return (_jsxs("div", { className: "container max-w-3xl py-16", children: [_jsx("h1", { className: "text-3xl font-bold tracking-tight sm:text-4xl", children: "About CyberWolf 360" }), _jsxs("div", { className: "mt-6 space-y-4 text-muted", children: [_jsx("p", { children: "CyberWolf 360 offers courses in Cyber Security, AI & Web Development, and Ethical Hacking. Our aim is to help learners develop practical knowledge and a stronger understanding of modern digital technologies." }), _jsx("p", { children: "We keep our descriptions general and honest. We do not publish course durations, detailed syllabi, trainer biographies, certifications, placement promises or testimonials unless they have been verified." }), _jsx("p", { className: "font-semibold text-foreground", children: "Learn. Secure. Build." })] }), _jsxs("div", { className: "mt-8 flex flex-wrap gap-3", children: [_jsx(Button, { asChild: true, children: _jsx(Link, { to: "/courses", children: "Explore courses" }) }), _jsx(Button, { asChild: true, variant: "outline", children: _jsx(Link, { to: "/enroll", children: "Enroll now" }) })] })] }));
-}

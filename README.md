@@ -75,6 +75,23 @@ authoritative amount. A client-supplied price is never trusted (the registration
 
 There is **no payment gateway** (none was requested).
 
+### Brand and contact details
+
+The official Cyber Wolf emblem is used as the brand mark in both applications
+(`apps/*/public/cyberwolf-logo.png`, plus `favicon.ico`), rendered by a small `Brand`
+component in each app. No logo is invented.
+
+The only company details used are the verified values in `COMPANY`
+(`packages/shared-types/src/index.ts`), sourced from the Cyber Wolf website
+(cyberwolf360.in) and surfaced in the public footer, the About page, the Privacy Policy
+and transactional email footers:
+
+- Email: `info@cyberwolf360.in`
+- Phone: `+91 63798 69678`, `+91 78259 88139`
+- Website: `https://www.cyberwolf360.in`
+
+No other contact details, testimonial, partner or statistic is invented.
+
 ---
 
 ## 3. Prerequisites
