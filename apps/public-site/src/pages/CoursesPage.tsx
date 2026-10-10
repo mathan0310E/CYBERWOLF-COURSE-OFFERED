@@ -2,10 +2,16 @@ import { Link } from "react-router-dom";
 import { COURSES } from "@cyberwolf/shared-types";
 import { courseIcon } from "@/components/course-icons";
 import { Button } from "@/components/ui/button";
+import { Seo } from "@/components/seo";
 
 export function CoursesPage() {
   return (
     <div className="container py-16">
+      <Seo
+        title="Courses"
+        description="The three CyberWolf 360 course tracks: Cyber Security, AI & Web Development and Ethical Hacking. General descriptions, not a verified syllabus."
+        path="/courses"
+      />
       <header className="mx-auto max-w-2xl text-center">
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Courses</h1>
         <p className="mt-3 text-muted">

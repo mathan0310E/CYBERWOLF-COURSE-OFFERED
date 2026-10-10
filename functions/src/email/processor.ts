@@ -52,6 +52,10 @@ export interface JobTemplateDetails {
   price: TemplateData["price"];
   createdAt: string;
   adminAppUrl?: string;
+  college?: string;
+  degree?: string;
+  yearOfStudy?: string;
+  city?: string;
 }
 
 function templateFor(recipientType: EmailRecipientType, firstTime: boolean): TemplateName {

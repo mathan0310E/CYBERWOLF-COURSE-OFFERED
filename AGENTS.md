@@ -48,3 +48,10 @@ Java is NOT installable in this sandbox.
 - The brand mark is the owner-provided emblem in `apps/*/public/cyberwolf-logo.png`, rendered
   by each app's `Brand` component. Verified company contact values live in `COMPANY`
   (`packages/shared-types`); do not invent additional contact details, logos or statistics.
+- Registration is student-oriented: `college`, `degree` (enum, label helpers `degreeLabel`)
+  and `yearOfStudy` (enum, `studyYearLabel`) are REQUIRED and mirrored in
+  `packages/validation`, the backend store/search and both email templates. Keep the
+  frontend `<Select>` options in sync with the shared enums; never free-text these.
+- Public SEO lives in `apps/public-site`: a `Seo` component (per-route title/description/
+  canonical, used by every page) plus static `public/robots.txt` and `public/sitemap.xml`.
+  The admin app is `noindex,nofollow` and must stay out of the sitemap.

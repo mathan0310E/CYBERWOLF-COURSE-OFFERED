@@ -65,6 +65,9 @@ const validBody = {
   email: "ada@example.com",
   mobile: "+91 98765 43210",
   courseIds: ["cyber-security"],
+  college: "Government Engineering College",
+  degree: "btech",
+  yearOfStudy: "third",
   privacyConsent: true,
 };
 

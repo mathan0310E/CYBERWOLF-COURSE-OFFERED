@@ -20,6 +20,9 @@ const details = {
   price: calculatePrice(["cyber-security", "ethical-hacking"]),
   createdAt: "2026-01-01T00:00:00.000Z",
   adminAppUrl: "http://localhost:5174",
+  college: "Government Engineering College",
+  degree: "btech",
+  yearOfStudy: "third",
 };
 
 describe("email templates", () => {
@@ -36,6 +39,10 @@ describe("email templates", () => {
     expect(mail.html).toContain("₹24,000");
     expect(mail.text).toContain("CW-20260101-ABCD1234");
     expect(mail.text).toContain("does not guarantee admission or payment");
+    // The academic context helps the team triage the registration.
+    expect(mail.text).toContain("Government Engineering College");
+    expect(mail.text).toContain("B.Tech");
+    expect(mail.text).toContain("3rd year");
   });
 
   it("builds the student confirmation with the tagline", () => {

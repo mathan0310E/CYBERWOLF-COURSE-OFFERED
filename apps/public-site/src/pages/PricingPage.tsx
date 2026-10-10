@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Seo } from "@/components/seo";
 
 const SINGLE_SAVING = ORIGINAL_PRICE_PER_COURSE - SINGLE_COURSE_OFFER_PRICE; // ₹3,500
 const BUNDLE_ORIGINAL = ORIGINAL_PRICE_PER_COURSE * 2; // ₹24,000 (assumed)
@@ -17,6 +18,11 @@ const BUNDLE_SAVING = BUNDLE_ORIGINAL - TWO_COURSE_BUNDLE_PRICE; // ₹11,500 (a
 export function PricingPage() {
   return (
     <div className="container py-16">
+      <Seo
+        title="Pricing"
+        description="CyberWolf 360 pricing: a single course at ₹8,500 (original ₹12,000) or the two-course bundle at ₹12,500. Final price confirmed on the server."
+        path="/pricing"
+      />
       <header className="mx-auto max-w-2xl text-center">
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Pricing</h1>
         <p className="mt-3 text-muted">

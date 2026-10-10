@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Seo } from "@/components/seo";
 
 const FAQS = [
   {
@@ -34,6 +35,11 @@ export function FaqPage() {
 
   return (
     <div className="container max-w-3xl py-16">
+      <Seo
+        title="Frequently asked questions"
+        description="Answers about CyberWolf 360 courses, pricing, registration, emails and privacy."
+        path="/faq"
+      />
       <header className="text-center">
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Frequently asked questions</h1>
         <p className="mt-3 text-muted">Answers about courses, pricing, registration and privacy.</p>

@@ -15,15 +15,17 @@ export function AboutPage() {
       <h1 className="mt-6 text-3xl font-bold tracking-tight sm:text-4xl">About {COMPANY.legalName}</h1>
       <div className="mt-6 space-y-4 text-muted">
         <p>
-          {COMPANY.legalName} is a cybersecurity company that provides security services, training and programs for
-          startups, enterprises and institutions. This site covers the course registration track of{" "}
-          {COMPANY.displayName}.
+          <strong className="text-foreground">{COMPANY.legalName}</strong> — {COMPANY.servicesTagline}.{" "}
+          {COMPANY.description} Founded by {COMPANY.founder.name} ({COMPANY.founder.jobTitle}), Cyber Wolf works with
+          startups, enterprises and institutions.
         </p>
         <p>
-          The courses offered here are <strong className="text-foreground">Cyber Security</strong>,{" "}
+          This site covers the <strong className="text-foreground">course registration track</strong> of{" "}
+          {COMPANY.displayName}. The courses offered here are{" "}
+          <strong className="text-foreground">Cyber Security</strong>,{" "}
           <strong className="text-foreground">AI &amp; Web Development</strong>, and{" "}
-          <strong className="text-foreground">Ethical Hacking</strong>. Our aim is to help learners develop practical
-          knowledge and a stronger understanding of modern digital technologies.
+          <strong className="text-foreground">Ethical Hacking</strong>. Our aim is to help learners — especially
+          college students — develop practical knowledge and a stronger understanding of modern digital technologies.
         </p>
         <p>
           We keep our descriptions general and honest. We do not publish course durations, detailed syllabi, trainer
@@ -53,6 +55,10 @@ export function AboutPage() {
             ))}
           </li>
           <li>
+            Address: {COMPANY.address.street}, {COMPANY.address.locality}, {COMPANY.address.region}{" "}
+            {COMPANY.address.postalCode}
+          </li>
+          <li>
             Website:{" "}
             <a
               href={COMPANY.website}
@@ -64,6 +70,24 @@ export function AboutPage() {
             </a>
           </li>
         </ul>
+        <div className="mt-3 flex flex-wrap gap-4 text-sm">
+          <a
+            href={COMPANY.socials.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent underline underline-offset-2"
+          >
+            LinkedIn
+          </a>
+          <a
+            href={COMPANY.socials.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent underline underline-offset-2"
+          >
+            Instagram
+          </a>
+        </div>
       </div>
 
       <div className="mt-8 flex flex-wrap gap-3">

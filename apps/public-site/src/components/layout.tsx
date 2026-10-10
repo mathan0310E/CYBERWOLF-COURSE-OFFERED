@@ -130,7 +130,7 @@ export function Layout() {
           <div>
             <Brand />
             <p className="mt-3 max-w-xs text-sm text-muted">
-              Explore technology courses designed to help you develop practical knowledge.
+              Explore technology courses designed to help college students develop practical knowledge.
             </p>
             <p className="mt-3 text-sm font-semibold text-accent">Learn. Secure. Build.</p>
             <ul className="mt-4 space-y-1.5 text-sm text-muted">
@@ -146,7 +146,29 @@ export function Layout() {
                   </a>
                 </li>
               ))}
+              <li className="pt-1 text-xs leading-relaxed">
+                {COMPANY.address.street}, {COMPANY.address.locality}, {COMPANY.address.region}{" "}
+                {COMPANY.address.postalCode}
+              </li>
             </ul>
+            <div className="mt-4 flex flex-wrap gap-4 text-sm">
+              <a
+                href={COMPANY.socials.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted hover:text-foreground"
+              >
+                LinkedIn
+              </a>
+              <a
+                href={COMPANY.socials.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted hover:text-foreground"
+              >
+                Instagram
+              </a>
+            </div>
           </div>
           <nav aria-label="Footer">
             <h2 className="text-sm font-semibold text-foreground">Explore</h2>

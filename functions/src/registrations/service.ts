@@ -119,7 +119,9 @@ export async function createRegistration(
       normalizedEmail,
       mobile: input.mobile.trim(),
       courseIds: input.courseIds,
-      ...(input.educationOrOccupation ? { educationOrOccupation: input.educationOrOccupation } : {}),
+      college: input.college.trim(),
+      degree: input.degree,
+      yearOfStudy: input.yearOfStudy,
       ...(input.city ? { city: input.city } : {}),
       ...(input.message ? { message: input.message } : {}),
       price,
@@ -203,6 +205,10 @@ export async function createRegistration(
           courseIds: created.courseIds,
           price: created.price,
           createdAt: created.createdAt,
+          college: created.college,
+          degree: created.degree,
+          yearOfStudy: created.yearOfStudy,
+          ...(created.city ? { city: created.city } : {}),
           ...(config.adminAppUrl ? { adminAppUrl: config.adminAppUrl } : {}),
         },
       });
@@ -301,7 +307,9 @@ export async function listRegistrations(params: ListRegistrationsParams): Promis
         item.fullName.toLowerCase().includes(search) ||
         item.email.toLowerCase().includes(search) ||
         item.id.toLowerCase().includes(search) ||
-        item.mobile.toLowerCase().includes(search)
+        item.mobile.toLowerCase().includes(search) ||
+        item.college?.toLowerCase().includes(search) ||
+        item.reference?.toLowerCase().includes(search)
       );
     });
   }

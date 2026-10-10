@@ -1,6 +1,13 @@
+import { Seo } from "@/components/seo";
+
 export function TermsPage() {
   return (
     <div className="container max-w-3xl py-16">
+      <Seo
+        title="Terms of Service"
+        description="Terms for registering on the CyberWolf 360 course registration website."
+        path="/terms"
+      />
       <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Terms of Service</h1>
       <p className="mt-2 text-sm text-muted">Last updated: {new Date().getUTCFullYear()}</p>
 

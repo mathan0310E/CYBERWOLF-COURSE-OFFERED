@@ -12,6 +12,9 @@ const validInput = {
   email: "Ada@Example.com",
   mobile: "+91 98765 43210",
   courseIds: ["cyber-security"],
+  college: "Government Engineering College",
+  degree: "btech",
+  yearOfStudy: "third",
   privacyConsent: true,
 };
 
@@ -68,6 +71,30 @@ describe("registration validation", () => {
   it("rejects unknown extra fields (strict schema)", () => {
     const result = registrationInputSchema.safeParse({ ...validInput, isAdmin: true, price: 1 });
     expect(result.success).toBe(false);
+  });
+
+  it("requires a college or institution", () => {
+    const result = registrationInputSchema.safeParse({ ...validInput, college: "" });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues.some((i) => i.path.includes("college"))).toBe(true);
+    }
+  });
+
+  it("requires a valid degree or programme", () => {
+    const result = registrationInputSchema.safeParse({ ...validInput, degree: "phd" });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues.some((i) => i.path.includes("degree"))).toBe(true);
+    }
+  });
+
+  it("requires a valid year of study", () => {
+    const result = registrationInputSchema.safeParse({ ...validInput, yearOfStudy: "sixth" });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues.some((i) => i.path.includes("yearOfStudy"))).toBe(true);
+    }
   });
 
   it("rejects a client-supplied price by refusing unknown keys", () => {

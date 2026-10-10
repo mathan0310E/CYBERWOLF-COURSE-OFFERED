@@ -1,5 +1,12 @@
 import { z } from "zod";
-import { COURSE_IDS, type CourseId } from "@cyberwolf/shared-types";
+import {
+  COURSE_IDS,
+  DEGREE_PROGRAMS,
+  STUDY_YEARS,
+  type CourseId,
+  type DegreeProgram,
+  type StudyYear,
+} from "@cyberwolf/shared-types";
 import { MAX_COURSES } from "@cyberwolf/pricing";
 
 /**
@@ -18,6 +25,12 @@ export function normalizeEmail(email: string): string {
 }
 
 const courseIdSchema = z.enum(COURSE_IDS as unknown as [CourseId, ...CourseId[]]);
+const degreeSchema = z.enum(DEGREE_PROGRAMS as unknown as [DegreeProgram, ...DegreeProgram[]], {
+  errorMap: () => ({ message: "Select your degree or programme." }),
+});
+const studyYearSchema = z.enum(STUDY_YEARS as unknown as [StudyYear, ...StudyYear[]], {
+  errorMap: () => ({ message: "Select your year of study." }),
+});
 
 /** A reasonably strict but practical mobile number check. */
 const mobileSchema = z
@@ -44,7 +57,13 @@ export const registrationInputSchema = z
       .refine((ids) => new Set(ids).size === ids.length, {
         message: "Duplicate courses are not allowed.",
       }),
-    educationOrOccupation: z.string().trim().max(120).optional().or(z.literal("")),
+    college: z
+      .string()
+      .trim()
+      .min(2, "Enter your college or institution name.")
+      .max(160, "College name is too long."),
+    degree: degreeSchema,
+    yearOfStudy: studyYearSchema,
     city: z.string().trim().max(80).optional().or(z.literal("")),
     message: z.string().trim().max(1000).optional().or(z.literal("")),
     privacyConsent: z.boolean().refine((value) => value === true, {

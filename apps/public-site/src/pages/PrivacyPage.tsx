@@ -1,8 +1,14 @@
 import { COMPANY } from "@cyberwolf/shared-types";
+import { Seo } from "@/components/seo";
 
 export function PrivacyPage() {
   return (
     <div className="container max-w-3xl py-16">
+      <Seo
+        title="Privacy Policy"
+        description="How CyberWolf 360 collects, uses, stores and retains registration data, transactional emails and audit logs."
+        path="/privacy"
+      />
       <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Privacy Policy</h1>
       <p className="mt-2 text-sm text-muted">Last updated: {new Date().getUTCFullYear()}</p>
 
@@ -11,8 +17,9 @@ export function PrivacyPage() {
           <h2 className="text-base font-semibold text-foreground">What we collect</h2>
           <p className="mt-2">
             When you submit a registration we collect: your full name, email address, mobile number, the courses you
-            selected, and — if you choose to provide them — your education or occupation, city, and a message. We also
-            record your privacy consent and a server-generated timestamp.
+            selected, and your college or institution, degree or programme and year of study. If you choose to provide
+            them, we also collect your city and a message. We record your privacy consent and a server-generated
+            timestamp.
           </p>
         </section>
 

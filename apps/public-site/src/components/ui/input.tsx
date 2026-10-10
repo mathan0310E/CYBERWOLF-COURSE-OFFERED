@@ -36,4 +36,21 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, React.TextareaHTMLAttribu
 );
 Textarea.displayName = "Textarea";
 
-export { Input, Textarea };
+export type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement>;
+
+const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({ className, ...props }, ref) => (
+  <select
+    ref={ref}
+    className={cn(
+      "flex h-11 w-full rounded-md border border-input bg-background-secondary px-3 py-2 text-sm text-foreground",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+      "focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-60",
+      "aria-[invalid=true]:border-destructive aria-[invalid=true]:ring-destructive/40",
+      className,
+    )}
+    {...props}
+  />
+));
+Select.displayName = "Select";
+
+export { Input, Textarea, Select };

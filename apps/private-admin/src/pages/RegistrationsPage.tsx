@@ -127,7 +127,7 @@ export function RegistrationsPage() {
               <Input
                 id="search"
                 className="pl-9"
-                placeholder="Name, email, mobile or reference"
+                placeholder="Name, email, mobile, college or reference"
                 value={search}
                 onChange={(e) => {
                   setSearch(e.target.value);

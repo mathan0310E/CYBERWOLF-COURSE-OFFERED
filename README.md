@@ -78,17 +78,24 @@ There is **no payment gateway** (none was requested).
 ### Brand and contact details
 
 The official Cyber Wolf emblem is used as the brand mark in both applications
-(`apps/*/public/cyberwolf-logo.png`, plus `favicon.ico`), rendered by a small `Brand`
-component in each app. No logo is invented.
+(the `cyberwolf-logo.png` emblem is downloaded and downscaled from the Cyber Wolf
+website — https://www.cyberwolf360.in/logo/cyberwolf.png — together with a multi-size
+`favicon.ico`, `apple-touch-icon.png` and a 512px `cyberwolf-logo-512.png` social/OG
+image). It is rendered by a small `Brand` component in each app. No logo is invented.
 
 The only company details used are the verified values in `COMPANY`
-(`packages/shared-types/src/index.ts`), sourced from the Cyber Wolf website
-(cyberwolf360.in) and surfaced in the public footer, the About page, the Privacy Policy
-and transactional email footers:
+(`packages/shared-types/src/index.ts`), sourced from the published Organization/Person
+structured data and footer of the Cyber Wolf website (cyberwolf360.in) and surfaced in
+the public footer, the About page, the Privacy Policy, the `index.html` JSON-LD and the
+transactional email footers:
 
-- Email: `info@cyberwolf360.in`
+- Name: `Cyber Wolf` (brand shown as `CyberWolf 360`)
+- Email: `info@cyberwolf360.in` (support `contact@cyberwolf360.in`, events `events@cyberwolf360.in`)
 - Phone: `+91 63798 69678`, `+91 78259 88139`
 - Website: `https://www.cyberwolf360.in`
+- Address: No. 3A, 10th Street, Gandhi Nagar, Tiruvannamalai, Tamil Nadu 606601
+- Founder: Tamilselvan S (Founder & CEO, CISO)
+- Social: LinkedIn (`cyberwolf-team`), Instagram (`cyber_wolf_team`), a WhatsApp channel
 
 No other contact details, testimonial, partner or statistic is invented.
 
@@ -216,7 +223,7 @@ Higher-risk admin actions (data export) additionally require a **fresh ID token*
 
 | Collection | Purpose | Client access |
 |------------|---------|---------------|
-| `registrations` | One document per registration (server-generated id + reference, validated details, selected courses, server-calculated `price`, timestamp, status, consent). | Registrant may read **only their own** (`ownerUid == uid`); admin may read. **No client writes.** |
+| `registrations` | One document per registration (server-generated id + reference, validated student details — name, email, mobile, **college / institution, degree / programme, year of study**, optional city and message, selected courses, server-calculated `price`, timestamp, status, consent). | Registrant may read **only their own** (`ownerUid == uid`); admin may read. **No client writes.** |
 | `emailProfiles` | Race-safe first-time detection keyed by a SHA-256 of the normalized email. | Admin read only. |
 | `notificationJobs` | Durable email outbox (masked recipient + private recipient + template + status + attempts). | Admin read only. |
 | `auditEvents` | Durable audit outbox feeding the TXT writer. | Admin read only. |

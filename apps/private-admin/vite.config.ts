@@ -17,6 +17,19 @@ export default defineConfig({
     outDir: "dist",
     sourcemap: false, // never publish source maps for private admin code
     target: "es2022",
+    rollupOptions: {
+      output: {
+        // Split large vendors so no single admin chunk dominates the load and
+        // unchanged libraries stay cached across deploys.
+        manualChunks: {
+          firebase: ["firebase/app", "firebase/auth"],
+          router: ["react-router-dom"],
+          query: ["@tanstack/react-query", "@tanstack/react-table"],
+          charts: ["recharts"],
+          react: ["react", "react-dom"],
+        },
+      },
+    },
   },
   server: {
     port: 5174,

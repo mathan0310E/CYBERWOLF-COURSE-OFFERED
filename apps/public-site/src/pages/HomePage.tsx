@@ -4,6 +4,7 @@ import { ArrowRight, ShieldCheck, Sparkles, Lock, Code2 } from "lucide-react";
 import { COURSES } from "@cyberwolf/shared-types";
 import { Button } from "@/components/ui/button";
 import { CourseCard } from "@/components/course-card";
+import { Seo } from "@/components/seo";
 import { formatINR, ORIGINAL_PRICE_PER_COURSE, SINGLE_COURSE_OFFER_PRICE } from "@cyberwolf/pricing";
 
 const HIGHLIGHTS = [
@@ -20,6 +21,11 @@ export function HomePage() {
 
   return (
     <>
+      <Seo
+        title="CyberWolf 360 — Cyber Security, AI & Ethical Hacking Courses"
+        description="Explore CyberWolf 360 courses in Cyber Security, AI & Web Development and Ethical Hacking. College-student registration with transparent pricing."
+        path="/"
+      />
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border/70">
         <div className="pointer-events-none absolute inset-0 grid-glow" aria-hidden="true" />

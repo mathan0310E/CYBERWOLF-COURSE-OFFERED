@@ -61,6 +61,70 @@ export type RegistrationStatus =
   | "declined"
   | "cancelled";
 
+/** Degree / programme a college student is currently pursuing. */
+export const DEGREE_PROGRAMS = [
+  "btech",
+  "be",
+  "bsc",
+  "bca",
+  "bcom",
+  "ba",
+  "mtech",
+  "me",
+  "msc",
+  "mca",
+  "mba",
+  "diploma",
+  "other",
+] as const;
+
+export type DegreeProgram = (typeof DEGREE_PROGRAMS)[number];
+
+export const DEGREE_PROGRAM_LABELS: Record<DegreeProgram, string> = {
+  btech: "B.Tech",
+  be: "B.E.",
+  bsc: "B.Sc",
+  bca: "BCA",
+  bcom: "B.Com",
+  ba: "B.A.",
+  mtech: "M.Tech",
+  me: "M.E.",
+  msc: "M.Sc",
+  mca: "MCA",
+  mba: "MBA",
+  diploma: "Diploma",
+  other: "Other",
+};
+
+/** Current year of study for a college student. */
+export const STUDY_YEARS = [
+  "first",
+  "second",
+  "third",
+  "fourth",
+  "fifth",
+  "graduated",
+] as const;
+
+export type StudyYear = (typeof STUDY_YEARS)[number];
+
+export const STUDY_YEAR_LABELS: Record<StudyYear, string> = {
+  first: "1st year",
+  second: "2nd year",
+  third: "3rd year",
+  fourth: "4th year",
+  fifth: "5th year",
+  graduated: "Graduated",
+};
+
+export function degreeLabel(value: string): string {
+  return DEGREE_PROGRAM_LABELS[value as DegreeProgram] ?? value;
+}
+
+export function studyYearLabel(value: string): string {
+  return STUDY_YEAR_LABELS[value as StudyYear] ?? value;
+}
+
 /** Authoritative, server-calculated pricing for a registration. */
 export interface PriceBreakdown {
   courseCount: number;
@@ -83,7 +147,12 @@ export interface Registration {
   normalizedEmail: string;
   mobile: string;
   courseIds: CourseId[];
-  educationOrOccupation?: string;
+  /** College or institution the student attends. */
+  college: string;
+  /** Degree / programme currently being pursued. */
+  degree: DegreeProgram;
+  /** Current year of study. */
+  yearOfStudy: StudyYear;
   city?: string;
   message?: string;
   price: PriceBreakdown;
@@ -178,17 +247,37 @@ export interface ApiErrorBody {
 }
 
 /**
- * Public company contact details, sourced from the Cyber Wolf website
- * (cyberwolf360.in). These are the only verified contact values used by the
- * platform; no other contact details are invented.
+ * Public company details, verified from the Cyber Wolf website
+ * (cyberwolf360.in) — specifically its published Organization/Person
+ * structured data and footer. These are the only company values used by the
+ * platform; nothing here is invented.
  */
 export const COMPANY = {
   legalName: "Cyber Wolf",
   displayName: "CyberWolf 360",
   tagline: "Learn. Secure. Build.",
+  /** Strapline used by Cyber Wolf for its services. */
+  servicesTagline: "Cybersecurity, VAPT & Compliance",
+  description:
+    "Cyber Wolf provides cybersecurity services, VAPT, compliance, managed SOC, training and SaaS solutions for startups, enterprises and institutions.",
   website: "https://www.cyberwolf360.in",
   email: "info@cyberwolf360.in",
+  supportEmail: "contact@cyberwolf360.in",
+  eventsEmail: "events@cyberwolf360.in",
   phones: ["+91 63798 69678", "+91 78259 88139"],
+  address: {
+    street: "No. 3A, 10th Street, Gandhi Nagar",
+    locality: "Tiruvannamalai",
+    region: "Tamil Nadu",
+    postalCode: "606601",
+    country: "IN",
+  },
+  founder: { name: "Tamilselvan S", jobTitle: "Founder & CEO, CISO" },
+  socials: {
+    linkedin: "https://www.linkedin.com/company/cyberwolf-team/",
+    instagram: "https://www.instagram.com/cyber_wolf_team",
+    whatsapp: "https://whatsapp.com/channel/0029VbAmBt7GufIqh9iwND05",
+  },
 } as const;
 
 export type Company = typeof COMPANY;

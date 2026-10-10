@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, AlertTriangle, Check } from "lucide-react";
 import type { RegistrationStatus } from "@cyberwolf/shared-types";
-import { COURSES } from "@cyberwolf/shared-types";
+import { COURSES, degreeLabel, studyYearLabel } from "@cyberwolf/shared-types";
 import { formatINR } from "@cyberwolf/pricing";
 import { adminApi } from "@/lib/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -78,7 +78,9 @@ export function RegistrationDetailPage() {
               <Field label="Full name" value={data.fullName} />
               <Field label="Email" value={data.email} />
               <Field label="Mobile" value={data.mobile} />
-              <Field label="Education or occupation" value={data.educationOrOccupation ?? "—"} />
+              <Field label="College / institution" value={data.college ?? "—"} />
+              <Field label="Degree / programme" value={data.degree ? degreeLabel(data.degree) : "—"} />
+              <Field label="Year of study" value={data.yearOfStudy ? studyYearLabel(data.yearOfStudy) : "—"} />
               <Field label="City" value={data.city ?? "—"} />
               <Field label="Status" value={<StatusBadge status={data.status} />} />
               <Field label="Received (UTC)" value={new Date(data.createdAt).toISOString().replace("T", " ").slice(0, 19)} />

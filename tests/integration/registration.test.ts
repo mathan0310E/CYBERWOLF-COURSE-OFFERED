@@ -52,6 +52,9 @@ const validInput = {
   email: "Ada@Example.com",
   mobile: "+91 98765 43210",
   courseIds: ["cyber-security"] as const,
+  college: "Government Engineering College",
+  degree: "btech" as const,
+  yearOfStudy: "third" as const,
   privacyConsent: true,
 };
 
@@ -79,6 +82,10 @@ describe("createRegistration", () => {
     const stored = fakes().db.raw("registrations", result.registration.id);
     expect(stored).toBeTruthy();
     expect((stored as { price: { finalPrice: number } }).price.finalPrice).toBe(8_500);
+    // Student academic context is persisted alongside the registration.
+    expect(result.registration.college).toBe("Government Engineering College");
+    expect(result.registration.degree).toBe("btech");
+    expect(result.registration.yearOfStudy).toBe("third");
   });
 
   it("ignores any client-supplied price (the schema is strict upstream, and the server recalcs)", async () => {

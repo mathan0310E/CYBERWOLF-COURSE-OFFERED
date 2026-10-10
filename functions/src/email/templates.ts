@@ -1,5 +1,5 @@
 import type { CourseId, PriceBreakdown } from "@cyberwolf/shared-types";
-import { COURSES, COMPANY, getCourseById } from "@cyberwolf/shared-types";
+import { COURSES, COMPANY, degreeLabel, getCourseById, studyYearLabel } from "@cyberwolf/shared-types";
 import { formatINR } from "@cyberwolf/pricing";
 
 /**
@@ -26,6 +26,11 @@ export interface TemplateData {
   price: PriceBreakdown;
   createdAt: string;
   adminAppUrl?: string;
+  /** Student academic context (optional so older jobs still render). */
+  college?: string;
+  degree?: string;
+  yearOfStudy?: string;
+  city?: string;
 }
 
 const BRAND = {
@@ -43,6 +48,25 @@ const CONTACT_TEXT = `${COMPANY.legalName} · ${COMPANY.email} · ${COMPANY.phon
 
 function courseListText(courseIds: CourseId[]): string {
   return courseIds.map((id) => `- ${getCourseById(id)?.name ?? id}`).join("\n");
+}
+
+/** Human-readable academic lines, used by both HTML and plain-text variants. */
+function academicLines(data: TemplateData): Array<{ label: string; value: string }> {
+  const lines: Array<{ label: string; value: string }> = [];
+  if (data.college) lines.push({ label: "College", value: data.college });
+  if (data.degree) lines.push({ label: "Degree / programme", value: degreeLabel(data.degree) });
+  if (data.yearOfStudy) lines.push({ label: "Year of study", value: studyYearLabel(data.yearOfStudy) });
+  if (data.city) lines.push({ label: "City", value: data.city });
+  return lines;
+}
+
+function academicRowsHtml(data: TemplateData): string {
+  return academicLines(data)
+    .map(
+      (line) =>
+        `<tr><td style="padding:6px 0;color:${BRAND.muted};">${escapeHtml(line.label)}</td><td style="color:${BRAND.text};">${escapeHtml(line.value)}</td></tr>`,
+    )
+    .join("");
 }
 
 function courseListHtml(courseIds: CourseId[]): string {
@@ -90,6 +114,7 @@ export function organisationNewRegistration(data: TemplateData): { subject: stri
        <tr><td style="padding:6px 0;color:${BRAND.muted};width:170px;">Student name</td><td style="color:${BRAND.text};">${escapeHtml(data.studentName)}</td></tr>
        <tr><td style="padding:6px 0;color:${BRAND.muted};">Student email</td><td style="color:${BRAND.text};">${escapeHtml(data.studentEmail)}</td></tr>
        <tr><td style="padding:6px 0;color:${BRAND.muted};">Reference</td><td style="color:${BRAND.accent};font-family:monospace;">${escapeHtml(data.reference)}</td></tr>
+       ${academicRowsHtml(data)}
        <tr><td style="padding:6px 0;color:${BRAND.muted};">Courses</td><td><ul style="margin:0;padding-left:18px;">${courseListHtml(data.courseIds)}</ul></td></tr>
        <tr><td style="padding:6px 0;color:${BRAND.muted};">Original price</td><td style="color:${BRAND.text};">${escapeHtml(formatINR(price.originalPrice))}</td></tr>
        <tr><td style="padding:6px 0;color:${BRAND.muted};">Discount</td><td style="color:${BRAND.text};">${escapeHtml(formatINR(price.discount))}</td></tr>
@@ -110,6 +135,7 @@ export function organisationNewRegistration(data: TemplateData): { subject: stri
     `Student name: ${data.studentName}`,
     `Student email: ${data.studentEmail}`,
     `Reference: ${data.reference}`,
+    ...academicLines(data).map((line) => `${line.label}: ${line.value}`),
     "Courses:",
     courseListText(data.courseIds),
     `Original price: ${formatINR(price.originalPrice)}`,

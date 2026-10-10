@@ -80,6 +80,9 @@ test.describe("registration form", () => {
     await page.getByLabel(/Full name/i).fill("Ada Lovelace");
     await page.getByLabel(/Email/i).fill("ada@example.com");
     await page.getByLabel(/Mobile number/i).fill("+91 98765 43210");
+    await page.getByLabel(/College/i).fill("Government Engineering College");
+    await page.getByLabel(/Degree/i).selectOption("btech");
+    await page.getByLabel(/Year of study/i).selectOption("third");
     await page.locator("#privacyConsent").click();
 
     const submit = page.getByRole("button", { name: /Submit registration/i });
@@ -101,6 +104,9 @@ test.describe("registration form", () => {
     await page.getByLabel(/Full name/i).fill("Grace Hopper");
     await page.getByLabel(/Email/i).fill("grace@example.com");
     await page.getByLabel(/Mobile number/i).fill("+91 90000 00000");
+    await page.getByLabel(/College/i).fill("Anna University");
+    await page.getByLabel(/Degree/i).selectOption("bsc");
+    await page.getByLabel(/Year of study/i).selectOption("first");
     await page.locator("#privacyConsent").click();
     await page.getByRole("button", { name: /Submit registration/i }).click();
 

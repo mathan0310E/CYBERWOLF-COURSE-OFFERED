@@ -2,21 +2,30 @@ import { useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertTriangle, CheckCircle2, Loader2, RefreshCw } from "lucide-react";
-import { COURSES, type CourseId, type RegistrationReceipt } from "@cyberwolf/shared-types";
+import { AlertTriangle, CheckCircle2, GraduationCap, Loader2, RefreshCw } from "lucide-react";
+import {
+  COURSES,
+  DEGREE_PROGRAMS,
+  DEGREE_PROGRAM_LABELS,
+  STUDY_YEARS,
+  STUDY_YEAR_LABELS,
+  type CourseId,
+  type RegistrationReceipt,
+} from "@cyberwolf/shared-types";
 import { registrationInputSchema, type RegistrationInput } from "@cyberwolf/validation";
 import { MAX_COURSES, isSubmittable } from "@cyberwolf/pricing";
 import { Button } from "@/components/ui/button";
-import { Input, Textarea } from "@/components/ui/input";
+import { Input, Select, Textarea } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CourseCard } from "@/components/course-card";
 import { PricePreview } from "@/components/price-preview";
+import { Seo } from "@/components/seo";
 import { ApiError, submitRegistration } from "@/lib/api";
 
 /**
- * Registration form.
+ * Registration form for college students.
  *
  * Uses React Hook Form + the shared Zod schema for inline validation. Course
  * selection is held in form state so the same value drives the preview and the
@@ -46,7 +55,9 @@ export function EnrollPage() {
       email: "",
       mobile: "",
       courseIds: [],
-      educationOrOccupation: "",
+      college: "",
+      degree: undefined,
+      yearOfStudy: undefined,
       city: "",
       message: "",
       privacyConsent: false,
@@ -109,10 +120,19 @@ export function EnrollPage() {
 
   return (
     <div className="container py-16">
+      <Seo
+        title="College student registration"
+        description="Register for CyberWolf 360 courses as a college student. Select one or two courses and tell us about your studies. Confirmation by email."
+        path="/enroll"
+      />
       <header className="mx-auto max-w-2xl text-center">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Enroll in a course</h1>
+        <p className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/5 px-3 py-1 text-xs font-medium text-accent">
+          <GraduationCap className="h-3.5 w-3.5" aria-hidden="true" />
+          For college students
+        </p>
+        <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-4xl">College student registration</h1>
         <p className="mt-3 text-muted">
-          Select one or two courses and provide your details. We will confirm your registration by email.
+          Select one or two courses and tell us about your studies. We will confirm your registration by email.
         </p>
       </header>
 
@@ -148,53 +168,111 @@ export function EnrollPage() {
           </fieldset>
 
           {/* Details */}
-          <div className="grid gap-5 sm:grid-cols-2">
-            <Field label="Full name" htmlFor="fullName" error={errors.fullName?.message} required>
-              <Input
-                id="fullName"
-                autoComplete="name"
-                aria-invalid={Boolean(errors.fullName)}
-                {...register("fullName")}
-              />
-            </Field>
+          <div className="space-y-5">
+            <div>
+              <h2 className="text-lg font-semibold">Your details</h2>
+              <p className="mt-1 text-sm text-muted">
+                Fields marked with <span className="text-destructive">*</span> are required.
+              </p>
+            </div>
 
-            <Field label="Email" htmlFor="email" error={errors.email?.message} required>
-              <Input
-                id="email"
-                type="email"
-                autoComplete="email"
-                aria-invalid={Boolean(errors.email)}
-                {...register("email")}
-              />
-            </Field>
-
-            <Field label="Mobile number" htmlFor="mobile" error={errors.mobile?.message} required>
-              <Input
-                id="mobile"
-                type="tel"
-                inputMode="tel"
-                autoComplete="tel"
-                aria-invalid={Boolean(errors.mobile)}
-                {...register("mobile")}
-              />
-            </Field>
-
-            <Field
-              label="Education or occupation (optional)"
-              htmlFor="educationOrOccupation"
-              error={errors.educationOrOccupation?.message}
-            >
-              <Input id="educationOrOccupation" autoComplete="organization-title" {...register("educationOrOccupation")} />
-            </Field>
-
-            <Field label="City (optional)" htmlFor="city" error={errors.city?.message}>
-              <Input id="city" autoComplete="address-level2" {...register("city")} />
-            </Field>
-
-            <div className="sm:col-span-2">
-              <Field label="Message (optional)" htmlFor="message" error={errors.message?.message}>
-                <Textarea id="message" {...register("message")} />
+            <div className="grid gap-5 sm:grid-cols-2">
+              <Field label="Full name" htmlFor="fullName" error={errors.fullName?.message} required>
+                <Input
+                  id="fullName"
+                  autoComplete="name"
+                  aria-invalid={Boolean(errors.fullName)}
+                  {...register("fullName")}
+                />
               </Field>
+
+              <Field label="Email" htmlFor="email" error={errors.email?.message} required>
+                <Input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  aria-invalid={Boolean(errors.email)}
+                  {...register("email")}
+                />
+              </Field>
+
+              <Field label="Mobile number" htmlFor="mobile" error={errors.mobile?.message} required>
+                <Input
+                  id="mobile"
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  aria-invalid={Boolean(errors.mobile)}
+                  {...register("mobile")}
+                />
+              </Field>
+
+              <Field label="City (optional)" htmlFor="city" error={errors.city?.message}>
+                <Input id="city" autoComplete="address-level2" {...register("city")} />
+              </Field>
+
+              <div className="sm:col-span-2">
+                <Field
+                  label="College / institution"
+                  htmlFor="college"
+                  error={errors.college?.message}
+                  required
+                >
+                  <Input
+                    id="college"
+                    autoComplete="organization"
+                    placeholder="e.g. Government Engineering College"
+                    aria-invalid={Boolean(errors.college)}
+                    {...register("college")}
+                  />
+                </Field>
+              </div>
+
+              <Field label="Degree / programme" htmlFor="degree" error={errors.degree?.message} required>
+                <Select
+                  id="degree"
+                  defaultValue=""
+                  aria-invalid={Boolean(errors.degree)}
+                  {...register("degree")}
+                >
+                  <option value="" disabled>
+                    Select your degree
+                  </option>
+                  {DEGREE_PROGRAMS.map((program) => (
+                    <option key={program} value={program}>
+                      {DEGREE_PROGRAM_LABELS[program]}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
+
+              <Field label="Year of study" htmlFor="yearOfStudy" error={errors.yearOfStudy?.message} required>
+                <Select
+                  id="yearOfStudy"
+                  defaultValue=""
+                  aria-invalid={Boolean(errors.yearOfStudy)}
+                  {...register("yearOfStudy")}
+                >
+                  <option value="" disabled>
+                    Select your year
+                  </option>
+                  {STUDY_YEARS.map((year) => (
+                    <option key={year} value={year}>
+                      {STUDY_YEAR_LABELS[year]}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
+
+              <div className="sm:col-span-2">
+                <Field label="Message (optional)" htmlFor="message" error={errors.message?.message}>
+                  <Textarea
+                    id="message"
+                    placeholder="Tell us about your interests, goals or any questions."
+                    {...register("message")}
+                  />
+                </Field>
+              </div>
             </div>
           </div>
 
