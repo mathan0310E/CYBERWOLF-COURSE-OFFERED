@@ -1,0 +1,36 @@
+rules_version = '2';
+
+// -----------------------------------------------------------------------------
+// CyberWolf 360 — Cloud Storage security rules
+//
+// audit-logs/** holds plain-text (.txt) audit chunks written exclusively by the
+// trusted backend. No client may read or write them; the admin application
+// fetches TXT content through authenticated backend endpoints instead.
+//
+// Everything else is denied by default.
+// -----------------------------------------------------------------------------
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Admin is a server-set custom claim only.
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+
+    // Plain-text audit artifacts: backend-only. Clients cannot list, read,
+    // overwrite or delete them. Admin access is brokered by the backend.
+    match /audit-logs/{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // Explicit catch-all deny.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

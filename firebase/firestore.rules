@@ -1,0 +1,87 @@
+rules_version = '2';
+
+// -----------------------------------------------------------------------------
+// CyberWolf 360 — Cloud Firestore security rules
+//
+// Model: deny by default. All writes to sensitive collections are performed by
+// the trusted backend using the Admin SDK (which bypasses these rules). The
+// rules below therefore grant the *client* SDK almost no access.
+//
+// Client-accessible surface:
+//   - A registrant (authenticated, non-admin) may read ONLY their own
+//     registration, and only the fields they already supplied.
+//   - An admin (custom claim `admin == true`, set server-side only) may read
+//     registration, email, and audit metadata for the admin application.
+//   - NO client may create/update/delete registrations, email jobs, audit
+//     events or manifests. Those happen exclusively via trusted backend code.
+// -----------------------------------------------------------------------------
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Admin is determined ONLY by a server-set custom claim. A client-supplied
+    // flag, a Firestore field, or a URL parameter can never grant admin.
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+
+    // ---------------------------------------------------------------------
+    // registrations
+    // ---------------------------------------------------------------------
+    match /registrations/{registrationId} {
+      // Registrants may read their own record. `ownerUid` is written by the
+      // backend and is the only accepted ownership reference.
+      allow read: if isAdmin()
+        || (isSignedIn() && resource.data.ownerUid == request.auth.uid);
+
+      // No client writes. Creation happens through the trusted API.
+      allow create, update, delete: if false;
+    }
+
+    // ---------------------------------------------------------------------
+    // emailProfiles / notificationJobs — admin read only, backend writes.
+    // ---------------------------------------------------------------------
+    match /emailProfiles/{emailProfileId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    match /notificationJobs/{jobId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    // ---------------------------------------------------------------------
+    // Audit data. Admin may read metadata; nobody writes from the client.
+    // The TXT artifacts themselves live in Cloud Storage.
+    // ---------------------------------------------------------------------
+    match /auditEvents/{eventId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    match /auditManifests/{manifestId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    // ---------------------------------------------------------------------
+    // adminSettings — admin read only; only the backend may change them.
+    // ---------------------------------------------------------------------
+    match /adminSettings/{settingId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    // ---------------------------------------------------------------------
+    // Catch-all: deny everything else explicitly.
+    // ---------------------------------------------------------------------
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
