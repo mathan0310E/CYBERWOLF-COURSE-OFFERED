@@ -40,3 +40,11 @@ Java is NOT installable in this sandbox.
   collapsed.
 - Privacy consent is a `boolean` field with a `=== true` refinement (not `z.literal(true)`)
   so form typing stays `boolean`.
+- `typecheck` for the apps MUST be plain `tsc -b` (project references are `noEmit`). Never
+  add `--noEmit false` / `--emitDeclarationOnly false`: that makes tsc write compiled `.js`
+  next to the `.ts/.tsx` sources, and Vite resolves `.js` before `.tsx`, so stale emitted
+  files can shadow real source and get committed. `apps/*/src/**/*.js` is gitignored as a
+  guard; if you see tracked `.js` under `apps/*/src`, delete and re-verify.
+- The brand mark is the owner-provided emblem in `apps/*/public/cyberwolf-logo.png`, rendered
+  by each app's `Brand` component. Verified company contact values live in `COMPANY`
+  (`packages/shared-types`); do not invent additional contact details, logos or statistics.
