@@ -8,6 +8,17 @@ import { expect, test } from "@playwright/test";
  */
 
 test.describe("public home page", () => {
+  // Record a consent decision up front so the fixed cookie banner cannot overlap
+  // page content during these navigation tests.
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript(() => {
+      window.localStorage.setItem(
+        "cyberwolf360.cookieConsent.v1",
+        JSON.stringify({ decision: "essential", decidedAt: new Date().toISOString() }),
+      );
+    });
+  });
+
   test("shows the brand, tagline and hero copy", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("link", { name: /CyberWolf/i }).first()).toBeVisible();
@@ -17,34 +28,121 @@ test.describe("public home page", () => {
 
   test("navigation works and never exposes an admin link", async ({ page }) => {
     await page.goto("/");
-    const nav = page.getByRole("navigation").first();
+    const nav = page.getByRole("navigation", { name: "Primary" });
     await expect(nav).toBeVisible();
     await expect(page.getByText(/admin/i)).toHaveCount(0);
 
-    // Keyboard-operable navigation to pricing.
-    await page.goto("/pricing");
-    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    // Courses/Pricing/About/FAQ are in-page sections, reached by anchor.
+    await expect(page.locator("#courses")).toBeAttached();
+    await expect(page.locator("#pricing")).toBeAttached();
+    await expect(page.locator("#about")).toBeAttached();
+    await expect(page.locator("#faq")).toBeAttached();
+
+    // Keyboard-operable navigation to an in-page section. On small viewports the
+    // links live in the collapsible menu, so open it when the desktop links are
+    // not visible.
+    const desktopPricing = nav.getByRole("link", { name: "Pricing" });
+    if (await desktopPricing.isVisible()) {
+      await desktopPricing.click();
+    } else {
+      await page.getByRole("button", { name: /Open menu/i }).click();
+      await page.locator("#mobile-menu").getByRole("link", { name: "Pricing" }).click();
+    }
+    await expect(page).toHaveURL(/#pricing$/);
+    await expect(page.locator("#pricing-heading")).toBeVisible();
+  });
+
+  test("does not expose Courses/Pricing/About/FAQ as separate routes", async ({ page }) => {
+    for (const path of ["/courses", "/pricing", "/about", "/faq", "/privacy", "/terms"]) {
+      await page.goto(path);
+      await expect(page.getByRole("heading", { name: "Page not found" })).toBeVisible();
+    }
   });
 });
 
 test.describe("courses and pricing", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript(() => {
+      window.localStorage.setItem(
+        "cyberwolf360.cookieConsent.v1",
+        JSON.stringify({ decision: "essential", decidedAt: new Date().toISOString() }),
+      );
+    });
+  });
+
   test("lists the three courses with the confirmed descriptions", async ({ page }) => {
-    await page.goto("/courses");
-    await expect(page.getByText("Cyber Security").first()).toBeVisible();
-    await expect(page.getByText("AI & Web Development").first()).toBeVisible();
-    await expect(page.getByText("Ethical Hacking").first()).toBeVisible();
+    await page.goto("/");
+    const courses = page.locator("#courses");
+    await expect(courses.getByText("Cyber Security").first()).toBeVisible();
+    await expect(courses.getByText("AI & Web Development").first()).toBeVisible();
+    await expect(courses.getByText("Ethical Hacking").first()).toBeVisible();
   });
 
   test("pricing shows the single-course and two-course offers", async ({ page }) => {
-    await page.goto("/pricing");
-    await expect(page.getByText(/8,500/).first()).toBeVisible();
-    await expect(page.getByText(/12,500/).first()).toBeVisible();
-    await expect(page.getByText(/12,000/).first()).toBeVisible();
-    await expect(page.getByText(/24,000/).first()).toBeVisible();
+    await page.goto("/");
+    const pricing = page.locator("#pricing");
+    await expect(pricing.getByText(/8,500/).first()).toBeVisible();
+    await expect(pricing.getByText(/12,500/).first()).toBeVisible();
+    await expect(pricing.getByText(/12,000/).first()).toBeVisible();
+    await expect(pricing.getByText(/24,000/).first()).toBeVisible();
+  });
+});
+
+test.describe("cookie consent and legal dialogs", () => {
+  test("shows the cookie banner on first visit and remembers the choice", async ({ page }) => {
+    await page.goto("/");
+    const banner = page.getByRole("region", { name: /Cookie consent/i });
+    await expect(banner).toBeVisible();
+
+    await banner.getByRole("button", { name: "Accept all" }).click();
+    await expect(banner).toBeHidden();
+
+    // The decision persists across a reload (stored in local storage).
+    await page.reload();
+    await expect(page.getByRole("region", { name: /Cookie consent/i })).toBeHidden();
+    await expect(page.getByText(/Cookie choice: Accepted all/i)).toBeVisible();
+  });
+
+  test("opens the Privacy, Terms and Cookie policies as in-page dialogs", async ({ page }) => {
+    await page.goto("/");
+    // Dismiss the banner first so it does not overlap the footer.
+    await page.getByRole("region", { name: /Cookie consent/i }).getByRole("button", { name: "Essential only" }).click();
+
+    const legal = page.getByRole("navigation", { name: /Legal/i });
+    await legal.getByRole("button", { name: "Privacy Policy" }).click();
+    await expect(page.getByRole("dialog").getByRole("heading", { name: "Privacy Policy" })).toBeVisible();
+    await page.keyboard.press("Escape");
+
+    await legal.getByRole("button", { name: "Terms of Service" }).click();
+    await expect(page.getByRole("dialog").getByRole("heading", { name: "Terms of Service" })).toBeVisible();
+    await page.keyboard.press("Escape");
+
+    await legal.getByRole("button", { name: "Cookie Policy" }).click();
+    await expect(page.getByRole("dialog").getByRole("heading", { name: "Cookie Policy" })).toBeVisible();
+  });
+
+  test("Cookie settings re-opens the banner", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("region", { name: /Cookie consent/i }).getByRole("button", { name: "Accept all" }).click();
+    await expect(page.getByRole("region", { name: /Cookie consent/i })).toBeHidden();
+
+    await page.getByRole("navigation", { name: /Legal/i }).getByRole("button", { name: "Cookie settings" }).click();
+    await expect(page.getByRole("region", { name: /Cookie consent/i })).toBeVisible();
   });
 });
 
 test.describe("registration form", () => {
+  // The cookie banner is fixed to the bottom of the viewport; dismiss it so it
+  // cannot overlap the form controls during these tests.
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript(() => {
+      window.localStorage.setItem(
+        "cyberwolf360.cookieConsent.v1",
+        JSON.stringify({ decision: "essential", decidedAt: new Date().toISOString() }),
+      );
+    });
+  });
+
   test("requires at least one course and consent before submitting", async ({ page }) => {
     await page.goto("/enroll");
     const submit = page.getByRole("button", { name: /Submit registration/i });

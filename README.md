@@ -55,6 +55,14 @@ public site:
   Firebase App Check + Identity Platform). Firebase Hosting targets exist for convenience,
   but a Hosting-only admin console should still be network-restricted.
 
+### The public site is a single main page
+
+Courses, Pricing, About and FAQ are rendered as **in-page sections** (anchor targets) on the
+home route, not as separate routes. Only the registration form has its own route (`/enroll`)
+because it is a distinct task with its own form state and confirmation flow. Legal documents
+(Privacy Policy, Terms of Service, Cookie Policy) open as accessible dialogs on the main
+page, and a first-visit cookie banner records the visitor's consent choice.
+
 ---
 
 ## 1a. Design system
@@ -476,10 +484,14 @@ window). Document the chosen windows in your Privacy Policy and keep exports min
 
 ## 16. Privacy
 
-`/privacy` and `/terms` describe data collection, registration processing, transactional
-emails, service providers, retention and data-request procedures. Registration requires
-explicit consent and does **not** opt the student into marketing email. Audit logs and
-exports avoid unnecessary personal data; the admin email view shows only masked addresses.
+The Privacy Policy, Terms of Service and Cookie Policy open as in-page dialogs (from the
+footer and the registration consent) rather than as separate subpages. They describe data
+collection, registration processing, transactional emails, service providers, retention and
+data-request procedures. A first-visit cookie banner records the visitor's consent choice
+(kept only in local storage) and can be re-opened any time via "Cookie settings" in the
+footer. Registration requires explicit consent and does **not** opt the student into
+marketing email. Audit logs and exports avoid unnecessary personal data; the admin email
+view shows only masked addresses.
 
 ---
 

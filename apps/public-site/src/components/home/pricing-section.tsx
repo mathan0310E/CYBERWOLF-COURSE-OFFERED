@@ -9,29 +9,23 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Seo } from "@/components/seo";
+import { Section } from "@/components/home/section";
 
 const SINGLE_SAVING = ORIGINAL_PRICE_PER_COURSE - SINGLE_COURSE_OFFER_PRICE; // ₹3,500
 const BUNDLE_ORIGINAL = ORIGINAL_PRICE_PER_COURSE * 2; // ₹24,000 (assumed)
 const BUNDLE_SAVING = BUNDLE_ORIGINAL - TWO_COURSE_BUNDLE_PRICE; // ₹11,500 (assumed)
 
-export function PricingPage() {
+/** Pricing — a main-page section with the single-course and two-course offers. */
+export function PricingSection() {
   return (
-    <div className="container py-16">
-      <Seo
-        title="Pricing"
-        description="CyberWolf 360 pricing: a single course at ₹8,500 (original ₹12,000) or the two-course bundle at ₹12,500. Final price confirmed on the server."
-        path="/pricing"
-      />
-      <header className="mx-auto max-w-2xl text-center">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Pricing</h1>
-        <p className="mt-3 text-muted">
-          Choose a single course or bundle two. Prices are confirmed on the server when your registration is
-          received.
-        </p>
-      </header>
-
-      <div className="mt-12 grid gap-6 md:grid-cols-2">
+    <Section
+      id="pricing"
+      eyebrow="Pricing"
+      title="Simple, transparent pricing"
+      description="Choose a single course or bundle two. Prices are confirmed on the server when your registration is received."
+      className="bg-background-secondary"
+    >
+      <div className="grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -95,6 +89,6 @@ export function PricingPage() {
         The bundle saving assumes {formatINR(ORIGINAL_PRICE_PER_COURSE)} as the original price for each individual
         course. Submitting a registration does not guarantee admission or payment.
       </p>
-    </div>
+    </Section>
   );
 }

@@ -3,9 +3,12 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ShieldCheck, Sparkles, Lock, Code2 } from "lucide-react";
 import { COURSES } from "@cyberwolf/shared-types";
 import { Button } from "@/components/ui/button";
-import { CourseCard } from "@/components/course-card";
 import { Seo } from "@/components/seo";
 import { formatINR, ORIGINAL_PRICE_PER_COURSE, SINGLE_COURSE_OFFER_PRICE } from "@cyberwolf/pricing";
+import { CoursesSection } from "@/components/home/courses-section";
+import { PricingSection } from "@/components/home/pricing-section";
+import { AboutSection } from "@/components/home/about-section";
+import { FaqSection } from "@/components/home/faq-section";
 
 const HIGHLIGHTS = [
   { icon: Lock, title: "Security-first", body: "Learn defensive practices and how modern systems are protected." },
@@ -13,6 +16,12 @@ const HIGHLIGHTS = [
   { icon: Sparkles, title: "Modern topics", body: "Cover cybersecurity, ethical hacking, and AI & web development." },
 ];
 
+/**
+ * The main page. Courses, Pricing, About and FAQ are all rendered here as
+ * in-page sections (anchor targets), not as separate routes. Only the
+ * registration form lives on its own route (/enroll), because it is a distinct
+ * task with its own form state and confirmation flow.
+ */
 export function HomePage() {
   const reduceMotion = useReducedMotion();
   const fadeUp = reduceMotion
@@ -23,7 +32,7 @@ export function HomePage() {
     <>
       <Seo
         title="CyberWolf 360 — Cyber Security, AI & Ethical Hacking Courses"
-        description="Explore CyberWolf 360 courses in Cyber Security, AI & Web Development and Ethical Hacking. College-student registration with transparent pricing."
+        description="Explore CyberWolf 360 courses in Cyber Security, AI & Web Development and Ethical Hacking. Student registration with transparent pricing."
         path="/"
       />
       {/* Hero */}
@@ -47,13 +56,13 @@ export function HomePage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg">
-                <Link to="/courses">
+                <a href="#courses">
                   Explore Courses
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
+                </a>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <Link to="/pricing">View Pricing</Link>
+                <a href="#pricing">View Pricing</a>
               </Button>
             </div>
           </motion.div>
@@ -100,25 +109,11 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Courses */}
-      <section className="container pb-20">
-        <motion.div {...fadeUp} className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight">Courses on offer</h2>
-          <p className="mt-3 text-muted">
-            Choose one or two courses. Descriptions are general guidance, not a verified syllabus.
-          </p>
-        </motion.div>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {COURSES.map((course) => (
-            <CourseCard key={course.id} course={course} selected={false} onToggle={() => undefined} selectable={false} />
-          ))}
-        </div>
-        <div className="mt-8 text-center">
-          <Button asChild variant="outline">
-            <Link to="/courses">See all course details</Link>
-          </Button>
-        </div>
-      </section>
+      {/* Main-page sections */}
+      <CoursesSection />
+      <PricingSection />
+      <AboutSection />
+      <FaqSection />
 
       {/* CTA */}
       <section className="border-t border-border/70 bg-background-secondary">

@@ -22,6 +22,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CourseCard } from "@/components/course-card";
 import { PricePreview } from "@/components/price-preview";
 import { Seo } from "@/components/seo";
+import { useLegal } from "@/lib/legal";
 import { ApiError, submitRegistration } from "@/lib/api";
 
 /**
@@ -32,6 +33,7 @@ import { ApiError, submitRegistration } from "@/lib/api";
  * submitted payload. The server recalculates the price authoritatively.
  */
 export function EnrollPage() {
+  const { open: openLegal } = useLegal();
   const [receipt, setReceipt] = useState<RegistrationReceipt | null>(null);
   const [submitError, setSubmitError] = useState<ApiError | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -291,9 +293,13 @@ export function EnrollPage() {
               <div>
                 <label htmlFor="privacyConsent" className="text-sm text-muted">
                   I consent to CyberWolf 360 processing my details to handle this registration, as described in the{" "}
-                  <Link to="/privacy" className="text-accent underline underline-offset-2">
+                  <button
+                    type="button"
+                    onClick={() => openLegal("privacy")}
+                    className="text-accent underline underline-offset-2"
+                  >
                     Privacy Policy
-                  </Link>
+                  </button>
                   .
                 </label>
                 <p id="privacyConsent-hint" className="mt-1 text-xs text-muted">

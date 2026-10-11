@@ -1,25 +1,34 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Brand } from "@/components/brand";
+import { CookieBanner } from "@/components/cookie-banner";
+import { useLegal } from "@/lib/legal";
+import { useConsent } from "@/lib/consent";
 import { COMPANY } from "@cyberwolf/shared-types";
-import { cn } from "@/lib/utils";
 
+/**
+ * Single-page navigation. Courses, Pricing, About and FAQ are in-page anchors on
+ * the main page rather than separate routes.
+ */
 const NAV_ITEMS = [
-  { to: "/", label: "Home", end: true },
-  { to: "/courses", label: "Courses" },
-  { to: "/pricing", label: "Pricing" },
-  { to: "/about", label: "About" },
-  { to: "/faq", label: "FAQ" },
+  { href: "#courses", label: "Courses" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "#about", label: "About" },
+  { href: "#faq", label: "FAQ" },
 ] as const;
+
+const HOME_LINK = "/";
 
 export function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const firstLinkRef = useRef<HTMLAnchorElement | null>(null);
+  const { open } = useLegal();
+  const { consent, reset } = useConsent();
 
-  // Close the mobile menu on navigation and move focus sensibly.
+  // Close the mobile menu on navigation.
   useEffect(() => {
     setMenuOpen(false);
   }, [location.pathname]);
@@ -57,19 +66,13 @@ export function Layout() {
 
           <ul className="hidden items-center gap-1 md:flex">
             {NAV_ITEMS.map((item) => (
-              <li key={item.to}>
-                <NavLink
-                  to={item.to}
-                  end={"end" in item ? item.end : false}
-                  className={({ isActive }) =>
-                    cn(
-                      "rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-foreground",
-                      isActive && "text-foreground",
-                    )
-                  }
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  className="rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 >
                   {item.label}
-                </NavLink>
+                </a>
               </li>
             ))}
           </ul>
@@ -95,20 +98,15 @@ export function Layout() {
           <div id="mobile-menu" className="border-t border-border/70 bg-background md:hidden">
             <ul className="container flex flex-col py-2">
               {NAV_ITEMS.map((item, index) => (
-                <li key={item.to}>
-                  <NavLink
+                <li key={item.href}>
+                  <a
                     ref={index === 0 ? firstLinkRef : undefined}
-                    to={item.to}
-                    end={"end" in item ? item.end : false}
-                    className={({ isActive }) =>
-                      cn(
-                        "block rounded-md px-3 py-3 text-sm font-medium text-muted hover:bg-background-secondary hover:text-foreground",
-                        isActive && "text-foreground",
-                      )
-                    }
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="block rounded-md px-3 py-3 text-sm font-medium text-muted hover:bg-background-secondary hover:text-foreground"
                   >
                     {item.label}
-                  </NavLink>
+                  </a>
                 </li>
               ))}
               <li className="px-3 py-2">
@@ -173,11 +171,16 @@ export function Layout() {
           <nav aria-label="Footer">
             <h2 className="text-sm font-semibold text-foreground">Explore</h2>
             <ul className="mt-3 space-y-2 text-sm">
+              <li>
+                <Link to={HOME_LINK} className="text-muted hover:text-foreground">
+                  Home
+                </Link>
+              </li>
               {NAV_ITEMS.map((item) => (
-                <li key={item.to}>
-                  <Link to={item.to} className="text-muted hover:text-foreground">
+                <li key={item.href}>
+                  <a href={item.href} className="text-muted hover:text-foreground">
                     {item.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
               <li>
@@ -191,16 +194,47 @@ export function Layout() {
             <h2 className="text-sm font-semibold text-foreground">Legal</h2>
             <ul className="mt-3 space-y-2 text-sm">
               <li>
-                <Link to="/privacy" className="text-muted hover:text-foreground">
+                <button
+                  type="button"
+                  onClick={() => open("privacy")}
+                  className="text-muted hover:text-foreground"
+                >
                   Privacy Policy
-                </Link>
+                </button>
               </li>
               <li>
-                <Link to="/terms" className="text-muted hover:text-foreground">
+                <button
+                  type="button"
+                  onClick={() => open("terms")}
+                  className="text-muted hover:text-foreground"
+                >
                   Terms of Service
-                </Link>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => open("cookies")}
+                  className="text-muted hover:text-foreground"
+                >
+                  Cookie Policy
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={reset}
+                  className="text-muted hover:text-foreground"
+                >
+                  Cookie settings
+                </button>
               </li>
             </ul>
+            {consent && (
+              <p className="mt-3 text-xs text-muted">
+                Cookie choice: {consent.decision === "accepted" ? "Accepted all" : "Essential only"}
+              </p>
+            )}
           </nav>
         </div>
         <div className="border-t border-border/70">
@@ -220,6 +254,8 @@ export function Layout() {
           </div>
         </div>
       </footer>
+
+      <CookieBanner />
     </div>
   );
 }

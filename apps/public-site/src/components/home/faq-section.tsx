@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Seo } from "@/components/seo";
+import { Section } from "@/components/home/section";
 
 const FAQS = [
   {
@@ -30,27 +30,24 @@ const FAQS = [
   },
 ];
 
-export function FaqPage() {
+/** FAQ — an expandable main-page section. */
+export function FaqSection() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <div className="container max-w-3xl py-16">
-      <Seo
-        title="Frequently asked questions"
-        description="Answers about CyberWolf 360 courses, pricing, registration, emails and privacy."
-        path="/faq"
-      />
-      <header className="text-center">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Frequently asked questions</h1>
-        <p className="mt-3 text-muted">Answers about courses, pricing, registration and privacy.</p>
-      </header>
-
-      <div className="mt-10 divide-y divide-border/70 rounded-lg border border-border bg-card">
+    <Section
+      id="faq"
+      eyebrow="FAQ"
+      title="Frequently asked questions"
+      description="Answers about courses, pricing, registration and privacy."
+      className="bg-background-secondary"
+    >
+      <div className="mx-auto max-w-3xl divide-y divide-border/70 rounded-lg border border-border bg-card">
         {FAQS.map((faq, index) => {
           const isOpen = open === index;
           return (
             <div key={faq.q}>
-              <h2>
+              <h3>
                 <button
                   type="button"
                   className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
@@ -65,7 +62,7 @@ export function FaqPage() {
                     aria-hidden="true"
                   />
                 </button>
-              </h2>
+              </h3>
               <div
                 id={`faq-panel-${index}`}
                 role="region"
@@ -79,6 +76,6 @@ export function FaqPage() {
           );
         })}
       </div>
-    </div>
+    </Section>
   );
 }
