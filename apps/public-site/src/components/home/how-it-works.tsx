@@ -1,4 +1,5 @@
 import { Section } from "@/components/home/section";
+import { RevealGroup, RevealItem } from "@/components/motion/reveal";
 
 const STEPS = [
   {
@@ -23,21 +24,28 @@ export function HowItWorks() {
   return (
     <Section
       id="how"
-      eyebrow="How it works"
+      eyebrow="// how it works"
       title="Three simple steps"
       description="From choosing a course to receiving your confirmation email."
     >
-      <ol className="grid gap-5 md:grid-cols-3">
+      <RevealGroup as="ol" className="grid gap-5 md:grid-cols-3" stagger={0.12}>
         {STEPS.map((item) => (
-          <li key={item.step} className="h-full rounded-[18px] bg-card p-7 shadow-card">
-            <span className="font-display text-[32px] font-semibold leading-none text-apple-blue/25" aria-hidden="true">
+          <RevealItem
+            key={item.step}
+            as="li"
+            className="edge-glow h-full rounded-[18px] border border-border bg-card p-7 shadow-card"
+          >
+            <span
+              className="font-display text-[34px] font-semibold leading-none text-gradient"
+              aria-hidden="true"
+            >
               {item.step}
             </span>
-            <h3 className="font-display mt-3 text-[17px] font-semibold">{item.title}</h3>
+            <h3 className="font-display mt-4 text-[17px] font-semibold">{item.title}</h3>
             <p className="mt-2 text-[14px] leading-relaxed text-muted">{item.body}</p>
-          </li>
+          </RevealItem>
         ))}
-      </ol>
+      </RevealGroup>
     </Section>
   );
 }

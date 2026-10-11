@@ -4,31 +4,44 @@ import {
   SINGLE_COURSE_OFFER_PRICE,
   TWO_COURSE_BUNDLE_PRICE,
 } from "@cyberwolf/pricing";
+import { RevealGroup, RevealItem } from "@/components/motion/reveal";
+import { CountUp } from "@/components/motion/count-up";
 
 const STATS = [
-  { value: "3", label: "Courses on offer" },
-  { value: "2", label: "Courses per registration" },
-  { value: formatINR(SINGLE_COURSE_OFFER_PRICE), label: `Single course (was ${formatINR(ORIGINAL_PRICE_PER_COURSE)})` },
-  { value: formatINR(TWO_COURSE_BUNDLE_PRICE), label: "Two-course bundle" },
+  { value: 3, label: "Courses on offer", prefix: "", suffix: "" },
+  { value: 2, label: "Courses per registration", prefix: "", suffix: "" },
+  {
+    value: SINGLE_COURSE_OFFER_PRICE,
+    label: `Single course (was ${formatINR(ORIGINAL_PRICE_PER_COURSE)})`,
+    prefix: "₹",
+    suffix: "",
+  },
+  { value: TWO_COURSE_BUNDLE_PRICE, label: "Two-course bundle", prefix: "₹", suffix: "" },
 ];
 
 /**
- * Neutral stat band on Apple's `#F5F5F7` surface. Every figure is a real,
- * verifiable fact about the offer — no invented registration counts or urgency.
+ * Stat band. Every figure is a real, verifiable fact about the offer — no
+ * invented registration counts or urgency. Numbers count up on scroll-in.
  */
 export function StatsBand() {
   return (
-    <section className="bg-background-secondary py-12 md:py-16">
-      <div className="mx-auto grid max-w-[1024px] grid-cols-2 gap-y-10 px-6 md:grid-cols-4">
+    <section className="relative border-y border-border bg-background-secondary py-12 md:py-16">
+      <div className="grid-bg absolute inset-0 opacity-[0.15]" aria-hidden="true" />
+      <RevealGroup className="relative mx-auto grid max-w-[1180px] grid-cols-2 gap-y-10 px-6 md:grid-cols-4">
         {STATS.map((stat) => (
-          <div key={stat.label} className="text-center">
-            <p className="font-display text-[40px] font-semibold leading-none tracking-tight-apple sm:text-[48px]">
-              {stat.value}
+          <RevealItem key={stat.label} className="text-center">
+            <p className="font-display text-[40px] font-semibold leading-none tracking-tight sm:text-[52px]">
+              <CountUp
+                to={stat.value}
+                prefix={stat.prefix}
+                suffix={stat.suffix}
+                className="text-gradient"
+              />
             </p>
             <p className="mx-auto mt-3 max-w-[14rem] text-[12px] leading-snug text-muted">{stat.label}</p>
-          </div>
+          </RevealItem>
         ))}
-      </div>
+      </RevealGroup>
     </section>
   );
 }

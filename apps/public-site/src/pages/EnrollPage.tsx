@@ -131,7 +131,7 @@ export function EnrollPage() {
         path="/enroll"
       />
       <header className="mx-auto max-w-2xl text-center">
-        <p className="inline-flex items-center gap-2 rounded-full border border-apple-blue/30 bg-apple-blue/5 px-3 py-1 text-xs font-medium text-apple-blue">
+        <p className="inline-flex items-center gap-2 rounded-full border border-neon/30 bg-neon/5 px-3 py-1 text-xs font-medium text-neon">
           <GraduationCap className="h-3.5 w-3.5" aria-hidden="true" />
           For college students
         </p>
@@ -317,7 +317,7 @@ export function EnrollPage() {
                   <button
                     type="button"
                     onClick={() => openLegal("privacy")}
-                    className="text-apple-blue underline underline-offset-2"
+                    className="text-neon underline underline-offset-2"
                   >
                     Privacy Policy
                   </button>
@@ -427,8 +427,8 @@ function SuccessPanel({ receipt, onReset }: { receipt: RegistrationReceipt; onRe
     <div className="container max-w-2xl py-20">
       <Card>
         <CardHeader className="items-center text-center">
-          <span className="flex h-14 w-14 items-center justify-center rounded-full border border-apple-blue/40 bg-apple-blue/10">
-            <CheckCircle2 className="h-7 w-7 text-apple-blue" aria-hidden="true" />
+          <span className="flex h-14 w-14 items-center justify-center rounded-full border border-neon/40 bg-neon/10">
+            <CheckCircle2 className="h-7 w-7 text-neon" aria-hidden="true" />
           </span>
           <CardTitle className="mt-4 text-2xl">Registration received</CardTitle>
         </CardHeader>
@@ -439,7 +439,7 @@ function SuccessPanel({ receipt, onReset }: { receipt: RegistrationReceipt; onRe
 
           <div className="mt-6 rounded-[12px] border border-border bg-background-secondary p-4 text-left">
             <p className="text-xs uppercase tracking-wide text-muted">Your reference</p>
-            <p className="mt-1 font-mono text-lg font-semibold text-apple-blue">{receipt.reference}</p>
+            <p className="mt-1 font-mono text-lg font-semibold text-neon">{receipt.reference}</p>
             <dl className="mt-4 space-y-1.5 text-sm">
               <div className="flex justify-between">
                 <dt className="text-muted">Courses</dt>
@@ -449,7 +449,7 @@ function SuccessPanel({ receipt, onReset }: { receipt: RegistrationReceipt; onRe
               </div>
               <div className="flex justify-between">
                 <dt className="text-muted">Final price</dt>
-                <dd className="font-semibold text-apple-blue">
+                <dd className="font-semibold text-neon">
                   {new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(
                     receipt.price.finalPrice,
                   )}

@@ -36,8 +36,11 @@ export function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-dvh items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md">
+    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-background p-4">
+      <div className="grid-bg absolute inset-0 opacity-[0.25]" aria-hidden="true" />
+      <div className="aurora -left-20 top-0 h-80 w-80 bg-neon/20" aria-hidden="true" />
+      <div className="aurora bottom-0 right-0 h-80 w-80 bg-violet/20" aria-hidden="true" />
+      <Card className="glass relative w-full max-w-md">
         <CardHeader className="items-center text-center">
           <img
             src="/cyberwolf-logo.png"
@@ -48,7 +51,9 @@ export function LoginPage() {
             aria-hidden="true"
           />
           <CardTitle className="mt-3 text-xl">CyberWolf 360 Administration</CardTitle>
-          <p className="text-sm text-muted">Restricted access. Authorised administrators only.</p>
+          <p className="font-mono text-xs uppercase tracking-widest text-muted">
+            restricted access — authorised admins only
+          </p>
         </CardHeader>
         <CardContent>
           {!configured && (
@@ -92,7 +97,7 @@ export function LoginPage() {
               </p>
             )}
             {resetSent && (
-              <p className="text-sm text-apple-blue">If that account exists, a password reset email has been sent.</p>
+              <p className="text-sm text-neon">If that account exists, a password reset email has been sent.</p>
             )}
 
             <Button type="submit" className="w-full" disabled={submitting || !configured}>

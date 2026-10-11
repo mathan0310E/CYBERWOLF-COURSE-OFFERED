@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Layout } from "./components/layout";
 import { HomePage } from "./pages/HomePage";
 import { Skeleton } from "./components/ui/skeleton";
+import { BootLoader } from "./components/fx/boot-loader";
 
 /**
  * Public site router.
@@ -37,13 +38,16 @@ function Lazy({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/enroll" element={<Lazy><EnrollPage /></Lazy>} />
-        <Route path="*" element={<Lazy><NotFoundPage /></Lazy>} />
-      </Route>
-    </Routes>
+    <>
+      <BootLoader />
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/enroll" element={<Lazy><EnrollPage /></Lazy>} />
+          <Route path="*" element={<Lazy><NotFoundPage /></Lazy>} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 

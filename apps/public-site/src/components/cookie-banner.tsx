@@ -22,14 +22,14 @@ export function CookieBanner() {
     >
       <div className="container flex flex-col gap-3 py-4 md:flex-row md:items-center md:justify-between">
         <div className="flex items-start gap-3">
-          <Cookie className="mt-0.5 h-5 w-5 shrink-0 text-apple-blue" aria-hidden="true" />
+          <Cookie className="mt-0.5 h-5 w-5 shrink-0 text-neon" aria-hidden="true" />
           <p className="max-w-2xl text-sm text-muted">
             We use only essential browser storage to run this site — mainly to remember this choice. We set no
             advertising or tracking cookies. See our{" "}
             <button
               type="button"
               onClick={() => open("cookies")}
-              className="text-apple-blue underline underline-offset-2 hover:opacity-90"
+              className="text-neon underline underline-offset-2 hover:opacity-90"
             >
               Cookie Policy
             </button>{" "}
@@ -37,7 +37,7 @@ export function CookieBanner() {
             <button
               type="button"
               onClick={() => open("privacy")}
-              className="text-apple-blue underline underline-offset-2 hover:opacity-90"
+              className="text-neon underline underline-offset-2 hover:opacity-90"
             >
               Privacy Policy
             </button>

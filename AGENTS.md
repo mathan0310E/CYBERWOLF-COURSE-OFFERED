@@ -55,14 +55,21 @@ Java is NOT installable in this sandbox.
 - Public SEO lives in `apps/public-site`: a `Seo` component (per-route title/description/
   canonical, used by every page) plus static `public/robots.txt` and `public/sitemap.xml`.
   The admin app is `noindex,nofollow` and must stay out of the sitemap.
-- Design language is the Apple Store (apple.com/in/store): Apple system font stack (no
-  downloaded fonts, so `font-src 'self'` stays strict), white / `#F5F5F7` surfaces, ink
-  `#1D1D1F`, grey `#86868B`, hairline `#D2D2D7`, Apple blue `#0071E3` (hover `#0076DF`).
-  18px card radius, `980px` pill buttons, soft `2px 4px 12px rgba(0,0,0,.08)` shadows.
-  Tokens are duplicated per app in `apps/*/tailwind.config.ts` (and mirrored in
-  `functions/src/email/templates.ts`); keep all three in sync. Public chrome = 44px
-  translucent global nav + store bar (blur on scroll) and a `#F5F5F7` directory footer.
-- The public `Layout` renders `<Outlet/>` and owns the fixed nav offset; the e2e nav test
-  checks the desktop `navigation[name=Primary]` links, falling back to the `#mobile-menu`
-  drawer on small viewports. Keep `CookieBanner` mounted in `Layout` (the consent e2e tests
-  depend on it).
+- Design language is a futuristic "cyber" theme aimed at college students: dark surfaces
+  (`#05070D` page, `#0B1120` alt, `#0F172A` cards, `#1E293B` hairlines) with neon cyan
+  `#22D3EE`, violet `#8B5CF6` and lime `#7CF29C` accents. Type is self-hosted Space Grotesk
+  (display) + Manrope (body) + JetBrains Mono (code) served from `public/fonts/` (latin
+  subsets only) — still same-origin, so `font-src 'self'` stays strict (no Google Fonts CDN).
+  Tokens are duplicated per app in `apps/*/tailwind.config.ts` and mirrored in the email
+  template palette in `functions/src/email/templates.ts`; keep all in sync. Public chrome =
+  a 64px translucent top bar (blur + neon hairline on scroll) with a single Enroll CTA and a
+  `#0B1120` directory footer. The old "CyberWolf 360 Store" sub-bar and its
+  Courses/Pricing/About/FAQ links were removed — those are in-page sections now.
+- Public motion primitives live in `apps/public-site/src/components/motion/`
+  (`Reveal`/`RevealGroup`/`RevealItem`, `CountUp`, `TiltCard`) and FX in
+  `src/components/fx/` (`Terminal`, `BootLoader`). Every one degrades gracefully under
+  `prefers-reduced-motion`; the e2e suite asserts the reduced-motion path renders the `h1`.
+- The public `Layout` renders `<Outlet/>` and owns the fixed 64px nav offset (`pt-16`); it
+  no longer renders section links. The e2e nav test asserts `navigation[name=Primary]` has
+  no Courses/Pricing links and that the hero "View Pricing" anchor lands on `#pricing`. Keep
+  `CookieBanner` mounted in `Layout` (the consent e2e tests depend on it).

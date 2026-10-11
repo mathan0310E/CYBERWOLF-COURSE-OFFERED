@@ -27,15 +27,15 @@ export function CourseCard({ course, selected, onToggle, selectable = true, disa
       className={cn(
         "group relative flex h-full flex-col overflow-hidden border-0 shadow-card transition-all duration-300",
         selectable && "hover:shadow-lift",
-        selected && "ring-2 ring-apple-blue",
+        selected && "ring-2 ring-neon",
       )}
     >
       <div className="relative flex h-32 items-center justify-center bg-background-secondary">
-        <span className="flex h-14 w-14 items-center justify-center rounded-[18px] bg-card text-apple-blue shadow-card">
+        <span className="flex h-14 w-14 items-center justify-center rounded-[18px] bg-card text-neon shadow-card">
           <Icon className="h-6 w-6" aria-hidden="true" />
         </span>
         {selected && (
-          <span className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-pill bg-apple-blue px-3 py-1 text-xs font-medium text-white">
+          <span className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-pill bg-neon px-3 py-1 text-xs font-semibold text-[#04121A]">
             <Check className="h-3.5 w-3.5" strokeWidth={3} aria-hidden="true" />
             Selected
           </span>

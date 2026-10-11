@@ -1,11 +1,11 @@
 import type { Config } from "tailwindcss";
 
 /**
- * CyberWolf 360 private-admin design system.
+ * CyberWolf 360 private-admin design system — futuristic "cyber" theme.
  *
- * Shares the Apple-Store-derived tokens with the public site (white surface,
- * #F5F5F7 alt surface, #1D1D1F ink, #86868B grey, #0071E3 blue, #D2D2D7
- * hairlines) but is a separate build with its own content paths.
+ * Shares the tokens with the public site (dark surfaces #05070D / #0B1120 /
+ * #0F172A, neon cyan #22D3EE, violet #8B5CF6, lime #7CF29C, Space Grotesk +
+ * Manrope + JetBrains Mono) but is a separate build with its own content paths.
  */
 export default {
   darkMode: ["class"],
@@ -14,65 +14,42 @@ export default {
     container: { center: true, padding: "1.5rem", screens: { "2xl": "1440px" } },
     extend: {
       colors: {
-        background: "#FFFFFF",
-        "background-secondary": "#F5F5F7",
-        card: "#FFFFFF",
-        border: "#D2D2D7",
-        input: "#D2D2D7",
-        ring: "#0071E3",
-        foreground: "#1D1D1F",
-        muted: "#86868B",
-        "muted-foreground": "#86868B",
-        accent: { DEFAULT: "#0071E3", secondary: "#86868B" },
-        primary: { DEFAULT: "#0071E3", foreground: "#FFFFFF" },
-        secondary: { DEFAULT: "#1D1D1F", foreground: "#FFFFFF" },
-        destructive: { DEFAULT: "#E30000", foreground: "#FFFFFF" },
-        warning: { DEFAULT: "#B45309", foreground: "#FFFFFF" },
-        apple: {
-          blue: "#0071E3",
-          "blue-hover": "#0076DF",
-          ink: "#1D1D1F",
-          grey: "#86868B",
-          line: "#D2D2D7",
-          surface: "#F5F5F7",
-          hover: "#E8E8ED",
-          dark: "#000000",
-        },
+        background: "#05070D",
+        "background-secondary": "#0B1120",
+        card: "#0F172A",
+        border: "#1E293B",
+        input: "#1E293B",
+        ring: "#22D3EE",
+        foreground: "#E6EDF7",
+        muted: "#8A94A6",
+        "muted-foreground": "#8A94A6",
+        accent: { DEFAULT: "#22D3EE", secondary: "#8B5CF6" },
+        primary: { DEFAULT: "#22D3EE", foreground: "#04121A" },
+        secondary: { DEFAULT: "#8B5CF6", foreground: "#FFFFFF" },
+        destructive: { DEFAULT: "#F43F5E", foreground: "#FFFFFF" },
+        warning: { DEFAULT: "#F59E0B", foreground: "#1F1300" },
+        neon: "#22D3EE",
+        violet: "#8B5CF6",
+        lime: "#7CF29C",
+        ink: "#E6EDF7",
       },
       fontFamily: {
-        sans: [
-          "SF Pro Text",
-          "SF Pro Icons",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Helvetica Neue",
-          "Helvetica",
-          "Arial",
-          "sans-serif",
-        ],
-        display: [
-          "SF Pro Display",
-          "SF Pro Icons",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Helvetica Neue",
-          "Helvetica",
-          "Arial",
-          "sans-serif",
-        ],
-        mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
+        sans: ["Manrope", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+        display: ["Space Grotesk", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 6px)",
-        sm: "calc(var(--radius) - 10px)",
+        md: "calc(var(--radius) - 4px)",
+        sm: "calc(var(--radius) - 8px)",
         pill: "980px",
       },
       boxShadow: {
-        focus: "0 0 0 4px rgba(0, 113, 227, 0.35)",
-        card: "2px 4px 12px rgba(0, 0, 0, 0.08)",
-        lift: "2px 4px 16px rgba(0, 0, 0, 0.16)",
-        soft: "2px 4px 12px rgba(0, 0, 0, 0.08)",
+        focus: "0 0 0 4px rgba(34, 211, 238, 0.4)",
+        card: "0 1px 0 0 rgba(255,255,255,0.03) inset, 0 12px 32px -18px rgba(0,0,0,0.9)",
+        lift: "0 24px 60px -28px rgba(34, 211, 238, 0.45)",
+        neon: "0 0 0 1px rgba(34,211,238,0.35), 0 0 24px -4px rgba(34,211,238,0.5)",
+        glow: "0 0 40px -10px rgba(34, 211, 238, 0.55)",
       },
       keyframes: {
         "fade-in": { from: { opacity: "0" }, to: { opacity: "1" } },
@@ -80,8 +57,13 @@ export default {
           from: { opacity: "0", transform: "translateY(8px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
+        shimmer: { "100%": { transform: "translateX(100%)" } },
       },
-      animation: { "fade-in": "fade-in 240ms ease-out", "slide-up": "slide-up 320ms ease-out" },
+      animation: {
+        "fade-in": "fade-in 240ms ease-out",
+        "slide-up": "slide-up 320ms ease-out",
+        shimmer: "shimmer 1.6s infinite",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

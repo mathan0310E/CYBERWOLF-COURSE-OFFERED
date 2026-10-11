@@ -38,7 +38,7 @@ export function Brand({ size = "md", className, asLink = true }: BrandProps) {
         aria-hidden="true"
       />
       <span className={cn("font-display font-semibold tracking-[-0.02em]", TEXT_SIZES[size])}>
-        CyberWolf<span className="text-apple-blue">360</span>
+        CyberWolf<span className="text-neon">360</span>
       </span>
     </>
   );

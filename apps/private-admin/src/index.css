@@ -2,11 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Apple-style system font stack (see the public-site note). SF Pro where the OS
-   provides it, native UI font elsewhere — no third-party font download. */
+/* ============================================================================
+   CyberWolf 360 — private admin design system
+   Shares the futuristic "cyber" tokens with the public site (dark surfaces,
+   neon cyan/violet accents, self-hosted Space Grotesk / Manrope / JetBrains
+   Mono) but is a separate build with its own content paths.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/space-grotesk-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/manrope-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("/fonts/jetbrains-mono-latin.woff2") format("woff2");
+}
+
 @layer base {
   :root {
     --radius: 0.75rem; /* 12px cards for the denser admin UI */
+
+    --bg: 5 7 13;
+    --surface: 11 17 32;
+    --card: 15 23 42;
+    --line: 30 41 59;
+    --fg: 230 237 247;
+    --muted: 138 148 166;
+    --neon: 34 211 238;
+    --violet: 139 92 246;
+    --lime: 124 242 156;
   }
 
   * {
@@ -20,11 +59,10 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: "SF Pro Text", "SF Pro Icons", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
-      Helvetica, Arial, sans-serif;
+    font-family: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     font-size: 15px;
-    line-height: 1.47059;
-    letter-spacing: -0.016em;
+    line-height: 1.6;
+    letter-spacing: -0.011em;
   }
 
   h1,
@@ -33,15 +71,19 @@
   h4,
   h5,
   h6 {
-    font-family: "SF Pro Display", "SF Pro Icons", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
-      Helvetica, Arial, sans-serif;
+    font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
     font-weight: 600;
     letter-spacing: -0.02em;
   }
 
+  ::selection {
+    background: rgb(var(--neon) / 0.3);
+    color: #fff;
+  }
+
   /* Visible, high-contrast keyboard focus for every interactive element. */
   :focus-visible {
-    @apply outline-none ring-4 ring-ring/35;
+    @apply outline-none ring-4 ring-ring/40;
   }
 
   /* Respect reduced-motion preferences across the whole app. */
@@ -60,9 +102,38 @@
   }
 }
 
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 @layer utilities {
   .font-display {
-    font-family: "SF Pro Display", "SF Pro Icons", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
-      Helvetica, Arial, sans-serif;
+    font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .font-mono {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  .text-gradient {
+    background: linear-gradient(100deg, #22d3ee 0%, #8b5cf6 55%, #7cf29c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glass {
+    background: rgb(var(--card) / 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgb(var(--line) / 0.9);
+  }
+
+  .glow-neon {
+    box-shadow:
+      0 0 0 1px rgb(var(--neon) / 0.35),
+      0 0 24px -4px rgb(var(--neon) / 0.45);
   }
 }

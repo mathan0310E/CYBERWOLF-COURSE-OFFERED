@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { COMPANY, COMPANY_ADDRESS_LINE } from "@cyberwolf/shared-types";
 import { SocialLinks } from "@/components/social-links";
-import { MailIcon, MapPinIcon, PhoneIcon } from "@/components/brand-icons";
 import { Section } from "@/components/home/section";
+import { Reveal } from "@/components/motion/reveal";
 
 /** About — a main-page section. No invented certifications or placements. */
 export function AboutSection() {
   return (
-    <Section id="about" eyebrow="About" title={`About ${COMPANY.legalName}`} align="left">
+    <Section id="about" eyebrow="// about" title={`About ${COMPANY.legalName}`} align="left">
       <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
-        <div className="space-y-4 text-[17px] leading-relaxed text-muted">
+        <Reveal from="right" className="space-y-4 text-[17px] leading-relaxed text-muted">
           <p>
             <strong className="text-foreground">{COMPANY.legalName}</strong> — {COMPANY.servicesTagline}.{" "}
             {COMPANY.description} Founded by {COMPANY.founder.name} ({COMPANY.founder.jobTitle}), Cyber Wolf works with
@@ -32,20 +33,26 @@ export function AboutSection() {
           <div className="flex flex-wrap gap-3 pt-2">
             <Link
               to="/enroll"
-              className="inline-flex items-center justify-center rounded-pill bg-apple-blue px-6 py-2.5 text-[15px] text-white transition-colors hover:bg-apple-blue-hover"
+              className="inline-flex items-center gap-2 rounded-pill bg-neon px-6 py-2.5 text-[15px] text-[#04121A] transition-colors hover:bg-neon/90"
             >
               Enroll now
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
             <a
               href="#courses"
-              className="inline-flex items-center justify-center rounded-pill border border-apple-blue px-6 py-2.5 text-[15px] text-apple-blue transition-colors hover:bg-apple-blue/5"
+              className="inline-flex items-center justify-center rounded-pill border border-neon/60 px-6 py-2.5 text-[15px] text-neon transition-colors hover:bg-neon/10"
             >
               Explore courses
             </a>
           </div>
-        </div>
+        </Reveal>
 
-        <aside className="rounded-[18px] bg-background-secondary p-6">
+        <Reveal
+          from="left"
+          delay={0.1}
+          className="glass rounded-[18px] p-6 shadow-card"
+          as="div"
+        >
           <div className="flex items-center gap-3">
             <img
               src="/cyberwolf-logo.png"
@@ -56,32 +63,32 @@ export function AboutSection() {
             />
             <p className="text-[15px] font-semibold text-foreground">{COMPANY.displayName}</p>
           </div>
-          <h3 className="mt-6 text-[14px] font-semibold text-foreground">Contact</h3>
+          <h3 className="mt-6 font-mono text-[12px] uppercase tracking-widest text-neon">Contact</h3>
           <ul className="mt-3 space-y-2.5 text-[14px] text-muted">
             <li className="flex items-center gap-2">
-              <MailIcon className="h-4 w-4 shrink-0 text-apple-blue" />
-              <a href={`mailto:${COMPANY.email}`} className="text-apple-blue hover:underline">
+              <Mail className="h-4 w-4 shrink-0 text-neon" aria-hidden="true" />
+              <a href={`mailto:${COMPANY.email}`} className="hover:text-neon hover:underline">
                 {COMPANY.email}
               </a>
             </li>
             {COMPANY.phones.map((phone) => (
               <li key={phone} className="flex items-center gap-2">
-                <PhoneIcon className="h-4 w-4 shrink-0 text-apple-blue" />
-                <a href={`tel:${phone.replace(/\s+/g, "")}`} className="text-apple-blue hover:underline">
+                <Phone className="h-4 w-4 shrink-0 text-neon" aria-hidden="true" />
+                <a href={`tel:${phone.replace(/\s+/g, "")}`} className="hover:text-neon hover:underline">
                   {phone}
                 </a>
               </li>
             ))}
             <li className="flex items-start gap-2">
-              <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-apple-blue" />
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-neon" aria-hidden="true" />
               <span>{COMPANY_ADDRESS_LINE}</span>
             </li>
           </ul>
           <div className="mt-6">
-            <h3 className="text-[14px] font-semibold text-foreground">Follow</h3>
+            <h3 className="font-mono text-[12px] uppercase tracking-widest text-neon">Follow</h3>
             <SocialLinks className="mt-3" />
           </div>
-        </aside>
+        </Reveal>
       </div>
     </Section>
   );

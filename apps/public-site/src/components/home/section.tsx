@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/motion/reveal";
 
 interface SectionProps {
   id?: string;
@@ -12,8 +13,8 @@ interface SectionProps {
 }
 
 /**
- * Section shell with Apple's generous vertical rhythm (88–120px), a 1024px
- * content column, an optional blue eyebrow kicker and a tight display heading.
+ * Section shell: generous vertical rhythm, a 1180px content column, an optional
+ * monospaced neon kicker and a display heading that reveals on scroll.
  */
 export function Section({
   id,
@@ -26,16 +27,22 @@ export function Section({
   children,
 }: SectionProps) {
   const centered = align === "center";
+  const hasHeader = Boolean(eyebrow || title || description);
+
   return (
     <section id={id} className={cn("scroll-mt-24 py-16 md:py-24", className)}>
-      <div className="mx-auto max-w-[1024px] px-6">
-        {(eyebrow || title || description) && (
-          <header className={cn("max-w-2xl", centered && "mx-auto text-center")}>
+      <div className="mx-auto max-w-[1180px] px-6">
+        {hasHeader && (
+          <Reveal
+            as="header"
+            className={cn("max-w-2xl", centered && "mx-auto text-center")}
+            from={centered ? "up" : "right"}
+          >
             {eyebrow && <p className="eyebrow">{eyebrow}</p>}
             {title && (
               <h2
                 id={headingId}
-                className="font-display mt-3 text-[32px] font-semibold leading-[1.1] tracking-tight-apple sm:text-[40px]"
+                className="font-display mt-4 text-[32px] font-semibold leading-[1.08] tracking-tight sm:text-[42px]"
               >
                 {title}
               </h2>
@@ -45,9 +52,9 @@ export function Section({
                 {description}
               </p>
             )}
-          </header>
+          </Reveal>
         )}
-        <div className={cn((eyebrow || title || description) && "mt-12 md:mt-16")}>{children}</div>
+        <div className={cn(hasHeader && "mt-12 md:mt-16")}>{children}</div>
       </div>
     </section>
   );

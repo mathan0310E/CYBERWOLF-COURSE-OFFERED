@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Section } from "@/components/home/section";
+import { Reveal } from "@/components/motion/reveal";
 
 const FAQS = [
   {
@@ -40,7 +42,7 @@ export function FaqSection() {
   return (
     <Section
       id="faq"
-      eyebrow="FAQ"
+      eyebrow="// faq"
       title="Frequently asked questions"
       description="Answers about courses, pricing, registration and privacy."
     >
@@ -48,33 +50,43 @@ export function FaqSection() {
         {FAQS.map((faq, index) => {
           const isOpen = open === index;
           return (
-            <div key={faq.q} className="border-b border-border last:border-b-0">
-              <h3>
-                <button
-                  type="button"
-                  id={`faq-button-${index}`}
-                  aria-expanded={isOpen}
-                  aria-controls={`faq-panel-${index}`}
-                  onClick={() => setOpen(isOpen ? null : index)}
-                  className="flex w-full items-center justify-between gap-4 py-5 text-left"
-                >
-                  <span className="text-[17px] font-medium text-foreground">{faq.q}</span>
-                  <ChevronDown
-                    className={cn("h-4 w-4 shrink-0 text-muted transition-transform", isOpen && "rotate-180")}
-                    aria-hidden="true"
-                  />
-                </button>
-              </h3>
-              <div
-                id={`faq-panel-${index}`}
-                role="region"
-                aria-labelledby={`faq-button-${index}`}
-                hidden={!isOpen}
-                className="pb-5 text-[15px] leading-relaxed text-muted"
-              >
-                {faq.a}
+            <Reveal key={faq.q} delay={index * 0.04} amount={0.1}>
+              <div className="border-b border-border">
+                <h3>
+                  <button
+                    type="button"
+                    id={`faq-button-${index}`}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-panel-${index}`}
+                    onClick={() => setOpen(isOpen ? null : index)}
+                    className="flex w-full items-center justify-between gap-4 py-5 text-left"
+                  >
+                    <span className="text-[17px] font-medium text-foreground">{faq.q}</span>
+                    <ChevronDown
+                      className={cn("h-4 w-4 shrink-0 text-neon transition-transform", isOpen && "rotate-180")}
+                      aria-hidden="true"
+                    />
+                  </button>
+                </h3>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      key="panel"
+                      id={`faq-panel-${index}`}
+                      role="region"
+                      aria-labelledby={`faq-button-${index}`}
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <p className="pb-5 text-[15px] leading-relaxed text-muted">{faq.a}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-            </div>
+            </Reveal>
           );
         })}
       </div>

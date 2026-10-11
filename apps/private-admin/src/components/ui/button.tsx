@@ -8,12 +8,12 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-apple-blue text-white hover:bg-apple-blue-hover",
+        default: "bg-neon text-white hover:bg-neon-hover",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/90",
         outline:
-          "border border-apple-blue bg-transparent text-apple-blue hover:bg-apple-blue/5",
-        ghost: "bg-transparent text-foreground hover:bg-apple-hover",
-        link: "text-apple-blue underline-offset-4 hover:underline",
+          "border border-neon bg-transparent text-neon hover:bg-neon/5",
+        ghost: "bg-transparent text-foreground hover:bg-white/5",
+        link: "text-neon underline-offset-4 hover:underline",
       },
       size: {
         default: "h-9 px-4 py-2",

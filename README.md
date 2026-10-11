@@ -67,25 +67,26 @@ page, and a first-visit cookie banner records the visitor's consent choice.
 
 ## 1a. Design system
 
-The visual language follows the Apple Store (https://www.apple.com/in/store) — a clean,
-content-first light aesthetic:
+The visual language is a futuristic, cyber-styled theme aimed at college students — dark,
+high-contrast and neon-accented, deliberately not a generic "AI-generated" template:
 
-* **Typeface** — the Apple system font stack (`SF Pro Display` for headings, `SF Pro Text`
-  for body) with the standard `-apple-system` / `Helvetica Neue` fallbacks. No third-party
-  font is downloaded, so the strict `font-src 'self'` CSP is unaffected and text renders in
-  the platform's native UI font on every OS.
-* **Palette** — a white surface (`#FFFFFF`) with Apple's `#F5F5F7` alt surface, near-black
-  ink (`#1D1D1F`), grey text (`#86868B`), hairlines (`#D2D2D7`) and Apple blue (`#0071E3`,
-  hover `#0076DF`). Tokens live in each app's `tailwind.config.ts`; the raw values are also
-  exposed under `apple.*`.
-* **Components** — fully rounded (`980px`) pill buttons in Apple blue, white cards with an
-  18px radius and Apple's soft `2px 4px 12px rgba(0,0,0,.08)` shadow, hairline section
-  rules, an uppercase blue "eyebrow" kicker, a `#F5F5F7` stat band, and a slim secondary
-  "store" bar under the 44px translucent global nav (blur + hairline appear on scroll).
-  Reusable helpers (`.eyebrow`, `.hero-glow`, `.blob`, `.hairline`) live in the public
-  site's `src/index.css`.
-* **Motion** — restrained fade/slide reveals via Motion for React, fully disabled under
-  `prefers-reduced-motion` (see the global rule in `src/index.css`).
+* **Typeface** — self-hosted variable fonts: **Space Grotesk** for display headings,
+  **Manrope** for body text and **JetBrains Mono** for code/labels. The latin subsets live in
+  each app's `public/fonts/` and are declared with `@font-face` in `src/index.css`, so they
+  are same-origin and the strict `font-src 'self'` CSP is unaffected (no Google Fonts CDN).
+* **Palette** — dark surfaces (`#05070D` page, `#0B1120` alt, `#0F172A` cards, `#1E293B`
+  hairlines) with neon cyan (`#22D3EE`), violet (`#8B5CF6`) and lime (`#7CF29C`) accents.
+  Tokens live in each app's `tailwind.config.ts`; the email template palette in
+  `functions/src/email/templates.ts` mirrors the same accent hues on a light card for
+  deliverability.
+* **Components** — pill buttons in neon cyan on dark ink, cards with an 18px radius and a
+  soft neon lift shadow, a `#0B1120` stat band, a translucent 64px top bar (blur + neon
+  hairline on scroll), an animated cyber-grid backdrop and radial "aurora" blobs. Reusable
+  helpers (`.eyebrow`, `.glass`, `.grid-bg`, `.aurora`, `.text-gradient`, `.glow-neon`,
+  `.edge-glow`) live in the public site's `src/index.css`.
+* **Motion** — Motion for React (framer-motion) powers scroll reveals, staggered grids,
+  count-up stats, a 3D tilt on course cards and a one-time boot loader; all of it is disabled
+  under `prefers-reduced-motion` (see the global rule in `src/index.css`).
 * **Icons** — general UI icons come from Lucide React. Brand marks (LinkedIn, Instagram,
   WhatsApp) and the contact icons (mail, phone, map-pin, globe) used in the footer and
   About section are taken from Flowbite Icons (https://flowbite.com/icons/, MIT licence)
