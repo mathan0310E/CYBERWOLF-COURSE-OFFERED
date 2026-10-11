@@ -1,7 +1,7 @@
 import type { Course, CourseId } from "@cyberwolf/shared-types";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Check } from "lucide-react";
+import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Badge } from "@/components/ui/badge";
 import { courseIcon } from "@/components/course-icons";
 import { cn } from "@/lib/utils";
 
@@ -25,29 +25,37 @@ export function CourseCard({ course, selected, onToggle, selectable = true, disa
   return (
     <Card
       className={cn(
-        "group relative h-full transition-colors",
-        selectable && "hover:border-accent/40",
-        selected && "border-accent/60 bg-accent/[0.04]",
+        "group relative h-full overflow-hidden transition-all duration-300",
+        selectable && "hover:-translate-y-1 hover:shadow-lift",
+        selected && "border-2 border-brand-green shadow-lift",
       )}
     >
-      <CardHeader>
-        <div className="flex items-start justify-between gap-3">
-          <span
-            className={cn(
-              "flex h-11 w-11 items-center justify-center rounded-md border",
-              selected ? "border-accent/50 bg-accent/10" : "border-border bg-background-secondary",
-            )}
-          >
-            <Icon className={cn("h-5 w-5", selected ? "text-accent" : "text-muted")} aria-hidden="true" />
+      <div className="relative h-28 bg-gradient-to-br from-brand-green-dark via-brand-green to-[#22C55E]">
+        <div
+          className="absolute inset-0 opacity-20"
+          aria-hidden="true"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='2' cy='2' r='1.4' fill='white' fill-opacity='0.35'/%3E%3C/svg%3E\")",
+          }}
+        />
+        <span className="absolute -bottom-6 left-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-border bg-card text-brand-green shadow-soft">
+          <Icon className="h-6 w-6" aria-hidden="true" />
+        </span>
+        {selected && (
+          <span className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-semibold text-brand-green-dark shadow-soft">
+            <Check className="h-3.5 w-3.5" strokeWidth={3} aria-hidden="true" />
+            Selected
           </span>
-          {selected && <Badge>Selected</Badge>}
-        </div>
-        <CardTitle className="mt-4">{course.name}</CardTitle>
-        <CardDescription>{course.description}</CardDescription>
-      </CardHeader>
-      {selectable && (
-        <CardContent>
-          <div className="flex items-center gap-2.5">
+        )}
+      </div>
+
+      <div className="p-6 pt-10">
+        <h3 className="font-display text-lg font-bold">{course.name}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted">{course.description}</p>
+
+        {selectable && (
+          <div className="mt-5 flex items-center gap-2.5">
             <Checkbox
               id={inputId}
               checked={selected}
@@ -55,15 +63,17 @@ export function CourseCard({ course, selected, onToggle, selectable = true, disa
               onCheckedChange={() => onToggle(course.id)}
               aria-describedby={`${inputId}-hint`}
             />
-            <label htmlFor={inputId} className="cursor-pointer text-sm text-muted select-none">
+            <label htmlFor={inputId} className="cursor-pointer select-none text-sm font-medium text-foreground">
               {selected ? "Selected" : "Select this course"}
             </label>
           </div>
+        )}
+        {selectable && (
           <p id={`${inputId}-hint`} className="sr-only">
             Toggle selection of {course.name}.
           </p>
-        </CardContent>
-      )}
+        )}
+      </div>
     </Card>
   );
 }

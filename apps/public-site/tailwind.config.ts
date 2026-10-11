@@ -1,13 +1,13 @@
 import type { Config } from "tailwindcss";
 
 /**
- * CyberWolf 360 design system.
+ * CyberWolf 360 public-site design system.
  *
- * Palette mirrored from the A2Z Academy site (https://www.a2zacademy.co.in/):
- * a white/light surface scale, the brand green (#71BF43, hover #5FA536, soft
- * #EAF6E1), the brand navy (#1A335A, deep #0F2340) and near-black ink (#1A1A1A)
- * / body text (#333). Typography uses the Zoho Puvi typeface. Spacing derives
- * from Tailwind's default 4px-based rem scale.
+ * Palette and component language mirror the Hopewell reference theme
+ * (https://preview.themewagon.com/hopewell/): a soft light surface (#F8FAFC /
+ * #FFFFFF), a green primary (#16A34A, dark #0F7A37, light #DCFCE7), an amber
+ * secondary (#F59E0B / #FEF3C7) and a red accent (#EF4444). Display type is
+ * Poppins; body type is Nunito Sans. Spacing follows Tailwind's 4px rem scale.
  */
 export default {
   darkMode: ["class"],
@@ -20,79 +20,68 @@ export default {
     },
     extend: {
       colors: {
-        background: "#FFFFFF",
-        "background-secondary": "#F7F7F7",
+        background: "#F8FAFC",
+        "background-secondary": "#F1F5F9",
         card: "#FFFFFF",
-        border: "#E5E7EB",
-        input: "#E5E7EB",
-        ring: "#71BF43",
-        foreground: "#1A1A1A",
-        muted: "#666666",
-        "muted-foreground": "#666666",
+        border: "#E2E8F0",
+        input: "#E2E8F0",
+        ring: "#16A34A",
+        foreground: "#0F172A",
+        muted: "#5B6B7C",
+        "muted-foreground": "#5B6B7C",
         accent: {
-          DEFAULT: "#71BF43", // brand green (primary)
-          secondary: "#1A335A", // brand navy (secondary)
+          DEFAULT: "#16A34A", // brand green (primary)
+          secondary: "#F59E0B", // amber (secondary)
         },
         primary: {
-          DEFAULT: "#71BF43",
-          foreground: "#1A1A1A",
+          DEFAULT: "#16A34A",
+          foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#1A335A",
-          foreground: "#FFFFFF",
+          DEFAULT: "#F59E0B",
+          foreground: "#0F172A",
         },
         destructive: {
-          DEFAULT: "#D92D20",
+          DEFAULT: "#EF4444",
           foreground: "#FFFFFF",
         },
-        // A2Z brand tokens, exposed for direct use.
+        // Hopewell brand tokens, exposed for direct use.
         brand: {
-          green: "#71BF43",
-          "green-hover": "#5FA536",
-          "green-soft": "#EAF6E1",
-          navy: "#1A335A",
-          "navy-deep": "#0F2340",
-          "navy-soft": "#8FA8CE",
-          surface: "#F7F7F7",
-          ink: "#1A1A1A",
-          white: "#FFFFFF",
+          green: "#16A34A",
+          "green-dark": "#0F7A37",
+          "green-light": "#DCFCE7",
+          amber: "#F59E0B",
+          "amber-light": "#FEF3C7",
+          red: "#EF4444",
+          surface: "#FFFFFF",
+          bg: "#F8FAFC",
+          ink: "#0F172A",
         },
       },
       fontFamily: {
-        sans: [
-          "Zoho Puvi",
-          "Inter",
-          "system-ui",
-          "-apple-system",
-          "Segoe UI",
-          "Roboto",
-          "Helvetica Neue",
-          "Arial",
-          "sans-serif",
-        ],
+        sans: ["Nunito Sans", "Inter", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+        display: ["Poppins", "Nunito Sans", "Inter", "system-ui", "sans-serif"],
         mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "calc(var(--radius) - 4px)",
+        sm: "calc(var(--radius) - 8px)",
+        pill: "999px",
       },
       boxShadow: {
-        focus: "0 0 0 2px #FFFFFF, 0 0 0 4px #71BF43",
-        card: "0 1px 2px rgba(16,24,40,0.04), 0 8px 24px -12px rgba(16,24,40,0.12)",
+        focus: "0 0 0 2px #FFFFFF, 0 0 0 4px #16A34A",
+        soft: "0 10px 30px -10px rgba(15, 23, 42, 0.12)",
+        lift: "0 20px 45px -12px rgba(22, 163, 74, 0.35)",
+        card: "0 10px 30px -10px rgba(15, 23, 42, 0.12)",
       },
       keyframes: {
-        "fade-in": {
-          from: { opacity: "0" },
-          to: { opacity: "1" },
-        },
+        "fade-in": { from: { opacity: "0" }, to: { opacity: "1" } },
         "slide-up": {
           from: { opacity: "0", transform: "translateY(8px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
-        shimmer: {
-          "100%": { transform: "translateX(100%)" },
-        },
+        shimmer: { "100%": { transform: "translateX(100%)" } },
       },
       animation: {
         "fade-in": "fade-in 240ms ease-out",

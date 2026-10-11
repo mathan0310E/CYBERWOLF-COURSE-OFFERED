@@ -8,7 +8,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type,
     type={type}
     ref={ref}
     className={cn(
-      "flex h-11 w-full rounded-md border border-input bg-background-secondary px-3 py-2 text-sm text-foreground",
+      "flex h-11 w-full rounded-md border border-input bg-card px-3 py-2 text-sm text-foreground",
       "placeholder:text-muted/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
       "focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-60",
       "aria-[invalid=true]:border-destructive aria-[invalid=true]:ring-destructive/40",
@@ -24,7 +24,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, React.TextareaHTMLAttribu
     <textarea
       ref={ref}
       className={cn(
-        "flex min-h-[100px] w-full rounded-md border border-input bg-background-secondary px-3 py-2 text-sm text-foreground",
+        "flex min-h-[100px] w-full rounded-md border border-input bg-card px-3 py-2 text-sm text-foreground",
         "placeholder:text-muted/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
         "focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-60",
         "aria-[invalid=true]:border-destructive aria-[invalid=true]:ring-destructive/40",
@@ -42,7 +42,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({ className, ..
   <select
     ref={ref}
     className={cn(
-      "flex h-11 w-full rounded-md border border-input bg-background-secondary px-3 py-2 text-sm text-foreground",
+      "flex h-11 w-full rounded-md border border-input bg-card px-3 py-2 text-sm text-foreground",
       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
       "focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-60",
       "aria-[invalid=true]:border-destructive aria-[invalid=true]:ring-destructive/40",

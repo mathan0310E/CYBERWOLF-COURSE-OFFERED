@@ -8,12 +8,12 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-accent text-primary-foreground hover:bg-brand-green-hover",
+        default: "bg-gradient-to-br from-brand-green to-brand-green-dark text-white shadow-soft hover:shadow-lift",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/90",
         outline:
-          "border-2 border-brand-green bg-transparent text-foreground hover:bg-brand-green/10",
+          "border-2 border-brand-green bg-transparent text-brand-green-dark hover:bg-brand-green-light",
         ghost: "bg-transparent text-foreground hover:bg-background-secondary",
-        link: "text-accent underline-offset-4 hover:underline",
+        link: "text-brand-green-dark underline-offset-4 hover:underline",
       },
       size: {
         default: "h-11 px-6 py-2",

@@ -67,19 +67,25 @@ page, and a first-visit cookie banner records the visitor's consent choice.
 
 ## 1a. Design system
 
-The visual language is derived from A2Z Academy (https://www.a2zacademy.co.in/):
+The visual language follows the Hopewell theme
+(https://preview.themewagon.com/hopewell/) — a soft light SaaS/NGO aesthetic:
 
-* **Typeface** — Zoho Puvi, self-hosted from `apps/*/public/fonts/` (weights 400 / 600 /
-  700–900) and preloaded in each `index.html`. Self-hosting keeps the strict
-  `font-src 'self'` CSP and avoids a third-party font request; `Inter` remains the fallback.
-* **Palette** — a white/light surface scale (`#FFFFFF` background and card, `#F7F7F7`
-  secondary, `#E5E7EB` border) with near-black ink text (`#1A1A1A` foreground, `#666666`
-  muted) — the same white / green / black / navy scheme as A2Z Academy. The **primary**
-  brand green is `#71BF43` (hover `#5FA536`, soft tint `#EAF6E1`); the **secondary** brand
-  navy is `#1A335A` (deep `#0F2340`, soft `#8FA8CE`). Tokens live in each app's
-  `tailwind.config.ts`.
-* **Buttons** — pill-shaped (`rounded-full`), bold, brand-green primary with a `#5FA536`
-  hover and a 2px green outline variant (`components/ui/button.tsx`).
+* **Typeface** — **Poppins** for display and headings, **Nunito Sans** for body copy,
+  self-hosted from `apps/*/public/fonts/` and preloaded in each `index.html`.
+  Self-hosting keeps the strict `font-src 'self'` CSP and avoids a third-party font
+  request.
+* **Palette** — a light surface scale (`#F8FAFC` page background, `#FFFFFF` cards,
+  `#E2E8F0` borders) with slate ink text (`#0F172A` foreground, `#5B6B7C` muted). The
+  **primary** brand colour is green `#16A34A` (dark `#0F7A37`, soft tint `#DCFCE7`); the
+  **secondary** is amber `#F59E0B` (soft `#FEF3C7`); the **accent** is red `#EF4444`.
+  Tokens live in each app's `tailwind.config.ts` and are shared by both apps.
+* **Components** — pill buttons with a green gradient primary, soft-shadow cards with a
+  20–24px radius, an uppercase green "eyebrow" pill above section titles, a green gradient
+  stat band, an animated gradient CTA banner and a dark (`#0B1220`) footer. Reusable
+  helpers (`.eyebrow`, `.hero-glow`, `.blob`, `.stats-band`, `.cta-banner`) live in each
+  app's `src/index.css`.
+* **Motion** — restrained fade/slide reveals via Motion for React, fully disabled under
+  `prefers-reduced-motion` (see the global rule in `src/index.css`).
 * **Icons** — general UI icons come from Lucide React. Brand marks (LinkedIn, Instagram,
   WhatsApp) and the contact icons (mail, phone, map-pin, globe) used in the footer and
   About section are taken from Flowbite Icons (https://flowbite.com/icons/, MIT licence)

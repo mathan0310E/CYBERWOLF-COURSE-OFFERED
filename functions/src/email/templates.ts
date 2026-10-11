@@ -35,13 +35,13 @@ export interface TemplateData {
 }
 
 const BRAND = {
-  bg: "#F7F7F7",
+  bg: "#F8FAFC",
   card: "#FFFFFF",
-  accent: "#71BF43",
-  accent2: "#1A335A",
-  text: "#1A1A1A",
-  muted: "#666666",
-  border: "#E5E7EB",
+  accent: "#16A34A",
+  accent2: "#0F7A37",
+  text: "#0F172A",
+  muted: "#5B6B7C",
+  border: "#E2E8F0",
 };
 
 /** Verified company contact line appended to plain-text messages. */

@@ -2,33 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Zoho Puvi — self-hosted (the typeface used by A2Z Academy). Self-hosting
-   keeps the strict font-src 'self' CSP and avoids a third-party font request. */
+/* Self-hosted typefaces shared with the public site: Poppins for display,
+   Nunito Sans for body. Self-hosting keeps the strict `font-src 'self'` CSP. */
 @font-face {
-  font-family: "Zoho Puvi";
-  src: url("/fonts/ZohoPuvi-Regular.woff2") format("woff2");
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Zoho Puvi";
-  src: url("/fonts/ZohoPuvi-Semibold.woff2") format("woff2");
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-Semibold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Zoho Puvi";
-  src: url("/fonts/ZohoPuvi-Bold.woff2") format("woff2");
-  font-weight: 700 900;
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Nunito Sans";
+  src: url("/fonts/NunitoSans-Variable.woff2") format("woff2");
+  font-weight: 400 800;
   font-style: normal;
   font-display: swap;
 }
 
 @layer base {
   :root {
-    --radius: 0.625rem;
+    --radius: 0.875rem;
   }
 
   * {
@@ -41,7 +62,16 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-family: "Nunito Sans", "Inter", system-ui, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Poppins", "Inter", system-ui, sans-serif;
   }
 
   /* Visible, high-contrast keyboard focus for every interactive element. */
@@ -66,15 +96,7 @@
 }
 
 @layer utilities {
-  .grid-glow {
-    background-image: radial-gradient(
-      62% 55% at 50% 0%,
-      rgba(113, 191, 67, 0.14) 0%,
-      rgba(26, 51, 90, 0.06) 45%,
-      transparent 72%
-    );
-  }
-  .text-glow {
-    text-shadow: 0 1px 16px rgba(113, 191, 67, 0.22);
+  .font-display {
+    font-family: "Poppins", "Inter", system-ui, sans-serif;
   }
 }

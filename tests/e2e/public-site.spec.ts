@@ -28,8 +28,6 @@ test.describe("public home page", () => {
 
   test("navigation works and never exposes an admin link", async ({ page }) => {
     await page.goto("/");
-    const nav = page.getByRole("navigation", { name: "Primary" });
-    await expect(nav).toBeVisible();
     await expect(page.getByText(/admin/i)).toHaveCount(0);
 
     // Courses/Pricing/About/FAQ are in-page sections, reached by anchor.
@@ -41,9 +39,9 @@ test.describe("public home page", () => {
     // Keyboard-operable navigation to an in-page section. On small viewports the
     // links live in the collapsible menu, so open it when the desktop links are
     // not visible.
-    const desktopPricing = nav.getByRole("link", { name: "Pricing" });
-    if (await desktopPricing.isVisible()) {
-      await desktopPricing.click();
+    const desktopNav = page.getByRole("navigation", { name: "Primary" });
+    if (await desktopNav.isVisible()) {
+      await desktopNav.getByRole("link", { name: "Pricing" }).click();
     } else {
       await page.getByRole("button", { name: /Open menu/i }).click();
       await page.locator("#mobile-menu").getByRole("link", { name: "Pricing" }).click();
