@@ -14,14 +14,14 @@ const REASONS = [
     icon: Code2,
     title: "Practical focus",
     body: "Explore concepts you can apply to real projects and everyday workflows.",
-    accent: "text-violet",
-    ring: "glow-violet",
+    accent: "text-emerald",
+    ring: "glow-emerald",
   },
   {
     icon: Sparkles,
     title: "Modern topics",
     body: "Cover cybersecurity, ethical hacking, and AI & web development.",
-    accent: "text-lime",
+    accent: "text-mint",
     ring: "glow-neon",
   },
   {
@@ -29,7 +29,7 @@ const REASONS = [
     title: "Honest descriptions",
     body: "We publish general, truthful course copy — no invented syllabi or promises.",
     accent: "text-neon",
-    ring: "glow-violet",
+    ring: "glow-emerald",
   },
 ];
 

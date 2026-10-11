@@ -18,8 +18,8 @@ export function CoursesSection() {
       <RevealGroup className="grid gap-5 md:grid-cols-3">
         {COURSES.map((course, i) => {
           const Icon = courseIcon(course);
-          const accent = i === 0 ? "text-neon" : i === 1 ? "text-violet" : "text-lime";
-          const ring = i === 0 ? "glow-neon" : i === 1 ? "glow-violet" : "glow-neon";
+          const accent = i === 0 ? "text-neon" : i === 1 ? "text-emerald" : "text-mint";
+          const ring = i === 0 ? "glow-neon" : i === 1 ? "glow-emerald" : "glow-neon";
           return (
             <RevealItem key={course.id} as="div">
               <TiltCard className="h-full">
@@ -28,7 +28,7 @@ export function CoursesSection() {
                   className="group flex h-full flex-col overflow-hidden rounded-[18px] border border-border bg-card shadow-card transition-all duration-300 hover:border-neon/50 hover:shadow-lift"
                 >
                   <div className="grid-bg relative flex h-36 items-center justify-center border-b border-border/70">
-                    <span className="absolute inset-0 bg-gradient-to-br from-neon/5 via-transparent to-violet/10" />
+                    <span className="absolute inset-0 bg-gradient-to-br from-neon/5 via-transparent to-emerald/10" />
                     <span
                       className={`relative flex h-14 w-14 items-center justify-center rounded-[16px] bg-background/80 ${ring} ${accent}`}
                     >

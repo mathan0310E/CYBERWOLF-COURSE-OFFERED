@@ -66,7 +66,7 @@ export function BootLoader() {
           <div className="grid-bg absolute inset-0 opacity-[0.35]" aria-hidden="true" />
           <div className="aurora left-[10%] top-[15%] h-72 w-72 bg-neon/25" aria-hidden="true" />
           <div
-            className="aurora bottom-[10%] right-[8%] h-80 w-80 bg-violet/25"
+            className="aurora bottom-[10%] right-[8%] h-80 w-80 bg-emerald/25"
             style={{ animationDelay: "1.2s" }}
             aria-hidden="true"
           />
@@ -90,7 +90,7 @@ export function BootLoader() {
 
             <div className="mt-6 h-1 w-56 overflow-hidden rounded-pill bg-white/10">
               <div
-                className="h-full rounded-pill bg-gradient-to-r from-neon to-violet transition-[width] duration-150 ease-out"
+                className="h-full rounded-pill bg-gradient-to-r from-neon to-emerald transition-[width] duration-150 ease-out"
                 style={{ width: `${progress}%` }}
               />
             </div>

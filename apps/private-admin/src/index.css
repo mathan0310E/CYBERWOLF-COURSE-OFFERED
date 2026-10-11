@@ -5,7 +5,7 @@
 /* ============================================================================
    CyberWolf 360 — private admin design system
    Shares the futuristic "cyber" tokens with the public site (dark surfaces,
-   neon cyan/violet accents, self-hosted Space Grotesk / Manrope / JetBrains
+   matrix-green/emerald accents, self-hosted Space Grotesk / Manrope / JetBrains
    Mono) but is a separate build with its own content paths.
    ========================================================================== */
 
@@ -37,15 +37,15 @@
   :root {
     --radius: 0.75rem; /* 12px cards for the denser admin UI */
 
-    --bg: 5 7 13;
-    --surface: 11 17 32;
-    --card: 15 23 42;
-    --line: 30 41 59;
-    --fg: 230 237 247;
-    --muted: 138 148 166;
-    --neon: 34 211 238;
-    --violet: 139 92 246;
-    --lime: 124 242 156;
+    --bg: 4 10 6;
+    --surface: 7 19 12;
+    --card: 11 31 20;
+    --line: 22 53 42;
+    --fg: 231 245 236;
+    --muted: 143 167 154;
+    --neon: 57 255 20;
+    --emerald: 16 185 129;
+    --mint: 94 234 212;
   }
 
   * {
@@ -118,7 +118,7 @@
   }
 
   .text-gradient {
-    background: linear-gradient(100deg, #22d3ee 0%, #8b5cf6 55%, #7cf29c 100%);
+    background: linear-gradient(100deg, #39ff14 0%, #10b981 55%, #5eead4 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;

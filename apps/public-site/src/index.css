@@ -4,7 +4,7 @@
 
 /* ============================================================================
    CyberWolf 360 — futuristic design system (public site)
-   Dark "cyber" surfaces, neon cyan/violet accents, self-hosted variable fonts.
+   Dark "cyber" surfaces, matrix-green/emerald accents, self-hosted variable fonts.
    Fonts are served from /fonts (same origin) so the strict `font-src 'self'`
    CSP is unaffected.
    ========================================================================== */
@@ -40,15 +40,15 @@
   :root {
     --radius: 1rem;
 
-    --bg: 5 7 13; /* #05070D */
-    --surface: 11 17 32; /* #0B1120 */
-    --card: 15 23 42; /* #0F172A */
-    --line: 30 41 59; /* #1E293B */
-    --fg: 230 237 247; /* #E6EDF7 */
-    --muted: 138 148 166; /* #8A94A6 */
-    --neon: 34 211 238; /* #22D3EE */
-    --violet: 139 92 246; /* #8B5CF6 */
-    --lime: 124 242 156; /* #7CF29C */
+    --bg: 4 10 6; /* #040A06 */
+    --surface: 7 19 12; /* #07130C */
+    --card: 11 31 20; /* #0B1F14 */
+    --line: 22 53 42; /* #16352A */
+    --fg: 231 245 236; /* #E7F5EC */
+    --muted: 143 167 154; /* #8FA79A */
+    --neon: 57 255 20; /* #39FF14 */
+    --emerald: 16 185 129; /* #10B981 */
+    --mint: 94 234 212; /* #5EEAD4 */
   }
 
   * {
@@ -214,7 +214,7 @@
 
   /* Neon gradient text for hero headings. */
   .text-gradient {
-    background: linear-gradient(100deg, #22d3ee 0%, #8b5cf6 55%, #7cf29c 100%);
+    background: linear-gradient(100deg, #39ff14 0%, #10b981 55%, #5eead4 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -260,10 +260,10 @@
       0 0 24px -4px rgb(var(--neon) / 0.45);
   }
 
-  .glow-violet {
+  .glow-emerald {
     box-shadow:
-      0 0 0 1px rgb(var(--violet) / 0.35),
-      0 0 28px -6px rgb(var(--violet) / 0.5);
+      0 0 0 1px rgb(var(--emerald) / 0.35),
+      0 0 28px -6px rgb(var(--emerald) / 0.5);
   }
 
   /* Animated hairline that sweeps along a card edge. */

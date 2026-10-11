@@ -60,7 +60,7 @@ export function HomePage() {
         <div className="grid-bg grid-drift absolute inset-0 opacity-[0.35]" aria-hidden="true" />
         <div className="aurora -left-24 -top-24 h-[26rem] w-[26rem] bg-neon/25" aria-hidden="true" />
         <div
-          className="aurora -right-24 top-10 h-[24rem] w-[24rem] bg-violet/25"
+          className="aurora -right-24 top-10 h-[24rem] w-[24rem] bg-emerald/25"
           style={{ animationDelay: "2s" }}
           aria-hidden="true"
         />
@@ -94,7 +94,7 @@ export function HomePage() {
             <motion.div {...enter(0.2)} className="mt-8 flex flex-wrap items-center gap-4">
               <a
                 href="#courses"
-                className="glow-neon inline-flex items-center gap-2 rounded-pill bg-neon px-6 py-3 text-[16px] font-medium text-[#04121A] transition-transform hover:scale-[1.03]"
+                className="glow-neon inline-flex items-center gap-2 rounded-pill bg-neon px-6 py-3 text-[16px] font-medium text-[#04140A] transition-transform hover:scale-[1.03]"
               >
                 Explore Courses
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -131,7 +131,7 @@ export function HomePage() {
                 </span>
                 <span className="text-[15px] text-muted line-through">{formatINR(ORIGINAL_PRICE_PER_COURSE)}</span>
               </p>
-              <p className="mt-2 font-mono text-[13px] text-lime">
+              <p className="mt-2 font-mono text-[13px] text-mint">
                 save {formatINR(SINGLE_SAVING)} per course
               </p>
 
@@ -146,7 +146,7 @@ export function HomePage() {
 
               <Link
                 to="/enroll"
-                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-pill bg-neon px-6 py-2.5 text-[15px] font-medium text-[#04121A] transition-colors hover:bg-neon/90"
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-pill bg-neon px-6 py-2.5 text-[15px] font-medium text-[#04140A] transition-colors hover:bg-neon/90"
               >
                 Enroll Now
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -167,13 +167,13 @@ export function HomePage() {
                 <span className="flex items-center gap-2">
                   single course {formatINR(SINGLE_COURSE_OFFER_PRICE)}
                 </span>
-                <span className="text-violet">◆</span>
+                <span className="text-emerald">◆</span>
                 <span className="flex items-center gap-2">bundle from {formatINR(12500)}</span>
                 <span className="text-neon">◆</span>
                 <span className="flex items-center gap-2">
                   <CountUp to={100} suffix="%" /> student focus
                 </span>
-                <span className="text-violet">◆</span>
+                <span className="text-emerald">◆</span>
               </span>
             ))}
           </div>

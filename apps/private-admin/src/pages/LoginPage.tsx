@@ -39,7 +39,7 @@ export function LoginPage() {
     <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-background p-4">
       <div className="grid-bg absolute inset-0 opacity-[0.25]" aria-hidden="true" />
       <div className="aurora -left-20 top-0 h-80 w-80 bg-neon/20" aria-hidden="true" />
-      <div className="aurora bottom-0 right-0 h-80 w-80 bg-violet/20" aria-hidden="true" />
+      <div className="aurora bottom-0 right-0 h-80 w-80 bg-emerald/20" aria-hidden="true" />
       <Card className="glass relative w-full max-w-md">
         <CardHeader className="items-center text-center">
           <img

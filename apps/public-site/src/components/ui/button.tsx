@@ -8,8 +8,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-neon text-[#04121A] hover:bg-neon/90 hover:shadow-glow",
-        secondary: "bg-violet text-white hover:bg-violet/90",
+        default: "bg-neon text-[#04140A] hover:bg-neon/90 hover:shadow-glow",
+        secondary: "bg-emerald text-white hover:bg-emerald/90",
         outline: "border border-neon/60 bg-transparent text-neon hover:bg-neon/10",
         ghost: "bg-transparent text-foreground hover:bg-white/5",
         link: "text-neon underline-offset-4 hover:underline",

@@ -55,7 +55,7 @@ export function Layout() {
     <div className="flex min-h-screen flex-col bg-background">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[60] focus:rounded-pill focus:bg-neon focus:px-4 focus:py-2 focus:text-sm focus:text-[#04121A]"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[60] focus:rounded-pill focus:bg-neon focus:px-4 focus:py-2 focus:text-sm focus:text-[#04140A]"
       >
         Skip to content
       </a>
@@ -76,7 +76,7 @@ export function Layout() {
             <div className="flex items-center gap-3">
               <Link
                 to="/enroll"
-                className="glow-neon hidden rounded-pill bg-neon px-4 py-2 text-[14px] font-medium text-[#04121A] transition-transform hover:scale-[1.04] sm:inline-block"
+                className="glow-neon hidden rounded-pill bg-neon px-4 py-2 text-[14px] font-medium text-[#04140A] transition-transform hover:scale-[1.04] sm:inline-block"
               >
                 Enroll Now
               </Link>
@@ -113,7 +113,7 @@ export function Layout() {
                 <Link
                   to="/enroll"
                   onClick={() => setOpen(false)}
-                  className="block rounded-pill bg-neon px-4 py-2.5 text-center text-[15px] font-medium text-[#04121A]"
+                  className="block rounded-pill bg-neon px-4 py-2.5 text-center text-[15px] font-medium text-[#04140A]"
                 >
                   Enroll Now
                 </Link>

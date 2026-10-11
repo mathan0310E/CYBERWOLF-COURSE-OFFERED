@@ -49,7 +49,7 @@ function Plan({ title, badge, price, original, saving, features, cta, featured }
         <span
           className={cn(
             "absolute -top-3 left-8 rounded-pill px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wider",
-            featured ? "bg-neon text-[#04121A]" : "bg-violet text-white",
+            featured ? "bg-neon text-[#04140A]" : "bg-emerald text-white",
           )}
         >
           {badge}
@@ -62,7 +62,7 @@ function Plan({ title, badge, price, original, saving, features, cta, featured }
         </span>
         <span className="text-[15px] text-muted line-through">{formatINR(original)}</span>
       </p>
-      <p className="mt-2 font-mono text-[13px] text-lime">you save {formatINR(saving)}</p>
+      <p className="mt-2 font-mono text-[13px] text-mint">you save {formatINR(saving)}</p>
       <ul className="mt-6 flex-1 space-y-3 text-[15px] text-muted">
         {features.map((line) => (
           <li key={line} className="flex items-start gap-2.5">
@@ -76,7 +76,7 @@ function Plan({ title, badge, price, original, saving, features, cta, featured }
         className={cn(
           "mt-8 inline-flex w-full items-center justify-center rounded-pill px-6 py-2.5 text-[15px] transition-colors",
           featured
-            ? "bg-neon text-[#04121A] hover:bg-neon/90"
+            ? "bg-neon text-[#04140A] hover:bg-neon/90"
             : "border border-neon/60 text-neon hover:bg-neon/10",
         )}
       >

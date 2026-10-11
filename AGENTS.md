@@ -56,14 +56,14 @@ Java is NOT installable in this sandbox.
   canonical, used by every page) plus static `public/robots.txt` and `public/sitemap.xml`.
   The admin app is `noindex,nofollow` and must stay out of the sitemap.
 - Design language is a futuristic "cyber" theme aimed at college students: dark surfaces
-  (`#05070D` page, `#0B1120` alt, `#0F172A` cards, `#1E293B` hairlines) with neon cyan
-  `#22D3EE`, violet `#8B5CF6` and lime `#7CF29C` accents. Type is self-hosted Space Grotesk
+  (`#040A06` page, `#07130C` alt, `#0B1F14` cards, `#16352A` hairlines) with matrix-green
+  `#39FF14`, emerald `#10B981` and mint `#5EEAD4` accents. Type is self-hosted Space Grotesk
   (display) + Manrope (body) + JetBrains Mono (code) served from `public/fonts/` (latin
   subsets only) — still same-origin, so `font-src 'self'` stays strict (no Google Fonts CDN).
   Tokens are duplicated per app in `apps/*/tailwind.config.ts` and mirrored in the email
   template palette in `functions/src/email/templates.ts`; keep all in sync. Public chrome =
   a 64px translucent top bar (blur + neon hairline on scroll) with a single Enroll CTA and a
-  `#0B1120` directory footer. The old "CyberWolf 360 Store" sub-bar and its
+  `#07130C` directory footer. The old "CyberWolf 360 Store" sub-bar and its
   Courses/Pricing/About/FAQ links were removed — those are in-page sections now.
 - Public motion primitives live in `apps/public-site/src/components/motion/`
   (`Reveal`/`RevealGroup`/`RevealItem`, `CountUp`, `TiltCard`) and FX in

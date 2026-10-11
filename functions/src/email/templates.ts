@@ -37,8 +37,8 @@ export interface TemplateData {
 const BRAND = {
   bg: "#F5F7FA",
   card: "#FFFFFF",
-  accent: "#0E7490",
-  accent2: "#6D28D9",
+  accent: "#047857",
+  accent2: "#0F766E",
   text: "#0F172A",
   muted: "#5B6577",
   border: "#E2E8F0",

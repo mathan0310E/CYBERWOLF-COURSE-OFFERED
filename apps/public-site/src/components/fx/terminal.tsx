@@ -63,20 +63,20 @@ export function Terminal({ lines, className, title = "cyberwolf@360: ~" }: Termi
       </div>
       <div className="space-y-1.5 p-4 font-mono text-[13px] leading-relaxed">
         {shown.map((text, i) => (
-          <p key={i} className="text-lime">
+          <p key={i} className="text-mint">
             {lines[i]?.prompt && <span className="text-neon">$ </span>}
             {text}
           </p>
         ))}
         {!done && (
-          <p className="text-lime">
+          <p className="text-mint">
             {lines[shown.length]?.prompt && <span className="text-neon">$ </span>}
             {current}
             <span className="ml-0.5 inline-block h-3.5 w-[7px] translate-y-0.5 animate-blink bg-neon" />
           </p>
         )}
         {done && (
-          <p className="text-lime">
+          <p className="text-mint">
             <span className="text-neon">$ </span>
             <span className="ml-0.5 inline-block h-3.5 w-[7px] translate-y-0.5 animate-blink bg-neon" />
           </p>

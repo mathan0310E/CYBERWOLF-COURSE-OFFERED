@@ -35,7 +35,7 @@ export function CourseCard({ course, selected, onToggle, selectable = true, disa
           <Icon className="h-6 w-6" aria-hidden="true" />
         </span>
         {selected && (
-          <span className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-pill bg-neon px-3 py-1 text-xs font-semibold text-[#04121A]">
+          <span className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-pill bg-neon px-3 py-1 text-xs font-semibold text-[#04140A]">
             <Check className="h-3.5 w-3.5" strokeWidth={3} aria-hidden="true" />
             Selected
           </span>

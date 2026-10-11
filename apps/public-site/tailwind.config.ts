@@ -1,12 +1,13 @@
 import type { Config } from "tailwindcss";
 
 /**
- * CyberWolf 360 public-site design system — futuristic "cyber" theme.
+ * CyberWolf 360 public-site design system — "matrix" cyber-green theme.
  *
- * Dark surfaces (#05070D page, #0B1120 alt, #0F172A cards, #1E293B lines) with
- * neon cyan (#22D3EE), violet (#8B5CF6) and lime (#7CF29C) accents, aimed at a
- * college/student audience. Type is Space Grotesk (display) + Manrope (body) +
- * JetBrains Mono (code), self-hosted from /fonts.
+ * Deep near-black surfaces (#040A06 page, #07130C alt, #0B1F14 cards, #16352A
+ * lines) with a matrix-green primary (#39FF14), emerald secondary (#10B981) and
+ * mint highlight (#5EEAD4), aimed at a college/student audience. Type is Space
+ * Grotesk (display) + Manrope (body) + JetBrains Mono (code), self-hosted from
+ * /fonts.
  */
 export default {
   darkMode: ["class"],
@@ -19,23 +20,23 @@ export default {
     },
     extend: {
       colors: {
-        background: "#05070D",
-        "background-secondary": "#0B1120",
-        card: "#0F172A",
-        border: "#1E293B",
-        input: "#1E293B",
-        ring: "#22D3EE",
-        foreground: "#E6EDF7",
-        muted: "#8A94A6",
-        "muted-foreground": "#8A94A6",
-        accent: { DEFAULT: "#22D3EE", secondary: "#8B5CF6" },
-        primary: { DEFAULT: "#22D3EE", foreground: "#04121A" },
-        secondary: { DEFAULT: "#8B5CF6", foreground: "#FFFFFF" },
+        background: "#040A06",
+        "background-secondary": "#07130C",
+        card: "#0B1F14",
+        border: "#16352A",
+        input: "#16352A",
+        ring: "#39FF14",
+        foreground: "#E7F5EC",
+        muted: "#8FA79A",
+        "muted-foreground": "#8FA79A",
+        accent: { DEFAULT: "#39FF14", secondary: "#10B981" },
+        primary: { DEFAULT: "#39FF14", foreground: "#04140A" },
+        secondary: { DEFAULT: "#10B981", foreground: "#04140A" },
         destructive: { DEFAULT: "#F43F5E", foreground: "#FFFFFF" },
-        neon: "#22D3EE",
-        violet: "#8B5CF6",
-        lime: "#7CF29C",
-        ink: "#E6EDF7",
+        neon: "#39FF14",
+        emerald: "#10B981",
+        mint: "#5EEAD4",
+        ink: "#E7F5EC",
       },
       fontFamily: {
         sans: ["Manrope", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
@@ -49,12 +50,12 @@ export default {
         pill: "980px",
       },
       boxShadow: {
-        focus: "0 0 0 4px rgba(34, 211, 238, 0.4)",
+        focus: "0 0 0 4px rgba(57, 255, 20, 0.4)",
         card: "0 1px 0 0 rgba(255,255,255,0.03) inset, 0 12px 32px -18px rgba(0,0,0,0.9)",
-        lift: "0 24px 60px -28px rgba(34, 211, 238, 0.45)",
-        neon: "0 0 0 1px rgba(34,211,238,0.35), 0 0 24px -4px rgba(34,211,238,0.5)",
-        violet: "0 0 0 1px rgba(139,92,246,0.35), 0 0 28px -6px rgba(139,92,246,0.55)",
-        glow: "0 0 40px -10px rgba(34, 211, 238, 0.55)",
+        lift: "0 24px 60px -28px rgba(57, 255, 20, 0.45)",
+        neon: "0 0 0 1px rgba(57,255,20,0.35), 0 0 24px -4px rgba(57,255,20,0.5)",
+        emerald: "0 0 0 1px rgba(16,185,129,0.35), 0 0 28px -6px rgba(16,185,129,0.55)",
+        glow: "0 0 40px -10px rgba(57, 255, 20, 0.55)",
       },
       keyframes: {
         "fade-in": { from: { opacity: "0" }, to: { opacity: "1" } },
@@ -68,9 +69,9 @@ export default {
           "50%": { transform: "translateY(-14px)" },
         },
         "pulse-ring": {
-          "0%": { boxShadow: "0 0 0 0 rgba(34,211,238,0.45)" },
-          "70%": { boxShadow: "0 0 0 14px rgba(34,211,238,0)" },
-          "100%": { boxShadow: "0 0 0 0 rgba(34,211,238,0)" },
+          "0%": { boxShadow: "0 0 0 0 rgba(57,255,20,0.45)" },
+          "70%": { boxShadow: "0 0 0 14px rgba(57,255,20,0)" },
+          "100%": { boxShadow: "0 0 0 0 rgba(57,255,20,0)" },
         },
         blink: { "0%,49%": { opacity: "1" }, "50%,100%": { opacity: "0" } },
       },

@@ -74,13 +74,14 @@ high-contrast and neon-accented, deliberately not a generic "AI-generated" templ
   **Manrope** for body text and **JetBrains Mono** for code/labels. The latin subsets live in
   each app's `public/fonts/` and are declared with `@font-face` in `src/index.css`, so they
   are same-origin and the strict `font-src 'self'` CSP is unaffected (no Google Fonts CDN).
-* **Palette** — dark surfaces (`#05070D` page, `#0B1120` alt, `#0F172A` cards, `#1E293B`
-  hairlines) with neon cyan (`#22D3EE`), violet (`#8B5CF6`) and lime (`#7CF29C`) accents.
+* **Palette** — dark surfaces (`#040A06` page, `#07130C` alt, `#0B1F14` cards, `#16352A`
+  hairlines) with matrix-green (`#39FF14`), emerald (`#10B981`) and mint (`#5EEAD4`)
+  accents.
   Tokens live in each app's `tailwind.config.ts`; the email template palette in
   `functions/src/email/templates.ts` mirrors the same accent hues on a light card for
   deliverability.
 * **Components** — pill buttons in neon cyan on dark ink, cards with an 18px radius and a
-  soft neon lift shadow, a `#0B1120` stat band, a translucent 64px top bar (blur + neon
+  soft neon lift shadow, a `#07130C` stat band, a translucent 64px top bar (blur + neon
   hairline on scroll), an animated cyber-grid backdrop and radial "aurora" blobs. Reusable
   helpers (`.eyebrow`, `.glass`, `.grid-bg`, `.aurora`, `.text-gradient`, `.glow-neon`,
   `.edge-glow`) live in the public site's `src/index.css`.

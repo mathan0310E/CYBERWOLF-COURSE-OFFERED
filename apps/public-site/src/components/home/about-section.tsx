@@ -33,7 +33,7 @@ export function AboutSection() {
           <div className="flex flex-wrap gap-3 pt-2">
             <Link
               to="/enroll"
-              className="inline-flex items-center gap-2 rounded-pill bg-neon px-6 py-2.5 text-[15px] text-[#04121A] transition-colors hover:bg-neon/90"
+              className="inline-flex items-center gap-2 rounded-pill bg-neon px-6 py-2.5 text-[15px] text-[#04140A] transition-colors hover:bg-neon/90"
             >
               Enroll now
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
