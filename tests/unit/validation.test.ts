@@ -97,6 +97,28 @@ describe("registration validation", () => {
     }
   });
 
+  it("accepts an optional department and preserves it", () => {
+    const result = registrationInputSchema.safeParse({ ...validInput, department: "cse" });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.department).toBe("cse");
+    }
+  });
+
+  it("accepts an omitted department", () => {
+    const { department: _omit, ...withoutDepartment } = { ...validInput, department: "cse" };
+    const result = registrationInputSchema.safeParse(withoutDepartment);
+    expect(result.success).toBe(true);
+  });
+
+  it("rejects an unknown department value", () => {
+    const result = registrationInputSchema.safeParse({ ...validInput, department: "astrology" });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues.some((i) => i.path.includes("department"))).toBe(true);
+    }
+  });
+
   it("rejects a client-supplied price by refusing unknown keys", () => {
     const result = registrationInputSchema.safeParse({ ...validInput, finalPrice: 1 });
     expect(result.success).toBe(false);

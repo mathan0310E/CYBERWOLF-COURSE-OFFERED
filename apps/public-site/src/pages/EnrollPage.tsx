@@ -7,6 +7,8 @@ import {
   COURSES,
   DEGREE_PROGRAMS,
   DEGREE_PROGRAM_LABELS,
+  DEPARTMENTS,
+  DEPARTMENT_LABELS,
   STUDY_YEARS,
   STUDY_YEAR_LABELS,
   type CourseId,
@@ -60,6 +62,7 @@ export function EnrollPage() {
       college: "",
       degree: undefined,
       yearOfStudy: undefined,
+      department: undefined,
       city: "",
       message: "",
       privacyConsent: false,
@@ -261,6 +264,22 @@ export function EnrollPage() {
                   {STUDY_YEARS.map((year) => (
                     <option key={year} value={year}>
                       {STUDY_YEAR_LABELS[year]}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
+
+              <Field label="Department (optional)" htmlFor="department" error={errors.department?.message}>
+                <Select
+                  id="department"
+                  defaultValue=""
+                  aria-invalid={Boolean(errors.department)}
+                  {...register("department")}
+                >
+                  <option value="">Select your department</option>
+                  {DEPARTMENTS.map((department) => (
+                    <option key={department} value={department}>
+                      {DEPARTMENT_LABELS[department]}
                     </option>
                   ))}
                 </Select>

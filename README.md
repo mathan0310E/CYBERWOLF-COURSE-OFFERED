@@ -73,8 +73,10 @@ The visual language is derived from A2Z Academy (https://www.a2zacademy.co.in/):
   700–900) and preloaded in each `index.html`. Self-hosting keeps the strict
   `font-src 'self'` CSP and avoids a third-party font request; `Inter` remains the fallback.
 * **Palette** — a deep-navy surface scale (`#0B1220` background, `#101A2E` secondary,
-  `#16223A` card, `#24314D` border) with a single vivid brand green accent `#71BF43`,
-  hover `#5FA536` and soft tint `#EAF6E1`. Tokens live in each app's `tailwind.config.ts`.
+  `#16223A` card, `#24314D` border) with the A2Z **primary** brand green `#71BF43`
+  (hover `#5FA536`, soft tint `#EAF6E1`) and the A2Z brand **secondary** navy `#1A335A`
+  (deep `#0F2340`, soft `#8FA8CE` for legible text on dark surfaces). Tokens live in
+  each app's `tailwind.config.ts`.
 * **Buttons** — pill-shaped (`rounded-full`), bold, brand-green primary with a `#5FA536`
   hover and a 2px green outline variant (`components/ui/button.tsx`).
 * **Icons** — general UI icons come from Lucide React. Brand marks (LinkedIn, Instagram,

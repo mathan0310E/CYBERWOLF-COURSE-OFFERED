@@ -55,6 +55,7 @@ const validInput = {
   college: "Government Engineering College",
   degree: "btech" as const,
   yearOfStudy: "third" as const,
+  department: "cse" as const,
   privacyConsent: true,
 };
 
@@ -86,6 +87,7 @@ describe("createRegistration", () => {
     expect(result.registration.college).toBe("Government Engineering College");
     expect(result.registration.degree).toBe("btech");
     expect(result.registration.yearOfStudy).toBe("third");
+    expect(result.registration.department).toBe("cse");
   });
 
   it("ignores any client-supplied price (the schema is strict upstream, and the server recalcs)", async () => {

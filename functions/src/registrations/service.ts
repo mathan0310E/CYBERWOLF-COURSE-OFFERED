@@ -122,6 +122,7 @@ export async function createRegistration(
       college: input.college.trim(),
       degree: input.degree,
       yearOfStudy: input.yearOfStudy,
+      ...(input.department ? { department: input.department } : {}),
       ...(input.city ? { city: input.city } : {}),
       ...(input.message ? { message: input.message } : {}),
       price,
@@ -208,6 +209,7 @@ export async function createRegistration(
           college: created.college,
           degree: created.degree,
           yearOfStudy: created.yearOfStudy,
+          ...(created.department ? { department: created.department } : {}),
           ...(created.city ? { city: created.city } : {}),
           ...(config.adminAppUrl ? { adminAppUrl: config.adminAppUrl } : {}),
         },
@@ -308,6 +310,7 @@ export async function listRegistrations(params: ListRegistrationsParams): Promis
         item.id.toLowerCase().includes(search) ||
         item.mobile.toLowerCase().includes(search) ||
         item.college?.toLowerCase().includes(search) ||
+        item.department?.toLowerCase().includes(search) ||
         item.reference?.toLowerCase().includes(search)
       );
     });

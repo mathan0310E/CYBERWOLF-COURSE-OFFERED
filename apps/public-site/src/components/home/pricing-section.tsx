@@ -38,7 +38,7 @@ export function PricingSection() {
               <span className="text-4xl font-bold text-accent">{formatINR(SINGLE_COURSE_OFFER_PRICE)}</span>
               <span className="text-sm text-muted line-through">{formatINR(ORIGINAL_PRICE_PER_COURSE)}</span>
             </p>
-            <p className="mt-1 text-sm text-secondary">You save {formatINR(SINGLE_SAVING)}</p>
+            <p className="mt-1 text-sm text-accent">You save {formatINR(SINGLE_SAVING)}</p>
             <ul className="mt-5 space-y-2 text-sm text-muted">
               {["Choose any one course", "Registration received and reviewed", "Transactional email confirmation"].map(
                 (line) => (
@@ -55,7 +55,7 @@ export function PricingSection() {
           </CardContent>
         </Card>
 
-        <Card className="border-secondary/40">
+        <Card className="border-accent/40">
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Two-course bundle</CardTitle>
@@ -67,7 +67,7 @@ export function PricingSection() {
               <span className="text-4xl font-bold text-accent">{formatINR(TWO_COURSE_BUNDLE_PRICE)}</span>
               <span className="text-sm text-muted line-through">{formatINR(BUNDLE_ORIGINAL)}</span>
             </p>
-            <p className="mt-1 text-sm text-secondary">You save {formatINR(BUNDLE_SAVING)}</p>
+            <p className="mt-1 text-sm text-accent">You save {formatINR(BUNDLE_SAVING)}</p>
             <ul className="mt-5 space-y-2 text-sm text-muted">
               {["Choose any two courses", "Registration received and reviewed", "Transactional email confirmation"].map(
                 (line) => (

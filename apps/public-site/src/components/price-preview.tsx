@@ -40,7 +40,7 @@ export function PricePreview({ courseIds, compact = false }: PricePreviewProps) 
             </div>
             <div className="flex items-center justify-between">
               <dt className="text-muted">You save</dt>
-              <dd className="font-medium text-secondary">{formatINR(price.discount)}</dd>
+              <dd className="font-medium text-accent">{formatINR(price.discount)}</dd>
             </div>
             <div className="flex items-center justify-between border-t border-border/70 pt-2">
               <dt className="font-semibold text-foreground">Final price</dt>

@@ -11,8 +11,8 @@ export function PrivacyContent() {
         <p className="mt-2">
           When you submit a registration we collect: your full name, email address, mobile number, the courses you
           selected, and your college or institution, degree or programme and year of study. If you choose to provide
-          them, we also collect your city and a message. We record your privacy consent and a server-generated
-          timestamp.
+          them, we also collect your department, city and a message. We record your privacy consent and a
+          server-generated timestamp.
         </p>
       </section>
 

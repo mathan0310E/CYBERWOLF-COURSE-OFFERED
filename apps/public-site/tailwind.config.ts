@@ -5,8 +5,9 @@ import type { Config } from "tailwindcss";
  *
  * Typography, palette and button styling are derived from the A2Z Academy site
  * (https://www.a2zacademy.co.in/): the Zoho Puvi typeface, a deep-navy surface
- * scale and a single vivid brand green (#71BF43) with a #5FA536 hover and
- * #EAF6E1 soft tint. Spacing derives from Tailwind's default 4px-based rem scale.
+ * scale, the primary brand green (#71BF43, hover #5FA536, soft tint #EAF6E1)
+ * and the A2Z brand secondary navy (#1A335A, deep #0F2340). Spacing derives from
+ * Tailwind's default 4px-based rem scale.
  */
 export default {
   darkMode: ["class"],
@@ -30,15 +31,15 @@ export default {
         "muted-foreground": "#A4ADBB",
         accent: {
           DEFAULT: "#71BF43", // brand green (primary)
-          secondary: "#B7E39A", // soft green highlight
+          secondary: "#1A335A", // A2Z brand navy (secondary)
         },
         primary: {
           DEFAULT: "#71BF43",
           foreground: "#0B1220",
         },
         secondary: {
-          DEFAULT: "#B7E39A",
-          foreground: "#0B1220",
+          DEFAULT: "#1A335A",
+          foreground: "#F5F7FA",
         },
         destructive: {
           DEFAULT: "#FF6B6B",
@@ -51,6 +52,7 @@ export default {
           "green-soft": "#EAF6E1",
           navy: "#1A335A",
           "navy-deep": "#0F2340",
+          "navy-soft": "#8FA8CE",
         },
       },
       fontFamily: {

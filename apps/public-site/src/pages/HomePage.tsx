@@ -69,7 +69,7 @@ export function HomePage() {
 
           <motion.div {...fadeUp} className="lg:justify-self-end">
             <div className="relative w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-card">
-              <div className="absolute -right-3 -top-3 rounded-full border border-secondary/40 bg-background px-3 py-1 text-xs font-medium text-secondary">
+              <div className="absolute -right-3 -top-3 rounded-full border border-accent/40 bg-background px-3 py-1 text-xs font-medium text-accent">
                 Offer
               </div>
               <p className="text-sm text-muted">Single course offer</p>
@@ -77,7 +77,7 @@ export function HomePage() {
                 <span className="text-3xl font-bold text-accent">{formatINR(SINGLE_COURSE_OFFER_PRICE)}</span>
                 <span className="text-sm text-muted line-through">{formatINR(ORIGINAL_PRICE_PER_COURSE)}</span>
               </p>
-              <p className="mt-1 text-sm text-secondary">
+              <p className="mt-1 text-sm text-accent">
                 Save {formatINR(ORIGINAL_PRICE_PER_COURSE - SINGLE_COURSE_OFFER_PRICE)} per course
               </p>
               <div className="mt-5 space-y-2 border-t border-border/70 pt-4 text-sm">

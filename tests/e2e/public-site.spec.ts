@@ -193,6 +193,7 @@ test.describe("registration form", () => {
     await page.getByLabel(/College/i).fill("Government Engineering College");
     await page.getByLabel(/Degree/i).selectOption("btech");
     await page.getByLabel(/Year of study/i).selectOption("third");
+    await page.getByLabel(/Department/i).selectOption("cse");
     await page.locator("#privacyConsent").click();
 
     const submit = page.getByRole("button", { name: /Submit registration/i });

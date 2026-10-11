@@ -55,6 +55,7 @@ export interface JobTemplateDetails {
   college?: string;
   degree?: string;
   yearOfStudy?: string;
+  department?: string;
   city?: string;
 }
 

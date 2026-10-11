@@ -23,6 +23,7 @@ const details = {
   college: "Government Engineering College",
   degree: "btech",
   yearOfStudy: "third",
+  department: "cse",
 };
 
 describe("email templates", () => {
@@ -43,6 +44,7 @@ describe("email templates", () => {
     expect(mail.text).toContain("Government Engineering College");
     expect(mail.text).toContain("B.Tech");
     expect(mail.text).toContain("3rd year");
+    expect(mail.text).toContain("Computer Science & Engineering");
   });
 
   it("builds the student confirmation with the tagline", () => {

@@ -2,9 +2,11 @@ import { z } from "zod";
 import {
   COURSE_IDS,
   DEGREE_PROGRAMS,
+  DEPARTMENTS,
   STUDY_YEARS,
   type CourseId,
   type DegreeProgram,
+  type Department,
   type StudyYear,
 } from "@cyberwolf/shared-types";
 import { MAX_COURSES } from "@cyberwolf/pricing";
@@ -30,6 +32,9 @@ const degreeSchema = z.enum(DEGREE_PROGRAMS as unknown as [DegreeProgram, ...Deg
 });
 const studyYearSchema = z.enum(STUDY_YEARS as unknown as [StudyYear, ...StudyYear[]], {
   errorMap: () => ({ message: "Select your year of study." }),
+});
+const departmentSchema = z.enum(DEPARTMENTS as unknown as [Department, ...Department[]], {
+  errorMap: () => ({ message: "Select a valid department." }),
 });
 
 /** A reasonably strict but practical mobile number check. */
@@ -64,6 +69,7 @@ export const registrationInputSchema = z
       .max(160, "College name is too long."),
     degree: degreeSchema,
     yearOfStudy: studyYearSchema,
+    department: departmentSchema.optional().or(z.literal("")),
     city: z.string().trim().max(80).optional().or(z.literal("")),
     message: z.string().trim().max(1000).optional().or(z.literal("")),
     privacyConsent: z.boolean().refine((value) => value === true, {

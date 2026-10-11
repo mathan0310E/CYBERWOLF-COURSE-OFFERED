@@ -1,5 +1,5 @@
 import type { CourseId, PriceBreakdown } from "@cyberwolf/shared-types";
-import { COURSES, COMPANY, degreeLabel, getCourseById, studyYearLabel } from "@cyberwolf/shared-types";
+import { COURSES, COMPANY, degreeLabel, departmentLabel, getCourseById, studyYearLabel } from "@cyberwolf/shared-types";
 import { formatINR } from "@cyberwolf/pricing";
 
 /**
@@ -30,6 +30,7 @@ export interface TemplateData {
   college?: string;
   degree?: string;
   yearOfStudy?: string;
+  department?: string;
   city?: string;
 }
 
@@ -56,6 +57,7 @@ function academicLines(data: TemplateData): Array<{ label: string; value: string
   if (data.college) lines.push({ label: "College", value: data.college });
   if (data.degree) lines.push({ label: "Degree / programme", value: degreeLabel(data.degree) });
   if (data.yearOfStudy) lines.push({ label: "Year of study", value: studyYearLabel(data.yearOfStudy) });
+  if (data.department) lines.push({ label: "Department", value: departmentLabel(data.department) });
   if (data.city) lines.push({ label: "City", value: data.city });
   return lines;
 }

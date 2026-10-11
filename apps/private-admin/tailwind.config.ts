@@ -19,9 +19,9 @@ export default {
         foreground: "#F5F7FA",
         muted: "#A4ADBB",
         "muted-foreground": "#A4ADBB",
-        accent: { DEFAULT: "#71BF43", secondary: "#B7E39A" },
+        accent: { DEFAULT: "#71BF43", secondary: "#1A335A" },
         primary: { DEFAULT: "#71BF43", foreground: "#0B1220" },
-        secondary: { DEFAULT: "#B7E39A", foreground: "#0B1220" },
+        secondary: { DEFAULT: "#1A335A", foreground: "#F5F7FA" },
         destructive: { DEFAULT: "#FF6B6B", foreground: "#0B1220" },
         warning: { DEFAULT: "#FFB84D", foreground: "#0B1220" },
         brand: {
@@ -30,6 +30,7 @@ export default {
           "green-soft": "#EAF6E1",
           navy: "#1A335A",
           "navy-deep": "#0F2340",
+          "navy-soft": "#8FA8CE",
         },
       },
       fontFamily: {

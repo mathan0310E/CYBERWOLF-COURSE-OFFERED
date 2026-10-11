@@ -117,12 +117,51 @@ export const STUDY_YEAR_LABELS: Record<StudyYear, string> = {
   graduated: "Graduated",
 };
 
+/** Department / branch a college student belongs to. Optional on the form. */
+export const DEPARTMENTS = [
+  "cse",
+  "it",
+  "ai-ds",
+  "ece",
+  "eee",
+  "mechanical",
+  "civil",
+  "chemical",
+  "biotech",
+  "commerce",
+  "management",
+  "arts-science",
+  "other",
+] as const;
+
+export type Department = (typeof DEPARTMENTS)[number];
+
+export const DEPARTMENT_LABELS: Record<Department, string> = {
+  cse: "Computer Science & Engineering",
+  it: "Information Technology",
+  "ai-ds": "AI & Data Science",
+  ece: "Electronics & Communication",
+  eee: "Electrical & Electronics",
+  mechanical: "Mechanical Engineering",
+  civil: "Civil Engineering",
+  chemical: "Chemical Engineering",
+  biotech: "Biotechnology",
+  commerce: "Commerce",
+  management: "Management / Business",
+  "arts-science": "Arts & Science",
+  other: "Other",
+};
+
 export function degreeLabel(value: string): string {
   return DEGREE_PROGRAM_LABELS[value as DegreeProgram] ?? value;
 }
 
 export function studyYearLabel(value: string): string {
   return STUDY_YEAR_LABELS[value as StudyYear] ?? value;
+}
+
+export function departmentLabel(value: string): string {
+  return DEPARTMENT_LABELS[value as Department] ?? value;
 }
 
 /** Authoritative, server-calculated pricing for a registration. */
@@ -153,6 +192,8 @@ export interface Registration {
   degree: DegreeProgram;
   /** Current year of study. */
   yearOfStudy: StudyYear;
+  /** Department / branch. Optional. */
+  department?: Department;
   city?: string;
   message?: string;
   price: PriceBreakdown;
