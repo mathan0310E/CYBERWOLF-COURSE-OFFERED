@@ -3,11 +3,11 @@ import type { Config } from "tailwindcss";
 /**
  * CyberWolf 360 design system.
  *
- * Typography, palette and button styling are derived from the A2Z Academy site
- * (https://www.a2zacademy.co.in/): the Zoho Puvi typeface, a deep-navy surface
- * scale, the primary brand green (#71BF43, hover #5FA536, soft tint #EAF6E1)
- * and the A2Z brand secondary navy (#1A335A, deep #0F2340). Spacing derives from
- * Tailwind's default 4px-based rem scale.
+ * Palette mirrored from the A2Z Academy site (https://www.a2zacademy.co.in/):
+ * a white/light surface scale, the brand green (#71BF43, hover #5FA536, soft
+ * #EAF6E1), the brand navy (#1A335A, deep #0F2340) and near-black ink (#1A1A1A)
+ * / body text (#333). Typography uses the Zoho Puvi typeface. Spacing derives
+ * from Tailwind's default 4px-based rem scale.
  */
 export default {
   darkMode: ["class"],
@@ -20,30 +20,30 @@ export default {
     },
     extend: {
       colors: {
-        background: "#0B1220",
-        "background-secondary": "#101A2E",
-        card: "#16223A",
-        border: "#24314D",
-        input: "#24314D",
+        background: "#FFFFFF",
+        "background-secondary": "#F7F7F7",
+        card: "#FFFFFF",
+        border: "#E5E7EB",
+        input: "#E5E7EB",
         ring: "#71BF43",
-        foreground: "#F5F7FA",
-        muted: "#A4ADBB",
-        "muted-foreground": "#A4ADBB",
+        foreground: "#1A1A1A",
+        muted: "#666666",
+        "muted-foreground": "#666666",
         accent: {
           DEFAULT: "#71BF43", // brand green (primary)
-          secondary: "#1A335A", // A2Z brand navy (secondary)
+          secondary: "#1A335A", // brand navy (secondary)
         },
         primary: {
           DEFAULT: "#71BF43",
-          foreground: "#0B1220",
+          foreground: "#1A1A1A",
         },
         secondary: {
           DEFAULT: "#1A335A",
-          foreground: "#F5F7FA",
+          foreground: "#FFFFFF",
         },
         destructive: {
-          DEFAULT: "#FF6B6B",
-          foreground: "#0B1220",
+          DEFAULT: "#D92D20",
+          foreground: "#FFFFFF",
         },
         // A2Z brand tokens, exposed for direct use.
         brand: {
@@ -53,6 +53,9 @@ export default {
           navy: "#1A335A",
           "navy-deep": "#0F2340",
           "navy-soft": "#8FA8CE",
+          surface: "#F7F7F7",
+          ink: "#1A1A1A",
+          white: "#FFFFFF",
         },
       },
       fontFamily: {
@@ -75,8 +78,8 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       boxShadow: {
-        focus: "0 0 0 2px #0B1220, 0 0 0 4px #71BF43",
-        card: "0 1px 2px rgba(0,0,0,0.4), 0 8px 24px -12px rgba(0,0,0,0.6)",
+        focus: "0 0 0 2px #FFFFFF, 0 0 0 4px #71BF43",
+        card: "0 1px 2px rgba(16,24,40,0.04), 0 8px 24px -12px rgba(16,24,40,0.12)",
       },
       keyframes: {
         "fade-in": {

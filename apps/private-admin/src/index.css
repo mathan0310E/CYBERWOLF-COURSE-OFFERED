@@ -68,13 +68,13 @@
 @layer utilities {
   .grid-glow {
     background-image: radial-gradient(
-      60% 50% at 50% 0%,
-      rgba(113, 191, 67, 0.10) 0%,
-      rgba(26, 51, 90, 0.16) 40%,
-      transparent 70%
+      62% 55% at 50% 0%,
+      rgba(113, 191, 67, 0.14) 0%,
+      rgba(26, 51, 90, 0.06) 45%,
+      transparent 72%
     );
   }
   .text-glow {
-    text-shadow: 0 0 24px rgba(113, 191, 67, 0.25);
+    text-shadow: 0 1px 16px rgba(113, 191, 67, 0.22);
   }
 }
