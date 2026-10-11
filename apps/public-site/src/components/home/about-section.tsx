@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { COMPANY } from "@cyberwolf/shared-types";
+import { COMPANY, COMPANY_ADDRESS_LINE } from "@cyberwolf/shared-types";
+import { SocialLinks } from "@/components/social-links";
+import { MailIcon, MapPinIcon, PhoneIcon } from "@/components/brand-icons";
 import { Section } from "@/components/home/section";
 
 /** About — a main-page section. No invented certifications or placements. */
@@ -50,46 +52,29 @@ export function AboutSection() {
             <p className="text-sm font-semibold text-foreground">{COMPANY.displayName}</p>
           </div>
           <h3 className="mt-5 text-sm font-semibold text-foreground">Contact</h3>
-          <ul className="mt-3 space-y-1.5 text-sm text-muted">
-            <li>
-              Email:{" "}
+          <ul className="mt-3 space-y-2 text-sm text-muted">
+            <li className="flex items-center gap-2">
+              <MailIcon className="h-4 w-4 shrink-0 text-accent" />
               <a href={`mailto:${COMPANY.email}`} className="text-accent underline underline-offset-2">
                 {COMPANY.email}
               </a>
             </li>
-            <li>
-              Phone:{" "}
-              {COMPANY.phones.map((phone, index) => (
-                <span key={phone}>
-                  {index > 0 && ", "}
-                  <a href={`tel:${phone.replace(/\s+/g, "")}`} className="text-accent underline underline-offset-2">
-                    {phone}
-                  </a>
-                </span>
-              ))}
-            </li>
-            <li>
-              Address: {COMPANY.address.street}, {COMPANY.address.locality}, {COMPANY.address.region}{" "}
-              {COMPANY.address.postalCode}
+            {COMPANY.phones.map((phone) => (
+              <li key={phone} className="flex items-center gap-2">
+                <PhoneIcon className="h-4 w-4 shrink-0 text-accent" />
+                <a href={`tel:${phone.replace(/\s+/g, "")}`} className="text-accent underline underline-offset-2">
+                  {phone}
+                </a>
+              </li>
+            ))}
+            <li className="flex items-start gap-2">
+              <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+              <span>{COMPANY_ADDRESS_LINE}</span>
             </li>
           </ul>
-          <div className="mt-3 flex flex-wrap gap-4 text-sm">
-            <a
-              href={COMPANY.socials.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent underline underline-offset-2"
-            >
-              LinkedIn
-            </a>
-            <a
-              href={COMPANY.socials.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent underline underline-offset-2"
-            >
-              Instagram
-            </a>
+          <div className="mt-5">
+            <h3 className="text-sm font-semibold text-foreground">Follow</h3>
+            <SocialLinks className="mt-3" />
           </div>
         </aside>
       </div>

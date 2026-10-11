@@ -4,9 +4,11 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Brand } from "@/components/brand";
 import { CookieBanner } from "@/components/cookie-banner";
+import { SocialLinks } from "@/components/social-links";
+import { GlobeIcon, MailIcon, MapPinIcon, PhoneIcon } from "@/components/brand-icons";
 import { useLegal } from "@/lib/legal";
 import { useConsent } from "@/lib/consent";
-import { COMPANY } from "@cyberwolf/shared-types";
+import { COMPANY, COMPANY_ADDRESS_LINE } from "@cyberwolf/shared-types";
 
 /**
  * Single-page navigation. Courses, Pricing, About and FAQ are in-page anchors on
@@ -131,42 +133,27 @@ export function Layout() {
               Explore technology courses designed to help college students develop practical knowledge.
             </p>
             <p className="mt-3 text-sm font-semibold text-accent">Learn. Secure. Build.</p>
-            <ul className="mt-4 space-y-1.5 text-sm text-muted">
-              <li>
+            <ul className="mt-4 space-y-2 text-sm text-muted">
+              <li className="flex items-center gap-2">
+                <MailIcon className="h-4 w-4 shrink-0 text-accent" />
                 <a href={`mailto:${COMPANY.email}`} className="hover:text-foreground">
                   {COMPANY.email}
                 </a>
               </li>
               {COMPANY.phones.map((phone) => (
-                <li key={phone}>
+                <li key={phone} className="flex items-center gap-2">
+                  <PhoneIcon className="h-4 w-4 shrink-0 text-accent" />
                   <a href={`tel:${phone.replace(/\s+/g, "")}`} className="hover:text-foreground">
                     {phone}
                   </a>
                 </li>
               ))}
-              <li className="pt-1 text-xs leading-relaxed">
-                {COMPANY.address.street}, {COMPANY.address.locality}, {COMPANY.address.region}{" "}
-                {COMPANY.address.postalCode}
+              <li className="flex items-start gap-2">
+                <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                <span className="text-xs leading-relaxed">{COMPANY_ADDRESS_LINE}</span>
               </li>
             </ul>
-            <div className="mt-4 flex flex-wrap gap-4 text-sm">
-              <a
-                href={COMPANY.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted hover:text-foreground"
-              >
-                LinkedIn
-              </a>
-              <a
-                href={COMPANY.socials.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted hover:text-foreground"
-              >
-                Instagram
-              </a>
-            </div>
+            <SocialLinks className="mt-4" />
           </div>
           <nav aria-label="Footer">
             <h2 className="text-sm font-semibold text-foreground">Explore</h2>
@@ -247,8 +234,9 @@ export function Layout() {
               href={COMPANY.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground"
+              className="inline-flex items-center gap-1.5 hover:text-foreground"
             >
+              <GlobeIcon className="h-4 w-4" />
               {COMPANY.website.replace(/^https?:\/\//, "")}
             </a>
           </div>

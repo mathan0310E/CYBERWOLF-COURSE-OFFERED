@@ -77,6 +77,11 @@ The visual language is derived from A2Z Academy (https://www.a2zacademy.co.in/):
   hover `#5FA536` and soft tint `#EAF6E1`. Tokens live in each app's `tailwind.config.ts`.
 * **Buttons** — pill-shaped (`rounded-full`), bold, brand-green primary with a `#5FA536`
   hover and a 2px green outline variant (`components/ui/button.tsx`).
+* **Icons** — general UI icons come from Lucide React. Brand marks (LinkedIn, Instagram,
+  WhatsApp) and the contact icons (mail, phone, map-pin, globe) used in the footer and
+  About section are taken from Flowbite Icons (https://flowbite.com/icons/, MIT licence)
+  and vendored into `components/brand-icons.tsx`. They share Lucide's 24×24 `currentColor`
+  convention, so they theme consistently. No icon is fabricated.
 
 ---
 

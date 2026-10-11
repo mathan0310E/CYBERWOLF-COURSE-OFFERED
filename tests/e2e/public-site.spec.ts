@@ -58,6 +58,18 @@ test.describe("public home page", () => {
       await expect(page.getByRole("heading", { name: "Page not found" })).toBeVisible();
     }
   });
+
+  test("shows the formatted address and icon-only social links", async ({ page }) => {
+    await page.goto("/");
+    const footer = page.getByRole("contentinfo");
+    await expect(
+      footer.getByText("No. 3A, 10th Street, Gandhi Nagar, Tiruvannamalai, Tamil Nadu 606601"),
+    ).toBeVisible();
+    // Social links are icon-only, so they are matched by their accessible name.
+    for (const name of ["LinkedIn", "Instagram", "WhatsApp"]) {
+      await expect(footer.getByRole("link", { name: new RegExp(name, "i") })).toBeVisible();
+    }
+  });
 });
 
 test.describe("courses and pricing", () => {

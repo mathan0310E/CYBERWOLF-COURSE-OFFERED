@@ -281,3 +281,11 @@ export const COMPANY = {
 } as const;
 
 export type Company = typeof COMPANY;
+
+/**
+ * The registered address as a single, correctly-ordered display line:
+ * "No. 3A, 10th Street, Gandhi Nagar, Tiruvannamalai, Tamil Nadu 606601".
+ * Derived from {@link COMPANY} so the parts and the display form never drift.
+ */
+export const COMPANY_ADDRESS_LINE =
+  `${COMPANY.address.street}, ${COMPANY.address.locality}, ${COMPANY.address.region} ${COMPANY.address.postalCode}` as const;
