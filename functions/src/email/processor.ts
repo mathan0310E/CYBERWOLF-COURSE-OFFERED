@@ -144,19 +144,28 @@ export async function processEmailJobs(
   limit = 25,
 ): Promise<{ processed: number; sent: number; failed: number }> {
   const transport = sender ?? (getMailTransport() as unknown as MailSender);
+  // Single-field filter only (automatic index); due/backoff ordering is applied
+  // in memory so no composite index is required.
   const snap = await db()
     .collection(JOBS)
     .where("status", "in", ["queued", "failed"])
-    .orderBy("createdAt", "asc")
     .limit(limit)
     .get();
+
+  const ordered = snap.docs
+    .map((doc) => doc)
+    .sort((a, b) => {
+      const av = String((a.data() as StoredJob).createdAt ?? "");
+      const bv = String((b.data() as StoredJob).createdAt ?? "");
+      return av < bv ? -1 : av > bv ? 1 : 0;
+    });
 
   let processed = 0;
   let sent = 0;
   let failed = 0;
   const nowMs = Date.now();
 
-  for (const doc of snap.docs) {
+  for (const doc of ordered) {
     const job = doc.data() as StoredJob;
     processed += 1;
 

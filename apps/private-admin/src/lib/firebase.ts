@@ -1,5 +1,5 @@
 import { initializeApp, type FirebaseApp } from "firebase/app";
-import { getAuth, type Auth } from "firebase/auth";
+import { getAuth, connectAuthEmulator, type Auth } from "firebase/auth";
 
 /**
  * Private admin Firebase initialisation. This uses a SEPARATE Firebase app
@@ -29,6 +29,7 @@ const config: AdminFirebaseConfig = {
 };
 
 let app: FirebaseApp | null = null;
+let emulatorConnected = false;
 
 export function isAdminFirebaseConfigured(): boolean {
   return Boolean(config.apiKey && config.projectId && config.appId);
@@ -40,5 +41,15 @@ function getApp(): FirebaseApp {
 }
 
 export function getAdminAuth(): Auth {
-  return getAuth(getApp());
+  const auth = getAuth(getApp());
+  // Dev-only emulator wiring: guarded by an explicit flag AND a dev build, so a
+  // production admin deployment always authenticates against real Firebase.
+  if (!emulatorConnected) {
+    emulatorConnected = true;
+    if (import.meta.env.DEV && import.meta.env.VITE_USE_FIREBASE_EMULATORS === "true") {
+      const host = import.meta.env.VITE_FIREBASE_EMULATOR_HOST || "127.0.0.1";
+      connectAuthEmulator(auth, `http://${host}:9099`, { disableWarnings: true });
+    }
+  }
+  return auth;
 }

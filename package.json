@@ -25,6 +25,7 @@
     "emulators": "firebase emulators:start --project demo-cyberwolf360",
     "emulators:exec": "firebase emulators:exec --project demo-cyberwolf360",
     "test": "vitest run --config tests/vitest.config.ts",
+ "serve:api": "npm run build:functions && node scripts/serve-api.mjs",
     "test:watch": "vitest --config tests/vitest.config.ts",
     "test:security": "vitest run --config tests/vitest.config.security.ts",
     "test:e2e": "playwright test -c tests/e2e/playwright.config.ts",

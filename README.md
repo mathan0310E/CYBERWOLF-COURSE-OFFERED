@@ -4,8 +4,8 @@
 
 A production-grade course registration platform built as an npm-workspaces monorepo.
 It consists of **two entirely independent Vite applications**, a trusted Node.js/Firebase
-backend, a plain-text (`.txt`) audit-log system in Firebase Storage, and a Nodemailer
-email workflow.
+backend, a plain-text (`.txt`) audit-log system persisted in **Cloud Firestore**, and a
+Nodemailer email workflow.
 
 ---
 
@@ -30,7 +30,7 @@ cyberwolf360/
     validation/         # Zod schemas shared by client preview AND server authority
   firebase/
     firestore.rules     # Deny-by-default
-    storage.rules       # Deny-by-default (audit TXT is backend-only)
+    storage.rules       # Deny-by-default (retained for object-storage deployments; this build is Firestore-only)
     firestore.indexes.json
   tests/
     unit/               # Pricing, validation, audit format, email helpers
@@ -156,7 +156,7 @@ reCAPTCHA site key, and `VITE_API_BASE_URL`.
 ```
 SMTP_HOST= SMTP_PORT= SMTP_SECURE= SMTP_USER= SMTP_PASS= MAIL_FROM= ORGANISATION_EMAIL=
 PUBLIC_SITE_URL= ADMIN_APP_URL= ALLOWED_ORIGINS=
-AUDIT_BUCKET=            # optional; defaults to the project's default bucket
+AUDIT_BUCKET=            # unused in this Firestore-only build (retained for object-storage deployments)
 PROVISION_ADMIN_EMAIL= PROVISION_ADMIN_PASSWORD=   # provisioning script only
 ```
 
@@ -180,8 +180,10 @@ firebase use --add          # select your project, alias it
 * Two Hosting targets: `public-site` (cacheable assets, no-cache index) and
   `private-admin` (private, `no-store`, `noindex`).
 
-Enable in the console: **Authentication (Email/Password)**, **Cloud Firestore**,
-**Cloud Storage**, and (where supported) **App Check**.
+Enable in the console: **Authentication (Email/Password)** and **Cloud Firestore**.
+Cloud Storage is **not required** by this build (audit TXT lives in Firestore); enable it
+only if you later adopt the optional object-storage layout. Enable **App Check** where
+supported.
 
 ---
 
@@ -228,6 +230,7 @@ Higher-risk admin actions (data export) additionally require a **fresh ID token*
 | `notificationJobs` | Durable email outbox (masked recipient + private recipient + template + status + attempts). | Admin read only. |
 | `auditEvents` | Durable audit outbox feeding the TXT writer. | Admin read only. |
 | `auditManifests` | Per-day per-category sequence + hash-chain tip. | Admin read only. |
+| `auditChunks` | Immutable plain-text `.txt` audit chunks (one document per event). | **No client access** (server only). |
 | `adminSettings` | Only where necessary. | Admin read only. |
 
 No passwords or SMTP secrets are ever stored in Firestore. Public registration goes through
@@ -237,8 +240,9 @@ a narrowly-scoped, validated backend operation — never a direct client write.
 
 ## 10. Plain-text audit logs
 
-The primary human-readable audit artifact is **actual `.txt` files** in Firebase Storage,
-laid out by UTC date:
+The primary human-readable audit artifact is **actual `.txt` content** (one plain-text
+block per event) persisted in the `auditChunks` Firestore collection, laid out by UTC date
+in the `path` field:
 
 ```
 audit-logs/YYYY/MM/DD/<category>-YYYY-MM-DD-NNNNNN.txt
@@ -246,18 +250,26 @@ audit-logs/YYYY/MM/DD/<category>-YYYY-MM-DD-NNNNNN.txt
 
 Categories: `audit`, `registration`, `admin`, `security`, `email`, `errors`.
 
+> **Deployment note.** This build is intentionally **Firestore-only** — it has **no Cloud
+> Storage dependency**. Plain-text audit chunks, the durable outbox and the manifests all
+> live in Firestore, and the Firestore rules deny all client access to them. Cloud Storage
+> rules remain in the repo for deployments that add object storage later.
+
 ### Why chunks, not append
 
-Firebase Storage has **no append operation**. Rather than have concurrent requests
+Firestore has **no append operation**. Rather than have concurrent requests
 download → mutate → re-upload one daily file (which corrupts data), the writer:
 
 1. Durably queues the event in `auditEvents`.
 2. A **transaction** reserves a per-(date, category) sequence number from
    `auditManifests` — concurrent writers never collide.
-3. Uploads an **immutable, uniquely named** `.txt` chunk at a deterministic path
-   (so retries are idempotent overwrites of the same chunk).
+3. Persists an **immutable, uniquely named** `.txt` chunk document at a deterministic id
+   (so retries are idempotent writes of the same chunk).
 4. Extends a **hash chain** in the manifest (`lastHash`) for tamper evidence.
 5. A scheduled flush plus the immediate best-effort flush reconcile any queued events.
+
+All queries use only single-field (automatic) indexes, so **no composite index** is
+required. Ordering and secondary filtering are applied in memory over bounded windows.
 
 The admin viewer concatenates a day's chunks in sequence order to reconstruct the daily TXT.
 
@@ -403,9 +415,26 @@ firebase deploy --only hosting:public-site
 firebase deploy --only hosting:private-admin
 ```
 
+### Running the backend locally (against real Firebase or the emulator)
+
+`functions/` is a Cloud Functions codebase, but the Express app it exports can also be
+served as a standalone HTTP server for local development and smoke testing:
+
+```bash
+# Real Firebase project (uses GOOGLE_APPLICATION_CREDENTIALS):
+GOOGLE_APPLICATION_CREDENTIALS=./secrets/<key>.json npm run serve:api
+
+# Or point it at the emulators instead.
+```
+
+`scripts/serve-api.mjs` serves the identical app under the Firebase URL shape
+`http://127.0.0.1:5001/<projectId>/us-central1/api`, so the two Vite apps (whose
+`VITE_API_BASE_URL` already includes that path) talk to it with no changes. It reads
+backend-only settings from `functions/.env` (gitignored).
+
 Prefer deploying the admin app behind a restricted network boundary. Do not deploy
-permissive rules; deploy `firebase/firestore.rules` and `firebase/storage.rules` as
-reviewed. Test production builds and security headers before promoting.
+permissive rules; deploy `firebase/firestore.rules` as reviewed. Test production builds and
+security headers before promoting.
 
 ### Rollback
 

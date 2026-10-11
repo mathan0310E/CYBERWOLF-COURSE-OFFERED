@@ -221,12 +221,15 @@ adminRouter.get(
 adminRouter.get(
   "/emails",
   asyncHandler(async (req: Request, res: Response) => {
-    const snap = await db()
-      .collection("notificationJobs")
-      .orderBy("createdAt", "desc")
-      .limit(500)
-      .get();
-    const jobs = snap.docs.map((doc) => {
+    const snap = await db().collection("notificationJobs").limit(500).get();
+    const docs = snap.docs
+      .slice()
+      .sort((a, b) => {
+        const av = String((a.data() as EmailJob).createdAt ?? "");
+        const bv = String((b.data() as EmailJob).createdAt ?? "");
+        return av < bv ? 1 : av > bv ? -1 : 0;
+      });
+    const jobs = docs.map((doc) => {
       // Project only the fields the admin UI needs. The private recipient and
       // the template details (which contain the student's email) are never
       // returned — only the masked recipient is exposed.
@@ -302,10 +305,17 @@ adminRouter.post(
       const day = parsed.data.date ?? new Date().toISOString().slice(0, 10);
       body = await readDailyTxt(day, "audit");
     } else {
-      const snap = await db().collection("registrations").orderBy("createdAt", "desc").limit(5000).get();
+      const snap = await db().collection("registrations").limit(5000).get();
+      const regDocs = snap.docs
+        .slice()
+        .sort((a, b) => {
+          const av = String((a.data() as { createdAt: string }).createdAt ?? "");
+          const bv = String((b.data() as { createdAt: string }).createdAt ?? "");
+          return av < bv ? 1 : av > bv ? -1 : 0;
+        });
       const header =
         "REFERENCE\tCREATED_AT\tNAME\tEMAIL\tMOBILE\tCOURSES\tFINAL_PRICE\tSTATUS\n";
-      const lines = snap.docs.map((doc) => {
+      const lines = regDocs.map((doc) => {
         const r = doc.data() as {
           reference: string;
           createdAt: string;

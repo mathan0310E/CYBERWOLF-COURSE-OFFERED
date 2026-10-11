@@ -1,0 +1,18 @@
+{
+  "projects": {
+    "default": "cyber-wolf-course-offer"
+  },
+  "targets": {
+    "cyber-wolf-course-offer": {
+      "hosting": {
+        "public-site": [
+          "cyberwolf-public-site"
+        ],
+        "private-admin": [
+          "cyberwolf-private-admin"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

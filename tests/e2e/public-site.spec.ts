@@ -128,9 +128,14 @@ test.describe("registration form", () => {
 test.describe("accessibility", () => {
   test("supports keyboard-only navigation and visible focus", async ({ page }) => {
     await page.goto("/");
+    const skipLink = page.getByRole("link", { name: /Skip to content/i });
+    await expect(skipLink).toBeAttached();
+
+    // The skip link is the first tabbable control and must receive focus.
     await page.keyboard.press("Tab");
-    const focused = page.locator(":focus");
-    await expect(focused).toBeVisible();
+    await expect(skipLink).toBeFocused();
+    // It is visually hidden until focused; a visible focus indicator is required.
+    await expect(skipLink).toBeVisible();
   });
 
   test("honours reduced-motion preference without errors", async ({ page }) => {

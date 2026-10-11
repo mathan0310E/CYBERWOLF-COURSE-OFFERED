@@ -1,4 +1,4 @@
-import { db, storage, auditBucketName } from "../shared/admin-app";
+import { db } from "../shared/admin-app";
 import { logger } from "../shared/logger";
 import { AUDIT_CATEGORIES, type AuditCategory, type AuditEvent } from "@cyberwolf/shared-types";
 import {
@@ -10,25 +10,33 @@ import {
 } from "./format";
 
 /**
- * Durable, concurrency-safe plain-text audit writer.
+ * Durable, concurrency-safe plain-text audit writer (Firestore-only).
  *
- * Firebase Storage has no append-to-file operation, so we never download,
- * mutate and re-upload a shared daily file. Instead:
+ * Firestore has no append-to-file operation, so we never download, mutate and
+ * re-upload a shared daily file. Instead:
  *
  *   1. Every event is durably queued in the `auditEvents` collection.
  *   2. A transaction assigns a per-(date, category) sequence number from a
  *      protected manifest, so concurrent writers never collide.
- *   3. An immutable, uniquely named `.txt` chunk is uploaded to Storage.
+ *   3. An immutable, uniquely named `.txt` chunk is persisted as an `auditChunks`
+ *      document (text/plain content), mirroring the Storage layout:
+ *      `audit-logs/YYYY/MM/DD/<category>-<date>-<seq>.txt`.
  *   4. The manifest records the chunk count and a hash-chain link.
- *   5. Failed uploads stay queued and are retried idempotently (the chunk path
- *      is derived from the sequence number, so re-uploads are harmless).
+ *   5. Failed writes stay queued and are retried idempotently (the chunk id is
+ *      derived from the sequence number, so re-writes are harmless).
  *
  * The admin viewer reads a day's chunks and concatenates them in sequence
  * order to reconstruct the human-readable daily TXT file.
+ *
+ * NOTE: This deployment intentionally persists the plain-text audit artefacts in
+ * Cloud Firestore only (no Cloud Storage dependency). The chunk documents are
+ * server-only: Firestore rules deny all client access to `auditChunks`,
+ * `auditEvents` and `auditManifests`.
  */
 
 const EVENTS = "auditEvents";
 const MANIFESTS = "auditManifests";
+const CHUNKS = "auditChunks";
 
 interface CategoryManifest {
   lastSeq: number;
@@ -130,14 +138,23 @@ async function flushEvent(queued: QueuedEvent): Promise<boolean> {
   const path = chunkPath(queued.date, category, seq);
   const block = formatAuditEvent({ ...queued, category });
 
-  // Step 2 — upload the immutable chunk (deterministic path => idempotent).
-  const bucket = storage().bucket(auditBucketName());
-  const file = bucket.file(path);
-  await file.save(block, {
-    resumable: false,
-    contentType: "text/plain; charset=utf-8",
-    metadata: { cacheControl: "private, no-store", metadata: { immutable: "true" } },
-  });
+  // Step 2 — persist the immutable chunk document (deterministic id => idempotent).
+  // The document id encodes the Storage-style path with `/` escaped, and the
+  // plain-text block is stored verbatim in `content`.
+  await db()
+    .collection(CHUNKS)
+    .doc(encodeURIComponent(path))
+    .set({
+      path,
+      date: queued.date,
+      category,
+      seq,
+      content: block,
+      contentType: "text/plain; charset=utf-8",
+      immutable: true,
+      eventId: queued.eventId,
+      createdAt: new Date().toISOString(),
+    });
 
   // Step 3 — finalise the event and extend the manifest hash chain.
   const prevHash = await db().runTransaction(async (tx) => {
@@ -174,23 +191,27 @@ async function flushEvent(queued: QueuedEvent): Promise<boolean> {
  * Bounded by `limit` so a scheduled invocation stays fast.
  */
 export async function flushAuditQueue(limit = 100): Promise<{ processed: number; failed: number }> {
+  // Single-field filter only (automatic index). Ordering is applied in memory so
+  // no composite index is required.
   const snap = await db()
     .collection(EVENTS)
     .where("chunkUploaded", "==", false)
-    .orderBy("timestamp", "asc")
     .limit(limit)
     .get();
 
+  const queued = snap.docs
+    .map((doc) => doc.data() as QueuedEvent)
+    .sort((a, b) => (a.timestamp < b.timestamp ? -1 : a.timestamp > b.timestamp ? 1 : 0));
+
   let processed = 0;
   let failed = 0;
-  for (const doc of snap.docs) {
-    const data = doc.data() as QueuedEvent;
+  for (const data of queued) {
     try {
       await flushEvent(data);
       processed += 1;
     } catch (error) {
       failed += 1;
-      logger.error("Audit chunk upload failed; will retry", {
+      logger.error("Audit chunk write failed; will retry", {
         requestId: data.requestId,
         action: "audit.flush",
         resourceId: data.eventId,
@@ -203,24 +224,20 @@ export async function flushAuditQueue(limit = 100): Promise<{ processed: number;
 
 /** Reconstruct the daily TXT content for one category by concatenating chunks. */
 export async function readDailyTxt(date: string, category: AuditCategory): Promise<string> {
-  const bucket = storage().bucket(auditBucketName());
-  const [year, month, day] = date.split("-");
-  const prefix = `audit-logs/${year}/${month}/${day}/`;
-  const [files] = await bucket.getFiles({ prefix });
-  const matching = files
-    .filter((f) => f.name.startsWith(prefix) && f.name.includes(`${category}-${date}-`))
-    .sort((a, b) => a.name.localeCompare(b.name));
+  const prefix = `audit-logs/${date.split("-").join("/")}/`;
+  // Single-field filter only (automatic index); category is matched in memory.
+  const snap = await db().collection(CHUNKS).where("date", "==", date).get();
+  const chunks = snap.docs
+    .map((doc) => doc.data() as { path: string; category: string; seq: number; content: string })
+    .filter((c) => c.category === category && c.path.startsWith(prefix) && c.path.includes(`${category}-${date}-`))
+    .sort((a, b) => a.seq - b.seq);
 
-  const parts: string[] = [];
-  for (const file of matching) {
-    const [contents] = await file.download();
-    parts.push(contents.toString("utf8"));
-  }
-  return parts.join("");
+  return chunks.map((c) => c.content).join("");
 }
 
 /** List the dates that have audit chunks, newest first. */
 export async function listAuditDates(limit = 90): Promise<string[]> {
+  // Single-field orderBy (automatic index). No composite index required.
   const snap = await db().collection(MANIFESTS).orderBy("date", "desc").limit(limit).get();
   return snap.docs.map((doc) => doc.id);
 }

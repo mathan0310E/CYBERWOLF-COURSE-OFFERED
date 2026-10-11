@@ -289,13 +289,12 @@ export async function listRegistrations(params: ListRegistrationsParams): Promis
 }> {
   let query: FirebaseFirestore.Query = db().collection(REGISTRATIONS);
 
+  // Only single-field filters are used so the query relies on Firestore's
+  // automatic single-field indexes. Composite indexes are not required (and
+  // this deployment intentionally does not depend on any). Ordering, full-text
+  // search and secondary sorts are applied in memory over a bounded window.
   if (params.status) query = query.where("status", "==", params.status);
   if (params.courseId) query = query.where("courseIds", "array-contains", params.courseId);
-
-  // Firestore cannot server-side full-text search; apply a bounded range filter
-  // on normalizedEmail when the search looks like an email, otherwise sort and
-  // filter in memory over the filtered page window.
-  query = query.orderBy(params.sortBy, params.sortDir);
 
   const snap = await query.limit(1000).get();
   let items = snap.docs.map((doc) => doc.data() as Registration);
@@ -313,6 +312,19 @@ export async function listRegistrations(params: ListRegistrationsParams): Promis
       );
     });
   }
+
+  const dir = params.sortDir === "asc" ? 1 : -1;
+  const sortKey = (r: Registration): string | number => {
+    if (params.sortBy === "fullName") return r.fullName.toLowerCase();
+    if (params.sortBy === "finalPrice") return r.price.finalPrice;
+    return r.createdAt;
+  };
+  items.sort((a, b) => {
+    const av = sortKey(a);
+    const bv = sortKey(b);
+    if (av === bv) return 0;
+    return (av > bv ? 1 : -1) * dir;
+  });
 
   const total = items.length;
   const start = (params.page - 1) * params.pageSize;

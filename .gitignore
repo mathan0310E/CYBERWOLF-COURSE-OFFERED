@@ -15,6 +15,8 @@ functions/lib/
 # otherwise resolve a stale .js file ahead of the real .ts/.tsx file).
 apps/*/src/**/*.js
 apps/*/src/**/*.js.map
+apps/*/vite.config.js
+apps/*/vite.config.js.map
 
 # Environment files — never commit real secrets
 .env
@@ -61,3 +63,4 @@ yarn-error.log*
 .cache/
 .tmp/
 .agent_tmp/
+secrets/
