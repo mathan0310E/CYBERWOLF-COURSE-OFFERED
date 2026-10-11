@@ -64,7 +64,7 @@ export function RegistrationDetailPage() {
         </Button>
         <div>
           <h1 className="text-xl font-semibold">Registration detail</h1>
-          <p className="font-mono text-sm text-accent">{data.reference}</p>
+          <p className="font-mono text-sm text-apple-blue">{data.reference}</p>
         </div>
       </div>
 
@@ -112,11 +112,11 @@ export function RegistrationDetailPage() {
               </div>
               <div className="flex justify-between">
                 <span className="text-muted">Discount</span>
-                <span className="text-accent">{formatINR(data.price.discount)}</span>
+                <span className="text-apple-blue">{formatINR(data.price.discount)}</span>
               </div>
               <div className="flex justify-between border-t border-border/70 pt-2">
                 <span className="font-semibold text-foreground">Final</span>
-                <span className="font-bold text-accent">{formatINR(data.price.finalPrice)}</span>
+                <span className="font-bold text-apple-blue">{formatINR(data.price.finalPrice)}</span>
               </div>
             </CardContent>
           </Card>
@@ -129,7 +129,7 @@ export function RegistrationDetailPage() {
               <ul className="space-y-1.5 text-sm">
                 {data.courseIds.map((cid) => (
                   <li key={cid} className="flex items-center gap-2 text-foreground">
-                    <Check className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
+                    <Check className="h-3.5 w-3.5 text-apple-blue" aria-hidden="true" />
                     {COURSES.find((c) => c.id === cid)?.name ?? cid}
                   </li>
                 ))}

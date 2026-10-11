@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { COMPANY, COMPANY_ADDRESS_LINE } from "@cyberwolf/shared-types";
 import { SocialLinks } from "@/components/social-links";
 import { MailIcon, MapPinIcon, PhoneIcon } from "@/components/brand-icons";
@@ -10,7 +9,7 @@ export function AboutSection() {
   return (
     <Section id="about" eyebrow="About" title={`About ${COMPANY.legalName}`} align="left">
       <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
-        <div className="space-y-4 text-muted">
+        <div className="space-y-4 text-[17px] leading-relaxed text-muted">
           <p>
             <strong className="text-foreground">{COMPANY.legalName}</strong> — {COMPANY.servicesTagline}.{" "}
             {COMPANY.description} Founded by {COMPANY.founder.name} ({COMPANY.founder.jobTitle}), Cyber Wolf works with
@@ -31,49 +30,55 @@ export function AboutSection() {
           <p className="font-semibold text-foreground">{COMPANY.tagline}</p>
 
           <div className="flex flex-wrap gap-3 pt-2">
-            <Button asChild>
-              <Link to="/enroll">Enroll now</Link>
-            </Button>
-            <Button asChild variant="outline">
-              <a href="#courses">Explore courses</a>
-            </Button>
+            <Link
+              to="/enroll"
+              className="inline-flex items-center justify-center rounded-pill bg-apple-blue px-6 py-2.5 text-[15px] text-white transition-colors hover:bg-apple-blue-hover"
+            >
+              Enroll now
+            </Link>
+            <a
+              href="#courses"
+              className="inline-flex items-center justify-center rounded-pill border border-apple-blue px-6 py-2.5 text-[15px] text-apple-blue transition-colors hover:bg-apple-blue/5"
+            >
+              Explore courses
+            </a>
           </div>
         </div>
 
-        <aside className="rounded-lg border border-border bg-card p-5">
+        <aside className="rounded-[18px] bg-background-secondary p-6">
           <div className="flex items-center gap-3">
             <img
               src="/cyberwolf-logo.png"
-              alt="Cyber Wolf"
+              alt=""
               width={56}
               height={56}
-              className="h-14 w-14 rounded-lg object-contain"
+              className="h-12 w-12 rounded-[12px] object-contain"
             />
-            <p className="text-sm font-semibold text-foreground">{COMPANY.displayName}</p>
+            <p className="text-[15px] font-semibold text-foreground">{COMPANY.displayName}</p>
           </div>
-          <h3 className="mt-5 text-sm font-semibold text-foreground">Contact</h3>
-          <ul className="mt-3 space-y-2 text-sm text-muted">
+          <h3 className="mt-6 text-[14px] font-semibold text-foreground">Contact</h3>
+          <ul className="mt-3 space-y-2.5 text-[14px] text-muted">
             <li className="flex items-center gap-2">
-              <MailIcon className="h-4 w-4 shrink-0 text-accent" />
-              <a href={`mailto:${COMPANY.email}`} className="text-accent underline underline-offset-2">
+              <MailIcon className="h-4 w-4 shrink-0 text-apple-blue" />
+              <a href={`mailto:${COMPANY.email}`} className="text-apple-blue hover:underline">
                 {COMPANY.email}
               </a>
             </li>
             {COMPANY.phones.map((phone) => (
               <li key={phone} className="flex items-center gap-2">
-                <PhoneIcon className="h-4 w-4 shrink-0 text-accent" />
-                <a href={`tel:${phone.replace(/\s+/g, "")}`} className="text-accent underline underline-offset-2">
+                <PhoneIcon className="h-4 w-4 shrink-0 text-apple-blue" />
+                <a href={`tel:${phone.replace(/\s+/g, "")}`} className="text-apple-blue hover:underline">
                   {phone}
                 </a>
               </li>
             ))}
             <li className="flex items-start gap-2">
-              <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+              <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-apple-blue" />
               <span>{COMPANY_ADDRESS_LINE}</span>
             </li>
           </ul>
-          <div className="mt-5">
-            <h3 className="text-sm font-semibold text-foreground">Follow</h3>
+          <div className="mt-6">
+            <h3 className="text-[14px] font-semibold text-foreground">Follow</h3>
             <SocialLinks className="mt-3" />
           </div>
         </aside>

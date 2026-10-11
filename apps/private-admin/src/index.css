@@ -2,54 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Self-hosted typefaces shared with the public site: Poppins for display,
-   Nunito Sans for body. Self-hosting keeps the strict `font-src 'self'` CSP. */
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-Semibold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-ExtraBold.woff2") format("woff2");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Nunito Sans";
-  src: url("/fonts/NunitoSans-Variable.woff2") format("woff2");
-  font-weight: 400 800;
-  font-style: normal;
-  font-display: swap;
-}
-
+/* Apple-style system font stack (see the public-site note). SF Pro where the OS
+   provides it, native UI font elsewhere — no third-party font download. */
 @layer base {
   :root {
-    --radius: 0.875rem;
+    --radius: 0.75rem; /* 12px cards for the denser admin UI */
   }
 
   * {
@@ -57,12 +14,17 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: "Nunito Sans", "Inter", system-ui, sans-serif;
+    @apply bg-background text-foreground;
+    font-family: "SF Pro Text", "SF Pro Icons", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+      Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.47059;
+    letter-spacing: -0.016em;
   }
 
   h1,
@@ -71,12 +33,15 @@
   h4,
   h5,
   h6 {
-    font-family: "Poppins", "Inter", system-ui, sans-serif;
+    font-family: "SF Pro Display", "SF Pro Icons", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+      Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 
   /* Visible, high-contrast keyboard focus for every interactive element. */
   :focus-visible {
-    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-background;
+    @apply outline-none ring-4 ring-ring/35;
   }
 
   /* Respect reduced-motion preferences across the whole app. */
@@ -97,6 +62,7 @@
 
 @layer utilities {
   .font-display {
-    font-family: "Poppins", "Inter", system-ui, sans-serif;
+    font-family: "SF Pro Display", "SF Pro Icons", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+      Helvetica, Arial, sans-serif;
   }
 }

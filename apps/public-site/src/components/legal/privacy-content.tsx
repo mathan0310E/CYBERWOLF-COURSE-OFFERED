@@ -64,7 +64,7 @@ export function PrivacyContent() {
         <p className="mt-2">
           You can ask us to access, correct or delete the personal data we hold about you by contacting{" "}
           {COMPANY.legalName} at{" "}
-          <a href={`mailto:${COMPANY.email}`} className="text-accent underline underline-offset-2">
+          <a href={`mailto:${COMPANY.email}`} className="text-apple-blue underline underline-offset-2">
             {COMPANY.email}
           </a>{" "}
           or on {COMPANY.phones[0]}. We will respond within a reasonable period.

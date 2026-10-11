@@ -92,7 +92,7 @@ export function LoginPage() {
               </p>
             )}
             {resetSent && (
-              <p className="text-sm text-accent">If that account exists, a password reset email has been sent.</p>
+              <p className="text-sm text-apple-blue">If that account exists, a password reset email has been sent.</p>
             )}
 
             <Button type="submit" className="w-full" disabled={submitting || !configured}>

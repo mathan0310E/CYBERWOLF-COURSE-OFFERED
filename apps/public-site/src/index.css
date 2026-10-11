@@ -2,55 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Self-hosted typefaces. Display/headings use Poppins; body uses Nunito Sans —
-   the same pairing as the Hopewell reference theme. Self-hosting keeps the
-   strict `font-src 'self'` CSP and avoids third-party font requests. */
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-Semibold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins-ExtraBold.woff2") format("woff2");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Nunito Sans";
-  src: url("/fonts/NunitoSans-Variable.woff2") format("woff2");
-  font-weight: 400 800;
-  font-style: normal;
-  font-display: swap;
-}
-
+/* Apple-style system font stack. SF Pro is used where the OS provides it and
+   falls back to the native UI font elsewhere — the same approach Apple uses, so
+   no third-party font download is needed and the strict `font-src 'self'` CSP
+   is unaffected. */
 @layer base {
   :root {
-    --radius: 1.25rem;
+    --radius: 1.125rem; /* 18px cards */
   }
 
   * {
@@ -58,12 +16,17 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: "Nunito Sans", "Inter", system-ui, sans-serif;
+    @apply bg-background text-foreground;
+    font-family: "SF Pro Text", "SF Pro Icons", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+      Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.47059;
+    letter-spacing: -0.022em;
   }
 
   h1,
@@ -72,12 +35,15 @@
   h4,
   h5,
   h6 {
-    font-family: "Poppins", "Inter", system-ui, sans-serif;
+    font-family: "SF Pro Display", "SF Pro Icons", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+      Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 
   /* Visible, high-contrast keyboard focus for every interactive element. */
   :focus-visible {
-    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-background;
+    @apply outline-none ring-4 ring-ring/35;
   }
 
   /* Respect reduced-motion preferences across the whole app. */
@@ -102,91 +68,47 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-14px);
-  }
-}
-
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+    transform: translateY(-12px);
   }
 }
 
 @layer utilities {
   .font-display {
-    font-family: "Poppins", "Inter", system-ui, sans-serif;
+    font-family: "SF Pro Display", "SF Pro Icons", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+      Helvetica, Arial, sans-serif;
   }
 
-  /* Small uppercase pill used above section titles. */
+  /* Apple's tight tracking on large display headings. */
+  .tracking-tight-apple {
+    letter-spacing: -0.015em;
+  }
+
+  /* Small blue kicker used above shelf headers. */
   .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.08em];
-    color: #0f7a37;
-    background: #dcfce7;
+    @apply text-xs font-semibold uppercase tracking-[0.08em] text-apple-blue;
   }
 
-  /* Soft radial brand glow used behind the hero. */
+  /* Soft radial glow used behind the hero. */
   .hero-glow {
     position: absolute;
-    width: 460px;
-    height: 460px;
+    width: 620px;
+    height: 620px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(22, 163, 74, 0.16), transparent 70%);
-    filter: blur(12px);
+    background: radial-gradient(circle, rgba(0, 113, 227, 0.1), transparent 70%);
+    filter: blur(20px);
     pointer-events: none;
   }
 
-  /* Floating decorative blobs. */
   .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(2px);
     opacity: 0.5;
     pointer-events: none;
     animation: float 9s ease-in-out infinite;
   }
 
-  .accent-underline {
-    position: relative;
-    display: inline-block;
-    color: #0f7a37;
-  }
-  .accent-underline svg {
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 100%;
-    height: 14px;
-  }
-
-  /* Green gradient stat band with a subtle dotted texture. */
-  .stats-band {
-    position: relative;
-    overflow: hidden;
-    border-radius: 32px;
-    background: linear-gradient(135deg, #0f7a37, #16a34a 60%, #22c55e);
-  }
-  .stats-band::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='2' cy='2' r='1.4' fill='white' fill-opacity='0.12'/%3E%3C/svg%3E");
-  }
-
-  /* Animated gradient call-to-action banner. */
-  .cta-banner {
-    position: relative;
-    overflow: hidden;
-    border-radius: 32px;
-    padding: 64px 32px;
-    color: #fff;
-    background: linear-gradient(-45deg, #16a34a, #0f7a37, #d97706, #f59e0b);
-    background-size: 300% 300%;
-    animation: gradient-shift 10s ease infinite;
+  /* Hairline divider matching Apple's #D2D2D7 rule. */
+  .hairline {
+    border-color: #d2d2d7;
   }
 }

@@ -23,7 +23,7 @@ export function SocialLinks({ className }: { className?: string }) {
             rel="noopener noreferrer"
             aria-label={`CyberWolf 360 on ${social.label}`}
             title={social.label}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card text-muted transition-colors hover:border-accent/50 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card text-muted transition-colors hover:border-apple-blue/50 hover:text-apple-blue focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/35"
           >
             <social.Icon className="h-4 w-4" />
           </a>

@@ -26,16 +26,15 @@ export function HowItWorks() {
       eyebrow="How it works"
       title="Three simple steps"
       description="From choosing a course to receiving your confirmation email."
-      className="bg-background-secondary"
     >
-      <ol className="grid gap-6 md:grid-cols-3">
+      <ol className="grid gap-5 md:grid-cols-3">
         {STEPS.map((item) => (
-          <li key={item.step} className="relative h-full rounded-[20px] border border-border bg-card p-7 shadow-soft">
-            <span className="font-display text-4xl font-extrabold text-brand-green-light" aria-hidden="true">
+          <li key={item.step} className="h-full rounded-[18px] bg-card p-7 shadow-card">
+            <span className="font-display text-[32px] font-semibold leading-none text-apple-blue/25" aria-hidden="true">
               {item.step}
             </span>
-            <h3 className="font-display mt-3 text-lg font-bold">{item.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted">{item.body}</p>
+            <h3 className="font-display mt-3 text-[17px] font-semibold">{item.title}</h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-muted">{item.body}</p>
           </li>
         ))}
       </ol>

@@ -54,7 +54,7 @@ export function RegistrationsPage() {
       columnHelper.accessor("reference", {
         header: "Reference",
         cell: (info) => (
-          <Link to={`/registrations/${info.row.original.id}`} className="font-mono text-xs text-accent hover:underline">
+          <Link to={`/registrations/${info.row.original.id}`} className="font-mono text-xs text-apple-blue hover:underline">
             {info.getValue()}
           </Link>
         ),
@@ -69,7 +69,7 @@ export function RegistrationsPage() {
       columnHelper.accessor((row) => row.price.finalPrice, {
         id: "finalPrice",
         header: "Final price",
-        cell: (info) => <span className="text-accent">{formatINR(info.getValue())}</span>,
+        cell: (info) => <span className="text-apple-blue">{formatINR(info.getValue())}</span>,
       }),
       columnHelper.accessor("status", {
         header: "Status",

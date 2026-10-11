@@ -56,7 +56,7 @@ export function EmailsPage() {
       </div>
 
       {notice && (
-        <p role="status" className="rounded-md border border-accent/30 bg-accent/10 p-3 text-sm text-accent">
+        <p role="status" className="rounded-md border border-apple-blue/30 bg-apple-blue/10 p-3 text-sm text-apple-blue">
           {notice}
         </p>
       )}

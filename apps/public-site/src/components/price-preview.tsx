@@ -23,7 +23,11 @@ export function PricePreview({ courseIds, compact = false }: PricePreviewProps) 
       <CardHeader className={compact ? "p-5 pb-2" : undefined}>
         <div className="flex items-center justify-between">
           <CardTitle>Your price</CardTitle>
-          {price.courseCount > 0 && <Badge variant="secondary">{price.courseCount} course{price.courseCount > 1 ? "s" : ""}</Badge>}
+          {price.courseCount > 0 && (
+            <Badge variant="secondary">
+              {price.courseCount} course{price.courseCount > 1 ? "s" : ""}
+            </Badge>
+          )}
         </div>
       </CardHeader>
       <CardContent className={compact ? "p-5 pt-0" : undefined}>
@@ -40,18 +44,18 @@ export function PricePreview({ courseIds, compact = false }: PricePreviewProps) 
             </div>
             <div className="flex items-center justify-between">
               <dt className="text-muted">You save</dt>
-              <dd className="font-medium text-accent">{formatINR(price.discount)}</dd>
+              <dd className="font-medium text-apple-blue">{formatINR(price.discount)}</dd>
             </div>
-            <div className="flex items-center justify-between border-t border-border/70 pt-2">
+            <div className="flex items-center justify-between border-t border-border pt-2">
               <dt className="font-semibold text-foreground">Final price</dt>
-              <dd className="text-xl font-bold text-accent">{formatINR(price.finalPrice)}</dd>
+              <dd className="text-xl font-semibold text-apple-blue">{formatINR(price.finalPrice)}</dd>
             </div>
           </dl>
         )}
 
         <p className="mt-3 flex items-start gap-2 text-xs text-muted">
           {submittable && price.courseCount > 0 && (
-            <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" aria-hidden="true" />
+            <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-apple-blue" aria-hidden="true" />
           )}
           <span>
             Prices are confirmed on the server when your registration is received. Selecting courses does not

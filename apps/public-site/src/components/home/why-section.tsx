@@ -24,7 +24,7 @@ const REASONS = [
   },
 ];
 
-/** Why choose us — value cards. */
+/** Why choose us — Apple-style value tiles. */
 export function WhySection() {
   return (
     <Section
@@ -33,17 +33,14 @@ export function WhySection() {
       title="Learning that is practical and transparent"
       description="A focused set of technology courses with clear pricing and no exaggerated claims."
     >
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {REASONS.map((reason) => (
-          <div
-            key={reason.title}
-            className="group h-full rounded-[20px] border border-border bg-card p-7 shadow-soft transition-transform duration-300 hover:-translate-y-1.5"
-          >
-            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-green-light text-brand-green-dark">
-              <reason.icon className="h-6 w-6" aria-hidden="true" />
+          <div key={reason.title} className="h-full rounded-[18px] bg-card p-7 shadow-card">
+            <span className="flex h-11 w-11 items-center justify-center rounded-[12px] bg-background-secondary text-apple-blue">
+              <reason.icon className="h-5 w-5" aria-hidden="true" />
             </span>
-            <h3 className="font-display mt-5 text-lg font-bold">{reason.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted">{reason.body}</p>
+            <h3 className="font-display mt-5 text-[17px] font-semibold">{reason.title}</h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-muted">{reason.body}</p>
           </div>
         ))}
       </div>

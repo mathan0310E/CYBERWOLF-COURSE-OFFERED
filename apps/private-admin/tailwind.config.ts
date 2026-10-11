@@ -3,60 +3,76 @@ import type { Config } from "tailwindcss";
 /**
  * CyberWolf 360 private-admin design system.
  *
- * Shares the Hopewell-derived tokens with the public site (light surface,
- * green #16A34A primary, amber #F59E0B secondary, red #EF4444 accent, Poppins
- * display / Nunito Sans body) but is a separate build with its own content
- * paths and a slightly tighter radius for the information-dense UI.
+ * Shares the Apple-Store-derived tokens with the public site (white surface,
+ * #F5F5F7 alt surface, #1D1D1F ink, #86868B grey, #0071E3 blue, #D2D2D7
+ * hairlines) but is a separate build with its own content paths.
  */
 export default {
   darkMode: ["class"],
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
-    container: { center: true, padding: "1.5rem", screens: { "2xl": "1400px" } },
+    container: { center: true, padding: "1.5rem", screens: { "2xl": "1440px" } },
     extend: {
       colors: {
-        background: "#F8FAFC",
-        "background-secondary": "#F1F5F9",
+        background: "#FFFFFF",
+        "background-secondary": "#F5F5F7",
         card: "#FFFFFF",
-        border: "#E2E8F0",
-        input: "#E2E8F0",
-        ring: "#16A34A",
-        foreground: "#0F172A",
-        muted: "#5B6B7C",
-        "muted-foreground": "#5B6B7C",
-        accent: { DEFAULT: "#16A34A", secondary: "#F59E0B" },
-        primary: { DEFAULT: "#16A34A", foreground: "#FFFFFF" },
-        secondary: { DEFAULT: "#F59E0B", foreground: "#0F172A" },
-        destructive: { DEFAULT: "#EF4444", foreground: "#FFFFFF" },
+        border: "#D2D2D7",
+        input: "#D2D2D7",
+        ring: "#0071E3",
+        foreground: "#1D1D1F",
+        muted: "#86868B",
+        "muted-foreground": "#86868B",
+        accent: { DEFAULT: "#0071E3", secondary: "#86868B" },
+        primary: { DEFAULT: "#0071E3", foreground: "#FFFFFF" },
+        secondary: { DEFAULT: "#1D1D1F", foreground: "#FFFFFF" },
+        destructive: { DEFAULT: "#E30000", foreground: "#FFFFFF" },
         warning: { DEFAULT: "#B45309", foreground: "#FFFFFF" },
-        brand: {
-          green: "#16A34A",
-          "green-dark": "#0F7A37",
-          "green-light": "#DCFCE7",
-          amber: "#F59E0B",
-          "amber-light": "#FEF3C7",
-          red: "#EF4444",
-          surface: "#FFFFFF",
-          bg: "#F8FAFC",
-          ink: "#0F172A",
+        apple: {
+          blue: "#0071E3",
+          "blue-hover": "#0076DF",
+          ink: "#1D1D1F",
+          grey: "#86868B",
+          line: "#D2D2D7",
+          surface: "#F5F5F7",
+          hover: "#E8E8ED",
+          dark: "#000000",
         },
       },
       fontFamily: {
-        sans: ["Nunito Sans", "Inter", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
-        display: ["Poppins", "Nunito Sans", "Inter", "system-ui", "sans-serif"],
+        sans: [
+          "SF Pro Text",
+          "SF Pro Icons",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Helvetica Neue",
+          "Helvetica",
+          "Arial",
+          "sans-serif",
+        ],
+        display: [
+          "SF Pro Display",
+          "SF Pro Icons",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Helvetica Neue",
+          "Helvetica",
+          "Arial",
+          "sans-serif",
+        ],
         mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 4px)",
-        sm: "calc(var(--radius) - 8px)",
-        pill: "999px",
+        md: "calc(var(--radius) - 6px)",
+        sm: "calc(var(--radius) - 10px)",
+        pill: "980px",
       },
       boxShadow: {
-        focus: "0 0 0 2px #FFFFFF, 0 0 0 4px #16A34A",
-        soft: "0 10px 30px -10px rgba(15, 23, 42, 0.12)",
-        lift: "0 20px 45px -12px rgba(22, 163, 74, 0.35)",
-        card: "0 10px 30px -10px rgba(15, 23, 42, 0.12)",
+        focus: "0 0 0 4px rgba(0, 113, 227, 0.35)",
+        card: "2px 4px 12px rgba(0, 0, 0, 0.08)",
+        lift: "2px 4px 16px rgba(0, 0, 0, 0.16)",
+        soft: "2px 4px 12px rgba(0, 0, 0, 0.08)",
       },
       keyframes: {
         "fade-in": { from: { opacity: "0" }, to: { opacity: "1" } },

@@ -27,7 +27,7 @@ export function Brand({ size = "md", className, admin = false }: BrandProps) {
         aria-hidden="true"
       />
       <span className={cn("font-bold", TEXT_SIZES[size])}>
-        CyberWolf<span className="text-accent">360</span>
+        CyberWolf<span className="text-apple-blue">360</span>
         {admin && <span className="ml-1 font-normal text-muted">Administration</span>}
       </span>
     </span>

@@ -40,8 +40,9 @@ test.describe("public home page", () => {
     // links live in the collapsible menu, so open it when the desktop links are
     // not visible.
     const desktopNav = page.getByRole("navigation", { name: "Primary" });
-    if (await desktopNav.isVisible()) {
-      await desktopNav.getByRole("link", { name: "Pricing" }).click();
+    const desktopPricing = desktopNav.getByRole("link", { name: "Pricing" });
+    if (await desktopPricing.isVisible()) {
+      await desktopPricing.click();
     } else {
       await page.getByRole("button", { name: /Open menu/i }).click();
       await page.locator("#mobile-menu").getByRole("link", { name: "Pricing" }).click();

@@ -1,46 +1,53 @@
-import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface SectionProps {
-  id: string;
+  id?: string;
   eyebrow?: string;
-  title: string;
+  title?: string;
   description?: string;
-  className?: string;
+  headingId?: string;
   align?: "center" | "left";
+  className?: string;
   children: React.ReactNode;
 }
 
 /**
- * In-page section wrapper. Each top-level section on the single main page is an
- * anchor target (scroll-margin keeps the sticky header from covering headings)
- * and a labelled landmark for assistive technology.
+ * Section shell with Apple's generous vertical rhythm (88–120px), a 1024px
+ * content column, an optional blue eyebrow kicker and a tight display heading.
  */
-export function Section({ id, eyebrow, title, description, className, align = "center", children }: SectionProps) {
-  const reduceMotion = useReducedMotion();
-  const anim = reduceMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 16 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, amount: 0.2 },
-        transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
-      };
-
+export function Section({
+  id,
+  eyebrow,
+  title,
+  description,
+  headingId,
+  align = "center",
+  className,
+  children,
+}: SectionProps) {
+  const centered = align === "center";
   return (
-    <section id={id} aria-labelledby={`${id}-heading`} className={cn("scroll-mt-24", className)}>
-      <div className="container py-20 md:py-24">
-        <motion.header {...anim} className={cn("max-w-2xl", align === "center" && "mx-auto text-center")}>
-          {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-          <h2
-            id={`${id}-heading`}
-            className="font-display mt-4 text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl"
-          >
-            {title}
-          </h2>
-          {description && <p className="mt-4 text-lg leading-relaxed text-muted">{description}</p>}
-        </motion.header>
-        <div className="mt-12">{children}</div>
+    <section id={id} className={cn("scroll-mt-24 py-16 md:py-24", className)}>
+      <div className="mx-auto max-w-[1024px] px-6">
+        {(eyebrow || title || description) && (
+          <header className={cn("max-w-2xl", centered && "mx-auto text-center")}>
+            {eyebrow && <p className="eyebrow">{eyebrow}</p>}
+            {title && (
+              <h2
+                id={headingId}
+                className="font-display mt-3 text-[32px] font-semibold leading-[1.1] tracking-tight-apple sm:text-[40px]"
+              >
+                {title}
+              </h2>
+            )}
+            {description && (
+              <p className={cn("mt-4 text-[17px] leading-relaxed text-muted", centered && "mx-auto")}>
+                {description}
+              </p>
+            )}
+          </header>
+        )}
+        <div className={cn((eyebrow || title || description) && "mt-12 md:mt-16")}>{children}</div>
       </div>
     </section>
   );

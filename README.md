@@ -67,32 +67,30 @@ page, and a first-visit cookie banner records the visitor's consent choice.
 
 ## 1a. Design system
 
-The visual language follows the Hopewell theme
-(https://preview.themewagon.com/hopewell/) — a soft light SaaS/NGO aesthetic:
+The visual language follows the Apple Store (https://www.apple.com/in/store) — a clean,
+content-first light aesthetic:
 
-* **Typeface** — **Poppins** for display and headings, **Nunito Sans** for body copy,
-  self-hosted from `apps/*/public/fonts/` and preloaded in each `index.html`.
-  Self-hosting keeps the strict `font-src 'self'` CSP and avoids a third-party font
-  request.
-* **Palette** — a light surface scale (`#F8FAFC` page background, `#FFFFFF` cards,
-  `#E2E8F0` borders) with slate ink text (`#0F172A` foreground, `#5B6B7C` muted). The
-  **primary** brand colour is green `#16A34A` (dark `#0F7A37`, soft tint `#DCFCE7`); the
-  **secondary** is amber `#F59E0B` (soft `#FEF3C7`); the **accent** is red `#EF4444`.
-  Tokens live in each app's `tailwind.config.ts` and are shared by both apps.
-* **Components** — pill buttons with a green gradient primary, soft-shadow cards with a
-  20–24px radius, an uppercase green "eyebrow" pill above section titles, a green gradient
-  stat band, an animated gradient CTA banner and a dark (`#0B1220`) footer. Reusable
-  helpers (`.eyebrow`, `.hero-glow`, `.blob`, `.stats-band`, `.cta-banner`) live in each
-  app's `src/index.css`.
+* **Typeface** — the Apple system font stack (`SF Pro Display` for headings, `SF Pro Text`
+  for body) with the standard `-apple-system` / `Helvetica Neue` fallbacks. No third-party
+  font is downloaded, so the strict `font-src 'self'` CSP is unaffected and text renders in
+  the platform's native UI font on every OS.
+* **Palette** — a white surface (`#FFFFFF`) with Apple's `#F5F5F7` alt surface, near-black
+  ink (`#1D1D1F`), grey text (`#86868B`), hairlines (`#D2D2D7`) and Apple blue (`#0071E3`,
+  hover `#0076DF`). Tokens live in each app's `tailwind.config.ts`; the raw values are also
+  exposed under `apple.*`.
+* **Components** — fully rounded (`980px`) pill buttons in Apple blue, white cards with an
+  18px radius and Apple's soft `2px 4px 12px rgba(0,0,0,.08)` shadow, hairline section
+  rules, an uppercase blue "eyebrow" kicker, a `#F5F5F7` stat band, and a slim secondary
+  "store" bar under the 44px translucent global nav (blur + hairline appear on scroll).
+  Reusable helpers (`.eyebrow`, `.hero-glow`, `.blob`, `.hairline`) live in the public
+  site's `src/index.css`.
 * **Motion** — restrained fade/slide reveals via Motion for React, fully disabled under
   `prefers-reduced-motion` (see the global rule in `src/index.css`).
 * **Icons** — general UI icons come from Lucide React. Brand marks (LinkedIn, Instagram,
   WhatsApp) and the contact icons (mail, phone, map-pin, globe) used in the footer and
   About section are taken from Flowbite Icons (https://flowbite.com/icons/, MIT licence)
-  and vendored into `components/brand-icons.tsx`. They share Lucide's 24×24 `currentColor`
+  and vendored into `components/brand-icons.tsx`. They share Lucide's 24x24 `currentColor`
   convention, so they theme consistently. No icon is fabricated.
-
----
 
 ## 2. Business data (confirmed)
 

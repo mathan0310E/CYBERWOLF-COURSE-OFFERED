@@ -23,7 +23,7 @@ function RequireAdmin() {
   if (loading) {
     return (
       <div className="flex min-h-dvh items-center justify-center bg-background">
-        <Loader2 className="h-6 w-6 animate-spin text-accent" aria-label="Loading" />
+        <Loader2 className="h-6 w-6 animate-spin text-apple-blue" aria-label="Loading" />
       </div>
     );
   }

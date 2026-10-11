@@ -30,7 +30,10 @@ const FAQS = [
   },
 ];
 
-/** FAQ — an expandable main-page section. */
+/**
+ * FAQ accordion. Each item is a button controlling a labelled region, so it is
+ * operable by keyboard and announced correctly by assistive technology.
+ */
 export function FaqSection() {
   const [open, setOpen] = useState<number | null>(0);
 
@@ -40,23 +43,22 @@ export function FaqSection() {
       eyebrow="FAQ"
       title="Frequently asked questions"
       description="Answers about courses, pricing, registration and privacy."
-      className="bg-background-secondary"
     >
-      <div className="mx-auto max-w-3xl divide-y divide-border/70 rounded-lg border border-border bg-card">
+      <div className="mx-auto max-w-3xl">
         {FAQS.map((faq, index) => {
           const isOpen = open === index;
           return (
-            <div key={faq.q}>
+            <div key={faq.q} className="border-b border-border last:border-b-0">
               <h3>
                 <button
                   type="button"
-                  className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+                  id={`faq-button-${index}`}
                   aria-expanded={isOpen}
                   aria-controls={`faq-panel-${index}`}
-                  id={`faq-button-${index}`}
                   onClick={() => setOpen(isOpen ? null : index)}
+                  className="flex w-full items-center justify-between gap-4 py-5 text-left"
                 >
-                  <span className="text-sm font-semibold text-foreground">{faq.q}</span>
+                  <span className="text-[17px] font-medium text-foreground">{faq.q}</span>
                   <ChevronDown
                     className={cn("h-4 w-4 shrink-0 text-muted transition-transform", isOpen && "rotate-180")}
                     aria-hidden="true"
@@ -68,7 +70,7 @@ export function FaqSection() {
                 role="region"
                 aria-labelledby={`faq-button-${index}`}
                 hidden={!isOpen}
-                className="px-5 pb-4 text-sm text-muted"
+                className="pb-5 text-[15px] leading-relaxed text-muted"
               >
                 {faq.a}
               </div>

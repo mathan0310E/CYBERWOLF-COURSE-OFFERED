@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, ShieldCheck, GraduationCap, MailCheck, BadgeCheck } from "lucide-react";
+import { ArrowRight, BadgeCheck, GraduationCap, MailCheck } from "lucide-react";
 import { COURSES } from "@cyberwolf/shared-types";
-import { Button } from "@/components/ui/button";
 import { Seo } from "@/components/seo";
 import { formatINR, ORIGINAL_PRICE_PER_COURSE, SINGLE_COURSE_OFFER_PRICE } from "@cyberwolf/pricing";
 import { StatsBand } from "@/components/home/stats-band";
@@ -20,6 +19,8 @@ const TRUST = [
   { icon: MailCheck, label: "Confirmation by email" },
 ];
 
+const SINGLE_SAVING = ORIGINAL_PRICE_PER_COURSE - SINGLE_COURSE_OFFER_PRICE;
+
 /**
  * The main page. Courses, Pricing, About and FAQ are all rendered here as
  * in-page sections (anchor targets), not as separate routes. Only the
@@ -31,9 +32,9 @@ export function HomePage() {
   const fadeUp = reduceMotion
     ? {}
     : {
-        initial: { opacity: 0, y: 18 },
+        initial: { opacity: 0, y: 16 },
         animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
+        transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
       };
 
   return (
@@ -44,118 +45,81 @@ export function HomePage() {
         path="/"
       />
 
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="hero-glow -right-32 -top-40" aria-hidden="true" />
-        <span className="blob left-[6%] top-[16%] h-16 w-16 bg-brand-amber-light" aria-hidden="true" />
-        <span
-          className="blob bottom-[18%] left-[12%] h-9 w-9 bg-brand-green-light"
-          aria-hidden="true"
-          style={{ animationDelay: "1.5s" }}
-        />
-        <span className="blob right-[8%] top-[58%] h-6 w-6 bg-red-100" aria-hidden="true" style={{ animationDelay: "0.7s" }} />
-
-        <div className="container relative grid gap-14 py-20 md:py-28 lg:grid-cols-2 lg:items-center">
-          <motion.div {...fadeUp}>
-            <p className="eyebrow">
-              <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" />
-              CyberWolf 360
-            </p>
-            <h1 className="font-display mt-6 text-[2.6rem] font-extrabold leading-[1.06] tracking-tight sm:text-5xl lg:text-6xl">
-              Learn. Secure.{" "}
-              <span className="accent-underline">
-                Build.
-                <svg viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true">
-                  <path d="M2 10 C 50 2, 150 2, 198 8" fill="none" stroke="#16A34A" strokeWidth="4" strokeLinecap="round" />
-                </svg>
-              </span>
+      {/* Hero — Apple's centred display headline over a light surface. */}
+      <section className="relative overflow-hidden bg-background">
+        <div className="hero-glow left-1/2 top-[-8rem] -translate-x-1/2" aria-hidden="true" />
+        <div className="relative mx-auto max-w-[1024px] px-6 pb-16 pt-16 text-center md:pb-24 md:pt-24">
+          <motion.div {...fadeUp} className="mx-auto max-w-3xl">
+            <p className="eyebrow">CyberWolf 360</p>
+            <h1 className="font-display mt-4 text-[44px] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[64px] lg:text-[80px]">
+              Learn. Secure. Build.
             </h1>
-            <p className="font-display mt-6 max-w-xl text-xl font-semibold text-foreground">
+            <p className="font-display mt-5 text-[24px] font-medium leading-snug tracking-tight-apple sm:text-[28px]">
               Build Your Skills in Cybersecurity, Ethical Hacking and AI.
             </p>
-            <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">
+            <p className="mx-auto mt-5 max-w-2xl text-[17px] leading-relaxed text-muted sm:text-[21px]">
               Explore technology courses designed to help you develop practical knowledge and strengthen your
               understanding of modern digital technologies.
             </p>
 
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Button asChild size="lg">
-                <a href="#courses">
-                  Explore Courses
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </a>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <a href="#pricing">View Pricing</a>
-              </Button>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+              <a
+                href="#courses"
+                className="inline-flex items-center gap-2 rounded-pill bg-apple-blue px-6 py-3 text-[17px] text-white transition-colors hover:bg-apple-blue-hover"
+              >
+                Explore Courses
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </a>
+              <a
+                href="#pricing"
+                className="inline-flex items-center gap-2 rounded-pill text-[17px] text-apple-blue transition-colors hover:underline"
+              >
+                View Pricing
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </a>
             </div>
 
-            <ul className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
               {TRUST.map((item) => (
-                <li key={item.label} className="flex items-center gap-2 text-sm font-medium text-muted">
-                  <item.icon className="h-4 w-4 text-brand-green" aria-hidden="true" />
+                <li key={item.label} className="flex items-center gap-2 text-[14px] text-muted">
+                  <item.icon className="h-4 w-4 text-apple-blue" aria-hidden="true" />
                   {item.label}
                 </li>
               ))}
             </ul>
           </motion.div>
 
-          {/* Hero media: a framed offer card with floating accents. */}
-          <motion.div {...fadeUp} className="relative lg:justify-self-end">
-            <div className="relative mx-auto w-full max-w-md">
-              <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-brand-green-dark via-brand-green to-[#22C55E] p-8 shadow-lift">
-                <div
-                  className="absolute inset-0 opacity-20"
-                  aria-hidden="true"
-                  style={{
-                    backgroundImage:
-                      "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='2' cy='2' r='1.4' fill='white' fill-opacity='0.35'/%3E%3C/svg%3E\")",
-                  }}
-                />
-                <div className="relative">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white ring-1 ring-inset ring-white/25">
-                    Limited-time offer
-                  </span>
-                  <p className="font-display mt-6 text-sm font-medium text-white/80">Single course offer</p>
-                  <p className="mt-1 flex items-baseline gap-3">
-                    <span className="font-display text-4xl font-extrabold text-white">
-                      {formatINR(SINGLE_COURSE_OFFER_PRICE)}
-                    </span>
-                    <span className="text-sm text-white/70 line-through">{formatINR(ORIGINAL_PRICE_PER_COURSE)}</span>
-                  </p>
-                  <p className="mt-1 text-sm font-semibold text-white">
-                    Save {formatINR(ORIGINAL_PRICE_PER_COURSE - SINGLE_COURSE_OFFER_PRICE)} per course
-                  </p>
+          {/* Offer tile — an Apple-style product card with the price story. */}
+          <motion.div {...fadeUp} className="mx-auto mt-14 w-full max-w-[420px]">
+            <div className="rounded-[18px] bg-card p-8 text-left shadow-card">
+              <p className="eyebrow">Limited-time offer</p>
+              <p className="mt-5 text-[14px] text-muted">Single course offer</p>
+              <p className="mt-1 flex items-baseline gap-3">
+                <span className="font-display text-[40px] font-semibold leading-none tracking-tight-apple">
+                  {formatINR(SINGLE_COURSE_OFFER_PRICE)}
+                </span>
+                <span className="text-[15px] text-muted line-through">{formatINR(ORIGINAL_PRICE_PER_COURSE)}</span>
+              </p>
+              <p className="mt-2 text-[14px] text-apple-blue">
+                Save {formatINR(SINGLE_SAVING)} per course
+              </p>
 
-                  <div className="mt-6 rounded-2xl bg-white p-5 shadow-soft">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-muted">Courses included</p>
-                    <ul className="mt-3 space-y-2 text-sm">
-                      {COURSES.map((course) => (
-                        <li key={course.id} className="flex items-center justify-between gap-3">
-                          <span className="text-foreground">{course.name}</span>
-                          <BadgeCheck className="h-4 w-4 shrink-0 text-brand-green" aria-hidden="true" />
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+              <ul className="mt-6 space-y-2.5 border-t border-border pt-5">
+                {COURSES.map((course) => (
+                  <li key={course.id} className="flex items-center justify-between gap-3 text-[15px]">
+                    <span className="text-foreground">{course.name}</span>
+                    <BadgeCheck className="h-4 w-4 shrink-0 text-apple-blue" aria-hidden="true" />
+                  </li>
+                ))}
+              </ul>
 
-                  <Button asChild className="mt-5 w-full">
-                    <Link to="/enroll">
-                      Enroll Now
-                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-
-              <div className="absolute -left-5 top-10 hidden rounded-2xl border border-border bg-card px-4 py-3 shadow-soft sm:block">
-                <p className="font-display text-lg font-extrabold text-brand-green">2</p>
-                <p className="text-xs text-muted">max courses</p>
-              </div>
-              <div className="absolute -right-4 bottom-12 hidden rounded-2xl border border-border bg-card px-4 py-3 shadow-soft sm:block">
-                <p className="font-display text-lg font-extrabold text-brand-amber">₹12,500</p>
-                <p className="text-xs text-muted">two-course bundle</p>
-              </div>
+              <Link
+                to="/enroll"
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-pill bg-apple-blue px-6 py-2.5 text-[15px] text-white transition-colors hover:bg-apple-blue-hover"
+              >
+                Enroll Now
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
             </div>
           </motion.div>
         </div>
