@@ -35,13 +35,13 @@ export interface TemplateData {
 }
 
 const BRAND = {
-  bg: "#090B10",
-  card: "#171D27",
-  accent: "#73F59B",
-  accent2: "#9B7CFF",
-  text: "#F5F7FA",
-  muted: "#A4ADBB",
-  border: "#242B37",
+  bg: "#F7F7F7",
+  card: "#FFFFFF",
+  accent: "#71BF43",
+  accent2: "#1A335A",
+  text: "#1A1A1A",
+  muted: "#666666",
+  border: "#E5E7EB",
 };
 
 /** Verified company contact line appended to plain-text messages. */
@@ -115,12 +115,12 @@ export function organisationNewRegistration(data: TemplateData): { subject: stri
      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;">
        <tr><td style="padding:6px 0;color:${BRAND.muted};width:170px;">Student name</td><td style="color:${BRAND.text};">${escapeHtml(data.studentName)}</td></tr>
        <tr><td style="padding:6px 0;color:${BRAND.muted};">Student email</td><td style="color:${BRAND.text};">${escapeHtml(data.studentEmail)}</td></tr>
-       <tr><td style="padding:6px 0;color:${BRAND.muted};">Reference</td><td style="color:${BRAND.accent};font-family:monospace;">${escapeHtml(data.reference)}</td></tr>
+       <tr><td style="padding:6px 0;color:${BRAND.muted};">Reference</td><td style="color:${BRAND.accent2};font-family:monospace;">${escapeHtml(data.reference)}</td></tr>
        ${academicRowsHtml(data)}
        <tr><td style="padding:6px 0;color:${BRAND.muted};">Courses</td><td><ul style="margin:0;padding-left:18px;">${courseListHtml(data.courseIds)}</ul></td></tr>
        <tr><td style="padding:6px 0;color:${BRAND.muted};">Original price</td><td style="color:${BRAND.text};">${escapeHtml(formatINR(price.originalPrice))}</td></tr>
        <tr><td style="padding:6px 0;color:${BRAND.muted};">Discount</td><td style="color:${BRAND.text};">${escapeHtml(formatINR(price.discount))}</td></tr>
-       <tr><td style="padding:6px 0;color:${BRAND.muted};">Final price</td><td style="color:${BRAND.accent};font-weight:700;">${escapeHtml(formatINR(price.finalPrice))}</td></tr>
+       <tr><td style="padding:6px 0;color:${BRAND.muted};">Final price</td><td style="color:${BRAND.accent2};font-weight:700;">${escapeHtml(formatINR(price.finalPrice))}</td></tr>
        <tr><td style="padding:6px 0;color:${BRAND.muted};">Received (UTC)</td><td style="color:${BRAND.text};">${escapeHtml(data.createdAt)}</td></tr>
      </table>
      ${
@@ -166,11 +166,11 @@ export function studentRegistrationReceived(data: TemplateData): { subject: stri
     `<h1 style="margin:0 0 8px;font-size:18px;color:${BRAND.text};">Thank you, ${escapeHtml(data.studentName)}</h1>
      <p style="margin:0 0 16px;color:${BRAND.muted};font-size:14px;">We have received your course registration.</p>
      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;">
-       <tr><td style="padding:6px 0;color:${BRAND.muted};width:170px;">Reference</td><td style="color:${BRAND.accent};font-family:monospace;">${escapeHtml(data.reference)}</td></tr>
+       <tr><td style="padding:6px 0;color:${BRAND.muted};width:170px;">Reference</td><td style="color:${BRAND.accent2};font-family:monospace;">${escapeHtml(data.reference)}</td></tr>
        <tr><td style="padding:6px 0;color:${BRAND.muted};">Courses</td><td><ul style="margin:0;padding-left:18px;">${courseListHtml(data.courseIds)}</ul></td></tr>
        <tr><td style="padding:6px 0;color:${BRAND.muted};">Original price</td><td style="color:${BRAND.text};">${escapeHtml(formatINR(price.originalPrice))}</td></tr>
        <tr><td style="padding:6px 0;color:${BRAND.muted};">Savings</td><td style="color:${BRAND.text};">${escapeHtml(formatINR(price.discount))}</td></tr>
-       <tr><td style="padding:6px 0;color:${BRAND.muted};">Final price</td><td style="color:${BRAND.accent};font-weight:700;">${escapeHtml(formatINR(price.finalPrice))}</td></tr>
+       <tr><td style="padding:6px 0;color:${BRAND.muted};">Final price</td><td style="color:${BRAND.accent2};font-weight:700;">${escapeHtml(formatINR(price.finalPrice))}</td></tr>
      </table>
      <p style="margin:16px 0 0;color:${BRAND.muted};font-size:13px;">
        Submitting this registration does not guarantee admission or payment. Our team will follow up using the contact details you provided.
@@ -227,9 +227,9 @@ export function studentRepeatRegistration(data: TemplateData): { subject: string
     `<h1 style="margin:0 0 8px;font-size:18px;color:${BRAND.text};">Registration received</h1>
      <p style="margin:0 0 16px;color:${BRAND.muted};font-size:14px;">We have received another registration from you.</p>
      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;">
-       <tr><td style="padding:6px 0;color:${BRAND.muted};width:170px;">Reference</td><td style="color:${BRAND.accent};font-family:monospace;">${escapeHtml(data.reference)}</td></tr>
+       <tr><td style="padding:6px 0;color:${BRAND.muted};width:170px;">Reference</td><td style="color:${BRAND.accent2};font-family:monospace;">${escapeHtml(data.reference)}</td></tr>
        <tr><td style="padding:6px 0;color:${BRAND.muted};">Courses</td><td><ul style="margin:0;padding-left:18px;">${courseListHtml(data.courseIds)}</ul></td></tr>
-       <tr><td style="padding:6px 0;color:${BRAND.muted};">Final price</td><td style="color:${BRAND.accent};font-weight:700;">${escapeHtml(formatINR(price.finalPrice))}</td></tr>
+       <tr><td style="padding:6px 0;color:${BRAND.muted};">Final price</td><td style="color:${BRAND.accent2};font-weight:700;">${escapeHtml(formatINR(price.finalPrice))}</td></tr>
      </table>
      <p style="margin:16px 0 0;color:${BRAND.muted};font-size:13px;">Submitting this registration does not guarantee admission or payment.</p>`,
   );
