@@ -55,3 +55,14 @@ Java is NOT installable in this sandbox.
 - Public SEO lives in `apps/public-site`: a `Seo` component (per-route title/description/
   canonical, used by every page) plus static `public/robots.txt` and `public/sitemap.xml`.
   The admin app is `noindex,nofollow` and must stay out of the sitemap.
+- Design language is the Apple Store (apple.com/in/store): Apple system font stack (no
+  downloaded fonts, so `font-src 'self'` stays strict), white / `#F5F5F7` surfaces, ink
+  `#1D1D1F`, grey `#86868B`, hairline `#D2D2D7`, Apple blue `#0071E3` (hover `#0076DF`).
+  18px card radius, `980px` pill buttons, soft `2px 4px 12px rgba(0,0,0,.08)` shadows.
+  Tokens are duplicated per app in `apps/*/tailwind.config.ts` (and mirrored in
+  `functions/src/email/templates.ts`); keep all three in sync. Public chrome = 44px
+  translucent global nav + store bar (blur on scroll) and a `#F5F5F7` directory footer.
+- The public `Layout` renders `<Outlet/>` and owns the fixed nav offset; the e2e nav test
+  checks the desktop `navigation[name=Primary]` links, falling back to the `#mobile-menu`
+  drawer on small viewports. Keep `CookieBanner` mounted in `Layout` (the consent e2e tests
+  depend on it).
