@@ -112,16 +112,16 @@ export function DashboardPage() {
           <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={chartData} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
-                <CartesianGrid stroke="#242B37" vertical={false} />
+                <CartesianGrid stroke="#24314D" vertical={false} />
                 <XAxis dataKey="label" stroke="#A4ADBB" fontSize={12} tickLine={false} axisLine={false} />
                 <YAxis stroke="#A4ADBB" fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
                 <Tooltip
-                  contentStyle={{ background: "#171D27", border: "1px solid #242B37", borderRadius: 8, color: "#F5F7FA" }}
+                  contentStyle={{ background: "#16223A", border: "1px solid #24314D", borderRadius: 8, color: "#F5F7FA" }}
                   labelStyle={{ color: "#A4ADBB" }}
                 />
                 <Bar dataKey="count" radius={[4, 4, 0, 0]}>
                   {chartData.map((entry) => (
-                    <Cell key={entry.date} fill="#73F59B" />
+                    <Cell key={entry.date} fill="#71BF43" />
                   ))}
                 </Bar>
               </BarChart>

@@ -1,7 +1,8 @@
 import type { Config } from "tailwindcss";
 
 // The admin application shares the CyberWolf 360 design tokens but is a
-// separate build with its own content paths.
+// separate build with its own content paths. Typography, palette and buttons
+// mirror the A2Z Academy style (Zoho Puvi, brand green #71BF43).
 export default {
   darkMode: ["class"],
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
@@ -9,28 +10,45 @@ export default {
     container: { center: true, padding: "1.5rem", screens: { "2xl": "1400px" } },
     extend: {
       colors: {
-        background: "#090B10",
-        "background-secondary": "#11151D",
-        card: "#171D27",
-        border: "#242B37",
-        input: "#242B37",
-        ring: "#73F59B",
+        background: "#0B1220",
+        "background-secondary": "#101A2E",
+        card: "#16223A",
+        border: "#24314D",
+        input: "#24314D",
+        ring: "#71BF43",
         foreground: "#F5F7FA",
         muted: "#A4ADBB",
         "muted-foreground": "#A4ADBB",
-        accent: { DEFAULT: "#73F59B", secondary: "#9B7CFF" },
-        primary: { DEFAULT: "#73F59B", foreground: "#090B10" },
-        secondary: { DEFAULT: "#9B7CFF", foreground: "#090B10" },
-        destructive: { DEFAULT: "#FF6B6B", foreground: "#090B10" },
-        warning: { DEFAULT: "#FFB84D", foreground: "#090B10" },
+        accent: { DEFAULT: "#71BF43", secondary: "#B7E39A" },
+        primary: { DEFAULT: "#71BF43", foreground: "#0B1220" },
+        secondary: { DEFAULT: "#B7E39A", foreground: "#0B1220" },
+        destructive: { DEFAULT: "#FF6B6B", foreground: "#0B1220" },
+        warning: { DEFAULT: "#FFB84D", foreground: "#0B1220" },
+        brand: {
+          green: "#71BF43",
+          "green-hover": "#5FA536",
+          "green-soft": "#EAF6E1",
+          navy: "#1A335A",
+          "navy-deep": "#0F2340",
+        },
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
+        sans: [
+          "Zoho Puvi",
+          "Inter",
+          "system-ui",
+          "-apple-system",
+          "Segoe UI",
+          "Roboto",
+          "Helvetica Neue",
+          "Arial",
+          "sans-serif",
+        ],
         mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
       },
       borderRadius: { lg: "var(--radius)", md: "calc(var(--radius) - 2px)", sm: "calc(var(--radius) - 4px)" },
       boxShadow: {
-        focus: "0 0 0 2px #090B10, 0 0 0 4px #73F59B",
+        focus: "0 0 0 2px #0B1220, 0 0 0 4px #71BF43",
         card: "0 1px 2px rgba(0,0,0,0.4), 0 8px 24px -12px rgba(0,0,0,0.6)",
       },
       keyframes: {

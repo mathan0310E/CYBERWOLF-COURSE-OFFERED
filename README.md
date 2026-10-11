@@ -57,6 +57,21 @@ public site:
 
 ---
 
+## 1a. Design system
+
+The visual language is derived from A2Z Academy (https://www.a2zacademy.co.in/):
+
+* **Typeface** — Zoho Puvi, self-hosted from `apps/*/public/fonts/` (weights 400 / 600 /
+  700–900) and preloaded in each `index.html`. Self-hosting keeps the strict
+  `font-src 'self'` CSP and avoids a third-party font request; `Inter` remains the fallback.
+* **Palette** — a deep-navy surface scale (`#0B1220` background, `#101A2E` secondary,
+  `#16223A` card, `#24314D` border) with a single vivid brand green accent `#71BF43`,
+  hover `#5FA536` and soft tint `#EAF6E1`. Tokens live in each app's `tailwind.config.ts`.
+* **Buttons** — pill-shaped (`rounded-full`), bold, brand-green primary with a `#5FA536`
+  hover and a 2px green outline variant (`components/ui/button.tsx`).
+
+---
+
 ## 2. Business data (confirmed)
 
 | Selection | Original | Offer | Savings |

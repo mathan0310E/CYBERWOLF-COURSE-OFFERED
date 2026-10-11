@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Zoho Puvi — self-hosted (the typeface used by A2Z Academy). Self-hosting
+   keeps the strict font-src 'self' CSP and avoids a third-party font request. */
+@font-face {
+  font-family: "Zoho Puvi";
+  src: url("/fonts/ZohoPuvi-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Zoho Puvi";
+  src: url("/fonts/ZohoPuvi-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Zoho Puvi";
+  src: url("/fonts/ZohoPuvi-Bold.woff2") format("woff2");
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --radius: 0.625rem;
@@ -45,12 +69,12 @@
   .grid-glow {
     background-image: radial-gradient(
       60% 50% at 50% 0%,
-      rgba(115, 245, 155, 0.08) 0%,
-      rgba(155, 124, 255, 0.06) 40%,
+      rgba(113, 191, 67, 0.10) 0%,
+      rgba(26, 51, 90, 0.16) 40%,
       transparent 70%
     );
   }
   .text-glow {
-    text-shadow: 0 0 24px rgba(115, 245, 155, 0.25);
+    text-shadow: 0 0 24px rgba(113, 191, 67, 0.25);
   }
 }
