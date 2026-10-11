@@ -269,14 +269,16 @@ export function EnrollPage() {
                 </Select>
               </Field>
 
-              <Field label="Department (optional)" htmlFor="department" error={errors.department?.message}>
+              <Field label="Department" htmlFor="department" error={errors.department?.message} required>
                 <Select
                   id="department"
                   defaultValue=""
                   aria-invalid={Boolean(errors.department)}
                   {...register("department")}
                 >
-                  <option value="">Select your department</option>
+                  <option value="" disabled>
+                    Select your department
+                  </option>
                   {DEPARTMENTS.map((department) => (
                     <option key={department} value={department}>
                       {DEPARTMENT_LABELS[department]}

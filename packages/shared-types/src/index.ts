@@ -117,11 +117,12 @@ export const STUDY_YEAR_LABELS: Record<StudyYear, string> = {
   graduated: "Graduated",
 };
 
-/** Department / branch a college student belongs to. Optional on the form. */
+/** Department / branch a college student belongs to. Required on the form. */
 export const DEPARTMENTS = [
   "cse",
   "it",
   "ai-ds",
+  "ai-ml",
   "ece",
   "eee",
   "mechanical",
@@ -140,6 +141,7 @@ export const DEPARTMENT_LABELS: Record<Department, string> = {
   cse: "Computer Science & Engineering",
   it: "Information Technology",
   "ai-ds": "AI & Data Science",
+  "ai-ml": "AI & ML",
   ece: "Electronics & Communication",
   eee: "Electrical & Electronics",
   mechanical: "Mechanical Engineering",
@@ -192,8 +194,8 @@ export interface Registration {
   degree: DegreeProgram;
   /** Current year of study. */
   yearOfStudy: StudyYear;
-  /** Department / branch. Optional. */
-  department?: Department;
+  /** Department / branch. Required. */
+  department: Department;
   city?: string;
   message?: string;
   price: PriceBreakdown;

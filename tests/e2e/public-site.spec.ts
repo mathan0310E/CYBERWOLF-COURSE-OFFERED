@@ -218,6 +218,7 @@ test.describe("registration form", () => {
     await page.getByLabel(/College/i).fill("Anna University");
     await page.getByLabel(/Degree/i).selectOption("bsc");
     await page.getByLabel(/Year of study/i).selectOption("first");
+    await page.getByLabel(/Department/i).selectOption("it");
     await page.locator("#privacyConsent").click();
     await page.getByRole("button", { name: /Submit registration/i }).click();
 

@@ -15,6 +15,7 @@ const validInput = {
   college: "Government Engineering College",
   degree: "btech",
   yearOfStudy: "third",
+  department: "cse",
   privacyConsent: true,
 };
 
@@ -97,18 +98,21 @@ describe("registration validation", () => {
     }
   });
 
-  it("accepts an optional department and preserves it", () => {
-    const result = registrationInputSchema.safeParse({ ...validInput, department: "cse" });
+  it("requires a department and preserves the selected value", () => {
+    const result = registrationInputSchema.safeParse({ ...validInput, department: "ai-ml" });
     expect(result.success).toBe(true);
     if (result.success) {
-      expect(result.data.department).toBe("cse");
+      expect(result.data.department).toBe("ai-ml");
     }
   });
 
-  it("accepts an omitted department", () => {
-    const { department: _omit, ...withoutDepartment } = { ...validInput, department: "cse" };
+  it("rejects a submission without a department", () => {
+    const { department: _omit, ...withoutDepartment } = validInput;
     const result = registrationInputSchema.safeParse(withoutDepartment);
-    expect(result.success).toBe(true);
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues.some((i) => i.path.includes("department"))).toBe(true);
+    }
   });
 
   it("rejects an unknown department value", () => {

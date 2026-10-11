@@ -34,7 +34,7 @@ const studyYearSchema = z.enum(STUDY_YEARS as unknown as [StudyYear, ...StudyYea
   errorMap: () => ({ message: "Select your year of study." }),
 });
 const departmentSchema = z.enum(DEPARTMENTS as unknown as [Department, ...Department[]], {
-  errorMap: () => ({ message: "Select a valid department." }),
+  errorMap: () => ({ message: "Select your department." }),
 });
 
 /** A reasonably strict but practical mobile number check. */
@@ -69,7 +69,7 @@ export const registrationInputSchema = z
       .max(160, "College name is too long."),
     degree: degreeSchema,
     yearOfStudy: studyYearSchema,
-    department: departmentSchema.optional().or(z.literal("")),
+    department: departmentSchema,
     city: z.string().trim().max(80).optional().or(z.literal("")),
     message: z.string().trim().max(1000).optional().or(z.literal("")),
     privacyConsent: z.boolean().refine((value) => value === true, {

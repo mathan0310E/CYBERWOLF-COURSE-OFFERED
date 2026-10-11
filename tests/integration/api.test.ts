@@ -68,6 +68,7 @@ const validBody = {
   college: "Government Engineering College",
   degree: "btech",
   yearOfStudy: "third",
+  department: "cse",
   privacyConsent: true,
 };
 
