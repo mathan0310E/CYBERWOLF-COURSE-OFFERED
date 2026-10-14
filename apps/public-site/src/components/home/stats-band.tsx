@@ -25,18 +25,12 @@ const STATS = [
  */
 export function StatsBand() {
   return (
-    <section className="relative border-y border-border bg-background-secondary py-12 md:py-16">
-      <div className="grid-bg absolute inset-0 opacity-[0.15]" aria-hidden="true" />
-      <RevealGroup className="relative mx-auto grid max-w-[1180px] grid-cols-2 gap-y-10 px-6 md:grid-cols-4">
+    <section className="border-y border-border bg-card py-12 md:py-16">
+      <RevealGroup className="mx-auto grid max-w-[1180px] grid-cols-2 gap-y-10 px-6 md:grid-cols-4">
         {STATS.map((stat) => (
           <RevealItem key={stat.label} className="text-center">
-            <p className="font-display text-[40px] font-semibold leading-none tracking-tight sm:text-[52px]">
-              <CountUp
-                to={stat.value}
-                prefix={stat.prefix}
-                suffix={stat.suffix}
-                className="text-gradient"
-              />
+            <p className="font-display text-[40px] leading-none tracking-tight sm:text-[54px]">
+              <CountUp to={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
             </p>
             <p className="mx-auto mt-3 max-w-[14rem] text-[12px] leading-snug text-muted">{stat.label}</p>
           </RevealItem>

@@ -22,8 +22,8 @@ const TEXT_SIZES: Record<NonNullable<BrandProps["size"]>, string> = {
 };
 
 /**
- * Cyber Wolf brand lockup: the official emblem plus the CyberWolf360 wordmark.
- * The emblem is the owner-provided asset at /cyberwolf-logo.png.
+ * Cyber Wolf brand lockup: the owner-provided emblem plus the CyberWolf360
+ * wordmark. No invented logo — the emblem is the asset at /cyberwolf-logo.png.
  */
 export function Brand({ size = "md", className, asLink = true }: BrandProps) {
   const content = (
@@ -34,11 +34,11 @@ export function Brand({ size = "md", className, asLink = true }: BrandProps) {
         width={48}
         height={48}
         decoding="async"
-        className={cn(LOGO_SIZES[size], "rounded-[8px] object-contain")}
+        className={cn(LOGO_SIZES[size], "rounded-lg border border-border object-contain")}
         aria-hidden="true"
       />
       <span className={cn("font-display font-semibold tracking-[-0.02em]", TEXT_SIZES[size])}>
-        CyberWolf<span className="text-neon">360</span>
+        CyberWolf<span className="text-muted">360</span>
       </span>
     </>
   );

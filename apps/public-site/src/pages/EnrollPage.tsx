@@ -27,6 +27,8 @@ import { Seo } from "@/components/seo";
 import { useLegal } from "@/lib/legal";
 import { ApiError, submitRegistration } from "@/lib/api";
 
+const COURSE_ACCENTS = ["bg-sky", "bg-butter", "bg-lilac"];
+
 /**
  * Registration form for college students.
  *
@@ -131,11 +133,11 @@ export function EnrollPage() {
         path="/enroll"
       />
       <header className="mx-auto max-w-2xl text-center">
-        <p className="inline-flex items-center gap-2 rounded-full border border-neon/30 bg-neon/5 px-3 py-1 text-xs font-medium text-neon">
+        <p className="chip mx-auto">
           <GraduationCap className="h-3.5 w-3.5" aria-hidden="true" />
           For college students
         </p>
-        <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-4xl">College student registration</h1>
+        <h1 className="mt-5 text-[34px] leading-tight sm:text-[44px]">College student registration</h1>
         <p className="mt-3 text-muted">
           Select one or two courses and tell us about your studies. We will confirm your registration by email.
         </p>
@@ -150,18 +152,19 @@ export function EnrollPage() {
         <div className="space-y-8">
           {/* Course selection */}
           <fieldset>
-            <legend className="text-lg font-semibold">Choose your courses</legend>
+            <legend className="font-display text-[22px]">Choose your courses</legend>
             <p className="mt-1 text-sm text-muted">
               Select one or two courses ({selectedCount}/{MAX_COURSES} selected).
             </p>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {COURSES.map((course) => (
+            <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {COURSES.map((course, i) => (
                 <CourseCard
                   key={course.id}
                   course={course}
                   selected={courseIds.includes(course.id)}
                   onToggle={toggleCourse}
                   disabled={!courseIds.includes(course.id) && atLimit}
+                  accent={COURSE_ACCENTS[i % COURSE_ACCENTS.length]}
                 />
               ))}
             </div>
@@ -175,7 +178,7 @@ export function EnrollPage() {
           {/* Details */}
           <div className="space-y-5">
             <div>
-              <h2 className="text-lg font-semibold">Your details</h2>
+              <h2 className="font-display text-[22px]">Your details</h2>
               <p className="mt-1 text-sm text-muted">
                 Fields marked with <span className="text-destructive">*</span> are required.
               </p>
@@ -317,7 +320,7 @@ export function EnrollPage() {
                   <button
                     type="button"
                     onClick={() => openLegal("privacy")}
-                    className="text-neon underline underline-offset-2"
+                    className="font-medium text-ink underline underline-offset-2"
                   >
                     Privacy Policy
                   </button>
@@ -339,7 +342,7 @@ export function EnrollPage() {
         </div>
 
         {/* Sidebar */}
-        <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
+        <aside className="space-y-4 lg:sticky lg:top-32 lg:self-start">
           <PricePreview courseIds={courseIds} compact />
           <Button
             type="submit"
@@ -400,11 +403,11 @@ function ErrorBanner({ error }: { error: ApiError }) {
   return (
     <div
       role="alert"
-      className="flex items-start gap-3 rounded-md border border-destructive/40 bg-destructive/10 p-4 text-sm"
+      className="flex items-start gap-3 rounded-lg border border-destructive/50 bg-destructive/5 p-4 text-sm"
     >
       <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-destructive" aria-hidden="true" />
       <div>
-        <p className="font-medium text-foreground">
+        <p className="font-semibold">
           {retryable ? "We could not submit your registration" : "Please check your details"}
         </p>
         <p className="mt-1 text-muted">{error.message}</p>
@@ -425,31 +428,31 @@ function ErrorBanner({ error }: { error: ApiError }) {
 function SuccessPanel({ receipt, onReset }: { receipt: RegistrationReceipt; onReset: () => void }) {
   return (
     <div className="container max-w-2xl py-20">
-      <Card>
+      <Card className="shadow-lift">
         <CardHeader className="items-center text-center">
-          <span className="flex h-14 w-14 items-center justify-center rounded-full border border-neon/40 bg-neon/10">
-            <CheckCircle2 className="h-7 w-7 text-neon" aria-hidden="true" />
+          <span className="flex h-14 w-14 items-center justify-center rounded-full border border-border bg-sky">
+            <CheckCircle2 className="h-7 w-7" aria-hidden="true" />
           </span>
-          <CardTitle className="mt-4 text-2xl">Registration received</CardTitle>
+          <CardTitle className="mt-4 text-3xl">Registration received</CardTitle>
         </CardHeader>
         <CardContent className="text-center">
           <p className="text-muted">
             Thank you. Your registration has been received. We have sent a confirmation to your email address.
           </p>
 
-          <div className="mt-6 rounded-[12px] border border-border bg-background-secondary p-4 text-left">
-            <p className="text-xs uppercase tracking-wide text-muted">Your reference</p>
-            <p className="mt-1 font-mono text-lg font-semibold text-neon">{receipt.reference}</p>
+          <div className="mt-6 rounded-lg border border-border bg-background-secondary p-4 text-left">
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted">Your reference</p>
+            <p className="mt-1 font-mono text-lg font-semibold">{receipt.reference}</p>
             <dl className="mt-4 space-y-1.5 text-sm">
               <div className="flex justify-between">
                 <dt className="text-muted">Courses</dt>
-                <dd className="text-foreground">
+                <dd>
                   {receipt.courseIds.map((id) => COURSES.find((c) => c.id === id)?.name ?? id).join(", ")}
                 </dd>
               </div>
               <div className="flex justify-between">
                 <dt className="text-muted">Final price</dt>
-                <dd className="font-semibold text-neon">
+                <dd className="font-semibold">
                   {new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(
                     receipt.price.finalPrice,
                   )}
@@ -467,7 +470,7 @@ function SuccessPanel({ receipt, onReset }: { receipt: RegistrationReceipt; onRe
             <Button onClick={onReset} variant="outline">
               Submit another registration
             </Button>
-            <Button asChild>
+            <Button asChild data-arrow="true">
               <Link to="/">Back to home</Link>
             </Button>
           </div>

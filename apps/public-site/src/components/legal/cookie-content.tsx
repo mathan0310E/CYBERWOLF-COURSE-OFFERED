@@ -47,7 +47,7 @@ export function CookieContent() {
         <h2 className="text-base font-semibold text-foreground">Contact</h2>
         <p className="mt-2">
           Questions about cookies or storage can be sent to{" "}
-          <a href={`mailto:${COMPANY.email}`} className="text-neon underline underline-offset-2">
+          <a href={`mailto:${COMPANY.email}`} className="text-ink font-medium underline underline-offset-2">
             {COMPANY.email}
           </a>
           .

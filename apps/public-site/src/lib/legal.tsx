@@ -40,7 +40,7 @@ export function LegalProvider({ children }: { children: React.ReactNode }) {
       <Dialog.Root open={kind !== null} onOpenChange={(isOpen) => !isOpen && close()}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm data-[state=open]:animate-fade-in" />
-          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 flex max-h-[85dvh] w-[92vw] max-w-2xl -translate-x-1/2 -translate-y-1/2 flex-col rounded-lg border border-border bg-card shadow-card focus:outline-none data-[state=open]:animate-slide-up">
+          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 flex max-h-[85dvh] w-[92vw] max-w-2xl -translate-x-1/2 -translate-y-1/2 flex-col rounded-xl border border-border bg-card shadow-lift focus:outline-none data-[state=open]:animate-slide-up">
             <div className="flex items-start justify-between gap-4 border-b border-border/70 p-5">
               <Dialog.Title className="text-lg font-bold tracking-tight text-foreground">
                 {kind ? TITLES[kind] : ""}

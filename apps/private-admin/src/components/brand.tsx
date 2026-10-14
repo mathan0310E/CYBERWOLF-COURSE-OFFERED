@@ -26,9 +26,9 @@ export function Brand({ size = "md", className, admin = false }: BrandProps) {
         className={cn(LOGO_SIZES[size], "rounded-md object-contain")}
         aria-hidden="true"
       />
-      <span className={cn("font-bold", TEXT_SIZES[size])}>
-        CyberWolf<span className="text-neon">360</span>
-        {admin && <span className="ml-1 font-normal text-muted">Administration</span>}
+      <span className={cn("font-display font-semibold tracking-[-0.02em]", TEXT_SIZES[size])}>
+        CyberWolf<span className="text-muted">360</span>
+        {admin && <span className="ml-1 font-sans font-normal text-muted">Administration</span>}
       </span>
     </span>
   );

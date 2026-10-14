@@ -1,31 +1,26 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 
-/** Closing call-to-action band with a neon gradient frame. */
+/** Closing call-to-action band with a pastel tinted frame. */
 export function CtaBanner() {
   return (
-    <section className="relative overflow-hidden py-16 md:py-24">
-      <div className="grid-bg absolute inset-0 opacity-[0.2]" aria-hidden="true" />
-      <div className="aurora left-[8%] top-[10%] h-72 w-72 bg-neon/20" aria-hidden="true" />
-      <div className="aurora bottom-[6%] right-[6%] h-80 w-80 bg-emerald/20" aria-hidden="true" />
-
-      <div className="relative mx-auto max-w-[1180px] px-6">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow">// ready</p>
-          <h2 className="font-display mt-4 text-[32px] font-semibold leading-[1.08] tracking-tight sm:text-[44px]">
-            Ready to start learning?
+    <section className="py-16 md:py-24">
+      <div className="mx-auto max-w-[1180px] px-6">
+        <Reveal className="rounded-xl border border-border bg-sky px-8 py-14 text-center shadow-lift md:px-16">
+          <p className="eyebrow">Ready</p>
+          <h2 className="mx-auto mt-4 max-w-2xl text-[34px] leading-[1.05] tracking-tight sm:text-[48px]">
+            Ready to <span className="display-accent">start learning</span>?
           </h2>
-          <p className="mt-4 text-[17px] leading-relaxed text-muted">
+          <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-muted">
             Submit a registration and our team will follow up using the contact details you provide. Registration
             submission does not guarantee admission or payment.
           </p>
           <Link
             to="/enroll"
-            className="glow-neon mt-8 inline-flex items-center gap-2 rounded-pill bg-neon px-7 py-3 text-[17px] font-medium text-[#04140A] transition-transform hover:scale-[1.03]"
+            data-arrow="true"
+            className="mt-8 inline-flex items-center justify-center rounded-pill border border-border bg-ink px-8 py-3.5 text-[17px] font-semibold text-[#F5F2EB] transition-colors hover:bg-[#3A3A3A]"
           >
             Start your registration
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </Reveal>
       </div>

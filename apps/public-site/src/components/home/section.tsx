@@ -14,7 +14,7 @@ interface SectionProps {
 
 /**
  * Section shell: generous vertical rhythm, a 1180px content column, an optional
- * monospaced neon kicker and a display heading that reveals on scroll.
+ * uppercase kicker and a display-serif heading that reveals on scroll.
  */
 export function Section({
   id,
@@ -30,7 +30,7 @@ export function Section({
   const hasHeader = Boolean(eyebrow || title || description);
 
   return (
-    <section id={id} className={cn("scroll-mt-24 py-16 md:py-24", className)}>
+    <section id={id} className={cn("scroll-mt-32 py-16 md:py-24", className)}>
       <div className="mx-auto max-w-[1180px] px-6">
         {hasHeader && (
           <Reveal
@@ -42,7 +42,7 @@ export function Section({
             {title && (
               <h2
                 id={headingId}
-                className="font-display mt-4 text-[32px] font-semibold leading-[1.08] tracking-tight sm:text-[42px]"
+                className="mt-4 text-[34px] leading-[1.05] tracking-tight sm:text-[46px]"
               >
                 {title}
               </h2>

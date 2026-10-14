@@ -87,8 +87,8 @@ export function AuditPage() {
       )}
 
       {data?.writeFailures && (
-        <div className="flex items-start gap-2 rounded-md border border-warning/40 bg-warning/10 p-3 text-sm">
-          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning" aria-hidden="true" />
+        <div className="flex items-start gap-2 rounded-md border border-[#FFE0B2] bg-[#FFF7E6] p-3 text-sm">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-[#B26A00]" aria-hidden="true" />
           <span>
             No manifest exists for this day yet, so some log writes may still be queued for retry. Queued events are
             reconciled automatically.

@@ -30,17 +30,25 @@ test.describe("public home page", () => {
     await page.goto("/");
     await expect(page.getByText(/admin/i)).toHaveCount(0);
 
-    // Courses/Pricing/About/FAQ are in-page sections, reached by anchor. They
-    // are intentionally NOT surfaced as nav links anymore; the only top-level
-    // navigation is the Enroll CTA.
+    // Courses/Pricing/About/FAQ are in-page sections (anchor targets), surfaced
+    // in the primary navigation as anchor links — never as separate routes.
     await expect(page.locator("#courses")).toBeAttached();
     await expect(page.locator("#pricing")).toBeAttached();
     await expect(page.locator("#about")).toBeAttached();
     await expect(page.locator("#faq")).toBeAttached();
 
     const primaryNav = page.getByRole("navigation", { name: "Primary" });
-    await expect(primaryNav.getByRole("link", { name: "Courses" })).toHaveCount(0);
-    await expect(primaryNav.getByRole("link", { name: "Pricing" })).toHaveCount(0);
+    // On small screens the links live behind a disclosure menu; open it first.
+    const menuButton = primaryNav.getByRole("button", { name: /open menu/i });
+    if (await menuButton.isVisible()) {
+      await menuButton.click();
+    }
+    for (const label of ["Home", "Courses", "Pricing", "About", "FAQ"]) {
+      await expect(primaryNav.getByRole("link", { name: label, exact: true })).toHaveCount(1);
+    }
+    if (await menuButton.isVisible()) {
+      await menuButton.click(); // collapse again
+    }
 
     // Keyboard-operable navigation to the pricing section via the hero CTA.
     await page.getByRole("link", { name: "View Pricing" }).click();

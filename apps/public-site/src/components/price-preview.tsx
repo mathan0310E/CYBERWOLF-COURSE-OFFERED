@@ -19,7 +19,7 @@ export function PricePreview({ courseIds, compact = false }: PricePreviewProps) 
   const submittable = isSubmittable(courseIds);
 
   return (
-    <Card>
+    <Card className="shadow-card">
       <CardHeader className={compact ? "p-5 pb-2" : undefined}>
         <div className="flex items-center justify-between">
           <CardTitle>Your price</CardTitle>
@@ -44,18 +44,18 @@ export function PricePreview({ courseIds, compact = false }: PricePreviewProps) 
             </div>
             <div className="flex items-center justify-between">
               <dt className="text-muted">You save</dt>
-              <dd className="font-medium text-neon">{formatINR(price.discount)}</dd>
+              <dd className="font-semibold">{formatINR(price.discount)}</dd>
             </div>
             <div className="flex items-center justify-between border-t border-border pt-2">
-              <dt className="font-semibold text-foreground">Final price</dt>
-              <dd className="text-xl font-semibold text-neon">{formatINR(price.finalPrice)}</dd>
+              <dt className="font-semibold">Final price</dt>
+              <dd className="font-display text-2xl">{formatINR(price.finalPrice)}</dd>
             </div>
           </dl>
         )}
 
         <p className="mt-3 flex items-start gap-2 text-xs text-muted">
           {submittable && price.courseCount > 0 && (
-            <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-neon" aria-hidden="true" />
+            <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
           )}
           <span>
             Prices are confirmed on the server when your registration is received. Selecting courses does not

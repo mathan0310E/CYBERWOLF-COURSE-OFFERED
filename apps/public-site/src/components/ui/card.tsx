@@ -1,16 +1,10 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
+/** Paper card: white surface, 1px ink hairline, hard offset sticker shadow. */
 const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(
-        "rounded-[18px] border border-border bg-card text-foreground",
-        className,
-      )}
-      {...props}
-    />
+    <div ref={ref} className={cn("rounded-lg border border-border bg-card text-foreground", className)} {...props} />
   ),
 );
 Card.displayName = "Card";
@@ -24,7 +18,7 @@ CardHeader.displayName = "CardHeader";
 
 const CardTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
-    <h3 ref={ref} className={cn("text-lg font-semibold leading-tight tracking-tight", className)} {...props} />
+    <h3 ref={ref} className={cn("font-display text-xl leading-tight tracking-tight", className)} {...props} />
   ),
 );
 CardTitle.displayName = "CardTitle";

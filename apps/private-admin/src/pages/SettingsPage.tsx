@@ -8,7 +8,7 @@ function Row({ ok, label, detail }: { ok: boolean; label: string; detail?: strin
   return (
     <div className="flex items-start gap-3 py-2">
       {ok ? (
-        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-neon" aria-hidden="true" />
+        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-ink" aria-hidden="true" />
       ) : (
         <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-destructive" aria-hidden="true" />
       )}

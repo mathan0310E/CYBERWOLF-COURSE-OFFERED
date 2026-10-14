@@ -41,43 +41,37 @@ function Plan({ title, badge, price, original, saving, features, cta, featured }
   return (
     <div
       className={cn(
-        "edge-glow relative flex h-full flex-col rounded-[18px] border bg-card p-8 shadow-card",
-        featured ? "border-neon/60 shadow-lift" : "border-border",
+        "relative flex h-full flex-col rounded-lg border border-border p-8 shadow-card",
+        featured ? "bg-butter" : "bg-card",
       )}
     >
       {badge && (
-        <span
-          className={cn(
-            "absolute -top-3 left-8 rounded-pill px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wider",
-            featured ? "bg-neon text-[#04140A]" : "bg-emerald text-white",
-          )}
-        >
+        <span className="absolute -top-3 left-8 rounded-pill border border-border bg-ink px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-[#F5F2EB]">
           {badge}
         </span>
       )}
-      <h3 className="font-display text-[21px] font-semibold">{title}</h3>
+      <h3 className="text-[23px]">{title}</h3>
       <p className="mt-6 flex items-baseline gap-3">
-        <span className="font-display text-[42px] font-semibold leading-none tracking-tight">
-          {formatINR(price)}
-        </span>
+        <span className="font-display text-[44px] leading-none tracking-tight">{formatINR(price)}</span>
         <span className="text-[15px] text-muted line-through">{formatINR(original)}</span>
       </p>
-      <p className="mt-2 font-mono text-[13px] text-mint">you save {formatINR(saving)}</p>
+      <p className="mt-2 text-[13px] font-semibold uppercase tracking-wide text-muted">
+        you save {formatINR(saving)}
+      </p>
       <ul className="mt-6 flex-1 space-y-3 text-[15px] text-muted">
         {features.map((line) => (
           <li key={line} className="flex items-start gap-2.5">
-            <Check className="mt-0.5 h-4 w-4 shrink-0 text-neon" aria-hidden="true" />
+            <Check className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
             <span>{line}</span>
           </li>
         ))}
       </ul>
       <Link
         to="/enroll"
+        data-arrow="true"
         className={cn(
-          "mt-8 inline-flex w-full items-center justify-center rounded-pill px-6 py-2.5 text-[15px] transition-colors",
-          featured
-            ? "bg-neon text-[#04140A] hover:bg-neon/90"
-            : "border border-neon/60 text-neon hover:bg-neon/10",
+          "mt-8 inline-flex items-center justify-center rounded-pill border border-border px-6 py-3 text-[15px] font-semibold transition-colors",
+          featured ? "bg-ink text-[#F5F2EB] hover:bg-[#3A3A3A]" : "bg-card hover:bg-background-secondary",
         )}
       >
         {cta}
@@ -92,12 +86,12 @@ export function PricingSection() {
     <Section
       id="pricing"
       headingId="pricing-heading"
-      eyebrow="// pricing"
+      eyebrow="Pricing"
       title="Simple, transparent pricing"
       description="Choose a single course or bundle two. Prices are confirmed on the server when your registration is received."
       className="bg-background-secondary"
     >
-      <div className="grid items-stretch gap-5 md:grid-cols-2">
+      <div className="grid items-stretch gap-6 md:grid-cols-2">
         <Reveal from="right">
           <Plan
             title="Single course"
@@ -125,7 +119,7 @@ export function PricingSection() {
 
       <Reveal>
         <p className="mx-auto mt-8 flex max-w-2xl items-center justify-center gap-2 text-center text-xs text-muted">
-          <Sparkles className="h-3.5 w-3.5 shrink-0 text-neon" aria-hidden="true" />
+          <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
           The bundle saving assumes {formatINR(ORIGINAL_PRICE_PER_COURSE)} as the original price for each individual
           course. Submitting a registration does not guarantee admission or payment.
         </p>

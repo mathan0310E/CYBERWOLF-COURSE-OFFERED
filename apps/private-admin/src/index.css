@@ -2,50 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ============================================================================
-   CyberWolf 360 — private admin design system
-   Shares the futuristic "cyber" tokens with the public site (dark surfaces,
-   matrix-green/emerald accents, self-hosted Space Grotesk / Manrope / JetBrains
-   Mono) but is a separate build with its own content paths.
-   ========================================================================== */
+/*
+  CyberWolf 360 — private admin, warm editorial "studio" theme.
+
+  Same cream/ink/pastel tokens as the public site for a consistent brand, tuned
+  for dense data views. Fonts are self-hosted (see /fonts).
+*/
 
 @font-face {
-  font-family: "Space Grotesk";
+  font-family: "Fraunces";
   font-style: normal;
   font-weight: 300 700;
   font-display: swap;
-  src: url("/fonts/space-grotesk-latin.woff2") format("woff2");
+  src: url("/fonts/fraunces-latin.woff2") format("woff2");
 }
-
 @font-face {
-  font-family: "Manrope";
+  font-family: "Inter Tight";
   font-style: normal;
-  font-weight: 200 800;
+  font-weight: 400 700;
   font-display: swap;
-  src: url("/fonts/manrope-latin.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-style: normal;
-  font-weight: 100 800;
-  font-display: swap;
-  src: url("/fonts/jetbrains-mono-latin.woff2") format("woff2");
+  src: url("/fonts/inter-tight-latin.woff2") format("woff2");
 }
 
 @layer base {
   :root {
-    --radius: 0.75rem; /* 12px cards for the denser admin UI */
-
-    --bg: 4 10 6;
-    --surface: 7 19 12;
-    --card: 11 31 20;
-    --line: 22 53 42;
-    --fg: 231 245 236;
-    --muted: 143 167 154;
-    --neon: 57 255 20;
-    --emerald: 16 185 129;
-    --mint: 94 234 212;
+    --background: 40 33% 94%;
+    --foreground: 0 0% 14%;
+    --card: 0 0% 100%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 14%;
+    --muted: 42 8% 33%;
+    --destructive: 16 84% 40%;
+    --radius: 16px;
   }
 
   * {
@@ -53,87 +42,62 @@
   }
 
   html {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    letter-spacing: -0.011em;
+    @apply bg-background font-sans text-[15px] leading-relaxed text-foreground antialiased;
+    font-feature-settings: "ss01" 1, "cv01" 1;
   }
 
   h1,
   h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-    font-weight: 600;
-    letter-spacing: -0.02em;
+  h3 {
+    @apply font-display text-foreground;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+
+  :focus-visible {
+    outline: 2px solid #232323;
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 
   ::selection {
-    background: rgb(var(--neon) / 0.3);
-    color: #fff;
+    background: #dcc9f7;
+    color: #232323;
   }
 
-  /* Visible, high-contrast keyboard focus for every interactive element. */
-  :focus-visible {
-    @apply outline-none ring-4 ring-ring/40;
+  ::-webkit-scrollbar {
+    width: 12px;
   }
-
-  /* Respect reduced-motion preferences across the whole app. */
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
-      scroll-behavior: auto !important;
-    }
+  ::-webkit-scrollbar-track {
+    background: #f5f2eb;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbdbe9;
+    border-radius: 10px;
+    border: 1px solid #252525;
   }
 }
 
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
+@layer components {
+  .paper {
+    @apply rounded-lg border border-border bg-card shadow-card;
+  }
+  .eyebrow {
+    @apply font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-muted;
   }
 }
 
-@layer utilities {
-  .font-display {
-    font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  }
-
-  .font-mono {
-    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  }
-
-  .text-gradient {
-    background: linear-gradient(100deg, #39ff14 0%, #10b981 55%, #5eead4 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .glass {
-    background: rgb(var(--card) / 0.72);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgb(var(--line) / 0.9);
-  }
-
-  .glow-neon {
-    box-shadow:
-      0 0 0 1px rgb(var(--neon) / 0.35),
-      0 0 24px -4px rgb(var(--neon) / 0.45);
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

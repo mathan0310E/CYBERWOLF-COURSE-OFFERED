@@ -18,27 +18,19 @@ export function CookieBanner() {
     <div
       role="region"
       aria-label="Cookie consent"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background-secondary/95 backdrop-blur"
+      className="fixed inset-x-0 bottom-0 z-40 px-4 pb-4"
     >
-      <div className="container flex flex-col gap-3 py-4 md:flex-row md:items-center md:justify-between">
+      <div className="mx-auto flex max-w-[1180px] flex-col gap-3 rounded-lg border border-border bg-card p-4 shadow-lift md:flex-row md:items-center md:justify-between">
         <div className="flex items-start gap-3">
-          <Cookie className="mt-0.5 h-5 w-5 shrink-0 text-neon" aria-hidden="true" />
+          <Cookie className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
           <p className="max-w-2xl text-sm text-muted">
             We use only essential browser storage to run this site — mainly to remember this choice. We set no
             advertising or tracking cookies. See our{" "}
-            <button
-              type="button"
-              onClick={() => open("cookies")}
-              className="text-neon underline underline-offset-2 hover:opacity-90"
-            >
+            <button type="button" onClick={() => open("cookies")} className="font-medium text-ink underline underline-offset-2">
               Cookie Policy
             </button>{" "}
             and{" "}
-            <button
-              type="button"
-              onClick={() => open("privacy")}
-              className="text-neon underline underline-offset-2 hover:opacity-90"
-            >
+            <button type="button" onClick={() => open("privacy")} className="font-medium text-ink underline underline-offset-2">
               Privacy Policy
             </button>
             .

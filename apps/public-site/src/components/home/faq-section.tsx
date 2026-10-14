@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { Plus } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Section } from "@/components/home/section";
@@ -32,6 +32,8 @@ const FAQS = [
   },
 ];
 
+const TINTS = ["bg-sky", "bg-lilac", "bg-butter", "bg-sand", "bg-blush", "bg-tan"];
+
 /**
  * FAQ accordion. Each item is a button controlling a labelled region, so it is
  * operable by keyboard and announced correctly by assistive technology.
@@ -42,16 +44,16 @@ export function FaqSection() {
   return (
     <Section
       id="faq"
-      eyebrow="// faq"
+      eyebrow="FAQ"
       title="Frequently asked questions"
       description="Answers about courses, pricing, registration and privacy."
     >
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto max-w-3xl space-y-4">
         {FAQS.map((faq, index) => {
           const isOpen = open === index;
           return (
             <Reveal key={faq.q} delay={index * 0.04} amount={0.1}>
-              <div className="border-b border-border">
+              <div className={cn("rounded-lg border border-border px-6", TINTS[index % TINTS.length])}>
                 <h3>
                   <button
                     type="button"
@@ -61,9 +63,12 @@ export function FaqSection() {
                     onClick={() => setOpen(isOpen ? null : index)}
                     className="flex w-full items-center justify-between gap-4 py-5 text-left"
                   >
-                    <span className="text-[17px] font-medium text-foreground">{faq.q}</span>
-                    <ChevronDown
-                      className={cn("h-4 w-4 shrink-0 text-neon transition-transform", isOpen && "rotate-180")}
+                    <span className="font-display text-[19px] leading-snug">{faq.q}</span>
+                    <Plus
+                      className={cn(
+                        "h-5 w-5 shrink-0 transition-transform duration-200",
+                        isOpen && "rotate-45",
+                      )}
                       aria-hidden="true"
                     />
                   </button>

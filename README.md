@@ -67,27 +67,30 @@ page, and a first-visit cookie banner records the visitor's consent choice.
 
 ## 1a. Design system
 
-The visual language is a futuristic, cyber-styled theme aimed at college students — dark,
-high-contrast and neon-accented, deliberately not a generic "AI-generated" template:
+The visual language is a warm, editorial "studio" aesthetic (modelled on a modern design-agency
+site) rather than a generic "AI-generated" template — deliberately calm, paper-like and
+typography-led:
 
-* **Typeface** — self-hosted variable fonts: **Space Grotesk** for display headings,
-  **Manrope** for body text and **JetBrains Mono** for code/labels. The latin subsets live in
-  each app's `public/fonts/` and are declared with `@font-face` in `src/index.css`, so they
-  are same-origin and the strict `font-src 'self'` CSP is unaffected (no Google Fonts CDN).
-* **Palette** — dark surfaces (`#040A06` page, `#07130C` alt, `#0B1F14` cards, `#16352A`
-  hairlines) with matrix-green (`#39FF14`), emerald (`#10B981`) and mint (`#5EEAD4`)
-  accents.
-  Tokens live in each app's `tailwind.config.ts`; the email template palette in
-  `functions/src/email/templates.ts` mirrors the same accent hues on a light card for
+* **Typeface** — self-hosted variable fonts: **Fraunces** (display serif) for headings and
+  **Inter Tight** (grotesk) for body text, plus **JetBrains Mono** for code/labels. The latin
+  subsets live in each app's `public/fonts/` and are declared with `@font-face` in
+  `src/index.css`, so they are same-origin and the strict `font-src 'self'` CSP is unaffected
+  (no Google Fonts CDN).
+* **Palette** — a cream paper surface (`#F5F2EB` page, `#EDE8DD` alt) with near-black ink
+  (`#232323`, hairlines `#252525`), white cards, and a playful pastel accent set — periwinkle
+  (`#CBDBE9`), lilac (`#DCC9F7`), butter (`#FFE697`), sand (`#E2DDD2`), blush (`#FFD7DE`) and
+  tan (`#D5C3A7`). Tokens live in each app's `tailwind.config.ts`; the email template palette
+  in `functions/src/email/templates.ts` mirrors the same hues on a light card for
   deliverability.
-* **Components** — pill buttons in neon cyan on dark ink, cards with an 18px radius and a
-  soft neon lift shadow, a `#07130C` stat band, a translucent 64px top bar (blur + neon
-  hairline on scroll), an animated cyber-grid backdrop and radial "aurora" blobs. Reusable
-  helpers (`.eyebrow`, `.glass`, `.grid-bg`, `.aurora`, `.text-gradient`, `.glow-neon`,
-  `.edge-glow`) live in the public site's `src/index.css`.
-* **Motion** — Motion for React (framer-motion) powers scroll reveals, staggered grids,
-  count-up stats, a 3D tilt on course cards and a one-time boot loader; all of it is disabled
-  under `prefers-reduced-motion` (see the global rule in `src/index.css`).
+* **Components** — pill buttons in ink on cream with a masked arrow glyph that rotates 45° on
+  hover, softly rounded cards with 1px ink hairlines and a hard offset "sticker" shadow
+  (`shadow-card` / `shadow-lift`), an oversized editorial hero with a tilted pastel course
+  collage, a marquee fact ticker, and a floating white pill navigation bar. Reusable helpers
+  (`.eyebrow`, `.chip`, `.paper`, `.display-accent`, `.sticker-tag`) live in the public site's
+  `src/index.css`.
+* **Motion** — Motion for React (framer-motion) powers restrained scroll reveals, staggered
+  grids and count-up stats; all of it is disabled under `prefers-reduced-motion` (see the
+  global rule in `src/index.css`).
 * **Icons** — general UI icons come from Lucide React. Brand marks (LinkedIn, Instagram,
   WhatsApp) and the contact icons (mail, phone, map-pin, globe) used in the footer and
   About section are taken from Flowbite Icons (https://flowbite.com/icons/, MIT licence)

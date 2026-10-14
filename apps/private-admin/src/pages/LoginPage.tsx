@@ -36,11 +36,10 @@ export function LoginPage() {
   }
 
   return (
-    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-background p-4">
-      <div className="grid-bg absolute inset-0 opacity-[0.25]" aria-hidden="true" />
-      <div className="aurora -left-20 top-0 h-80 w-80 bg-neon/20" aria-hidden="true" />
-      <div className="aurora bottom-0 right-0 h-80 w-80 bg-emerald/20" aria-hidden="true" />
-      <Card className="glass relative w-full max-w-md">
+    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-background-secondary p-4">
+      <div className="absolute -left-16 top-0 h-72 w-72 rounded-full bg-sky/50 blur-3xl" aria-hidden="true" />
+      <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-lilac/50 blur-3xl" aria-hidden="true" />
+      <Card className="relative w-full max-w-md shadow-lift">
         <CardHeader className="items-center text-center">
           <img
             src="/cyberwolf-logo.png"
@@ -51,14 +50,14 @@ export function LoginPage() {
             aria-hidden="true"
           />
           <CardTitle className="mt-3 text-xl">CyberWolf 360 Administration</CardTitle>
-          <p className="font-mono text-xs uppercase tracking-widest text-muted">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-muted">
             restricted access — authorised admins only
           </p>
         </CardHeader>
         <CardContent>
           {!configured && (
-            <div role="alert" className="mb-4 flex items-start gap-2 rounded-md border border-warning/40 bg-warning/10 p-3 text-sm">
-              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning" aria-hidden="true" />
+            <div role="alert" className="mb-4 flex items-start gap-2 rounded-md border border-[#FFE0B2] bg-[#FFF7E6] p-3 text-sm">
+              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-[#B26A00]" aria-hidden="true" />
               <span>
                 Firebase is not configured for the admin application. Set the VITE_ADMIN_* environment variables and
                 rebuild.
@@ -97,7 +96,9 @@ export function LoginPage() {
               </p>
             )}
             {resetSent && (
-              <p className="text-sm text-neon">If that account exists, a password reset email has been sent.</p>
+              <p className="text-sm font-medium text-[#0F7B4F]">
+                If that account exists, a password reset email has been sent.
+              </p>
             )}
 
             <Button type="submit" className="w-full" disabled={submitting || !configured}>

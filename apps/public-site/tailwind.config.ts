@@ -1,13 +1,15 @@
 import type { Config } from "tailwindcss";
 
 /**
- * CyberWolf 360 public-site design system — "matrix" cyber-green theme.
+ * CyberWolf 360 public-site design system — warm editorial "studio" theme.
  *
- * Deep near-black surfaces (#040A06 page, #07130C alt, #0B1F14 cards, #16352A
- * lines) with a matrix-green primary (#39FF14), emerald secondary (#10B981) and
- * mint highlight (#5EEAD4), aimed at a college/student audience. Type is Space
- * Grotesk (display) + Manrope (body) + JetBrains Mono (code), self-hosted from
- * /fonts.
+ * A cream paper surface (#F5F2EB) with near-black ink (#232323), oversized
+ * editorial headings, and a playful pastel accent set (periwinkle #CBDBE9,
+ * lilac #DCC9F7, butter #FFE697, sand #E2DDD2). Cards and buttons are softly
+ * rounded with 1px ink hairlines and a hard offset "sticker" shadow.
+ *
+ * Type is Fraunces (display serif, variable) + Inter Tight (grotesk body),
+ * self-hosted from /fonts so the strict `font-src 'self'` CSP still holds.
  */
 export default {
   darkMode: ["class"],
@@ -16,72 +18,71 @@ export default {
     container: {
       center: true,
       padding: "1.5rem",
-      screens: { "2xl": "1180px" },
+      screens: { "2xl": "1280px" },
     },
     extend: {
       colors: {
-        background: "#040A06",
-        "background-secondary": "#07130C",
-        card: "#0B1F14",
-        border: "#16352A",
-        input: "#16352A",
-        ring: "#39FF14",
-        foreground: "#E7F5EC",
-        muted: "#8FA79A",
-        "muted-foreground": "#8FA79A",
-        accent: { DEFAULT: "#39FF14", secondary: "#10B981" },
-        primary: { DEFAULT: "#39FF14", foreground: "#04140A" },
-        secondary: { DEFAULT: "#10B981", foreground: "#04140A" },
-        destructive: { DEFAULT: "#F43F5E", foreground: "#FFFFFF" },
-        neon: "#39FF14",
-        emerald: "#10B981",
-        mint: "#5EEAD4",
-        ink: "#E7F5EC",
+        background: "#F5F2EB",
+        "background-secondary": "#EDE8DD",
+        card: "#FFFFFF",
+        border: "#252525",
+        input: "#252525",
+        ring: "#232323",
+        foreground: "#232323",
+        muted: "#5C574C",
+        "muted-foreground": "#5C574C",
+        // Kept so shared component variants keep resolving; mapped to the new
+        // editorial palette (primary = ink, secondary = lilac accent).
+        primary: { DEFAULT: "#232323", foreground: "#F5F2EB" },
+        secondary: { DEFAULT: "#DCC9F7", foreground: "#232323" },
+        accent: { DEFAULT: "#FFE697", secondary: "#DCC9F7" },
+        destructive: { DEFAULT: "#C2410C", foreground: "#FFFFFF" },
+        ink: "#232323",
+        // Playful pastel accent set.
+        sky: "#CBDBE9",
+        lilac: "#DCC9F7",
+        butter: "#FFE697",
+        sand: "#E2DDD2",
+        blush: "#FFD7DE",
+        tan: "#D5C3A7",
       },
       fontFamily: {
-        sans: ["Manrope", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
-        display: ["Space Grotesk", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["Inter Tight", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+        display: ["Fraunces", "ui-serif", "Georgia", "Times New Roman", "serif"],
         mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 4px)",
-        sm: "calc(var(--radius) - 8px)",
+        lg: "20px",
+        md: "14px",
+        sm: "10px",
+        xl: "28px",
         pill: "980px",
       },
       boxShadow: {
-        focus: "0 0 0 4px rgba(57, 255, 20, 0.4)",
-        card: "0 1px 0 0 rgba(255,255,255,0.03) inset, 0 12px 32px -18px rgba(0,0,0,0.9)",
-        lift: "0 24px 60px -28px rgba(57, 255, 20, 0.45)",
-        neon: "0 0 0 1px rgba(57,255,20,0.35), 0 0 24px -4px rgba(57,255,20,0.5)",
-        emerald: "0 0 0 1px rgba(16,185,129,0.35), 0 0 28px -6px rgba(16,185,129,0.55)",
-        glow: "0 0 40px -10px rgba(57, 255, 20, 0.55)",
+        card: "1px 1px 0 0 #252525",
+        lift: "4px 4px 0 0 #252525",
+        pop: "6px 6px 0 0 #252525",
+        focus: "0 0 0 4px rgba(35, 35, 35, 0.25)",
       },
       keyframes: {
         "fade-in": { from: { opacity: "0" }, to: { opacity: "1" } },
         "slide-up": {
-          from: { opacity: "0", transform: "translateY(10px)" },
+          from: { opacity: "0", transform: "translateY(12px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
         shimmer: { "100%": { transform: "translateX(100%)" } },
-        float: {
-          "0%,100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-14px)" },
+        marquee: { from: { transform: "translateX(0)" }, to: { transform: "translateX(-50%)" } },
+        sway: {
+          "0%,100%": { transform: "rotate(4deg)" },
+          "50%": { transform: "rotate(8deg)" },
         },
-        "pulse-ring": {
-          "0%": { boxShadow: "0 0 0 0 rgba(57,255,20,0.45)" },
-          "70%": { boxShadow: "0 0 0 14px rgba(57,255,20,0)" },
-          "100%": { boxShadow: "0 0 0 0 rgba(57,255,20,0)" },
-        },
-        blink: { "0%,49%": { opacity: "1" }, "50%,100%": { opacity: "0" } },
       },
       animation: {
         "fade-in": "fade-in 240ms ease-out",
         "slide-up": "slide-up 320ms ease-out",
         shimmer: "shimmer 1.6s infinite",
-        float: "float 9s ease-in-out infinite",
-        "pulse-ring": "pulse-ring 2.4s ease-out infinite",
-        blink: "blink 1.05s step-end infinite",
+        marquee: "marquee 30s linear infinite",
+        sway: "sway 3s ease-in-out infinite",
       },
     },
   },

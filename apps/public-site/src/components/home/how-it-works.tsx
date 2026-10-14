@@ -24,24 +24,21 @@ export function HowItWorks() {
   return (
     <Section
       id="how"
-      eyebrow="// how it works"
+      eyebrow="How it works"
       title="Three simple steps"
       description="From choosing a course to receiving your confirmation email."
     >
-      <RevealGroup as="ol" className="grid gap-5 md:grid-cols-3" stagger={0.12}>
+      <RevealGroup as="ol" className="grid gap-6 md:grid-cols-3" stagger={0.12}>
         {STEPS.map((item) => (
           <RevealItem
             key={item.step}
             as="li"
-            className="edge-glow h-full rounded-[18px] border border-border bg-card p-7 shadow-card"
+            className="h-full rounded-lg border border-border bg-card p-7 shadow-card"
           >
-            <span
-              className="font-display text-[34px] font-semibold leading-none text-gradient"
-              aria-hidden="true"
-            >
+            <span className="font-display text-[38px] leading-none" aria-hidden="true">
               {item.step}
             </span>
-            <h3 className="font-display mt-4 text-[17px] font-semibold">{item.title}</h3>
+            <h3 className="mt-4 text-[19px]">{item.title}</h3>
             <p className="mt-2 text-[14px] leading-relaxed text-muted">{item.body}</p>
           </RevealItem>
         ))}

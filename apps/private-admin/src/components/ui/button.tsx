@@ -3,23 +3,25 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
+/** Editorial pill button for the admin app (shares the public-site look). */
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-pill text-sm font-normal tracking-[-0.016em] transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/35 disabled:pointer-events-none disabled:opacity-40",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-pill border font-semibold tracking-[-0.01em] transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/25 disabled:pointer-events-none disabled:opacity-45",
   {
     variants: {
       variant: {
-        default: "bg-neon text-white hover:bg-neon-hover",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/90",
-        outline:
-          "border border-neon bg-transparent text-neon hover:bg-neon/5",
-        ghost: "bg-transparent text-foreground hover:bg-white/5",
-        link: "text-neon underline-offset-4 hover:underline",
+        default: "border-border bg-ink text-[#F5F2EB] hover:bg-[#3A3A3A]",
+        secondary: "border-border bg-lilac text-ink hover:bg-[#d0b7f5]",
+        accent: "border-border bg-butter text-ink hover:bg-[#ffe07a]",
+        outline: "border-border bg-card text-ink hover:bg-background-secondary",
+        ghost: "border-transparent bg-transparent text-ink hover:bg-ink/5",
+        link: "border-transparent text-ink underline-offset-4 hover:underline",
+        destructive: "border-border bg-destructive text-white hover:brightness-110",
       },
       size: {
-        default: "h-9 px-4 py-2",
-        sm: "h-8 rounded-pill px-3.5 text-xs",
+        default: "h-10 px-4 text-sm",
+        sm: "h-9 rounded-pill px-3.5 text-[13px]",
         lg: "h-11 rounded-pill px-6 text-base",
-        icon: "h-9 w-9 rounded-full",
+        icon: "h-10 w-10 rounded-full p-0",
       },
     },
     defaultVariants: { variant: "default", size: "default" },
